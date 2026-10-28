@@ -1,0 +1,58 @@
+{
+  "task_id": "login_lockout",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_lock_after_10",
+      "description": "Lockout threshold is 10 instead of 5",
+      "expected_failing_checks": [
+        "test_fifth_failure_locks_even_the_correct_password"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_lock_still_holds_just_before_15_minutes",
+        "test_wrong_password_during_the_lock_is_423",
+        "test_lock_is_measured_from_the_fifth_failure"
+      ],
+      "expected_hit": [
+        "test_fifth_failure_locks_even_the_correct_password"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_user_enumeration",
+      "description": "Unknown usernames return 404, revealing which accounts exist",
+      "expected_failing_checks": [
+        "test_wrong_password_and_unknown_user_are_401"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_wrong_password_and_unknown_user_are_401"
+      ],
+      "expected_hit": [
+        "test_wrong_password_and_unknown_user_are_401"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_password_echo",
+      "description": "Registration echoes the password back",
+      "expected_failing_checks": [
+        "test_register_never_returns_the_password"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_register_never_returns_the_password"
+      ],
+      "expected_hit": [
+        "test_register_never_returns_the_password"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

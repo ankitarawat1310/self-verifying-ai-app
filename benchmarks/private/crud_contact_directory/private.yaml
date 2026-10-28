@@ -1,0 +1,47 @@
+schema_version: '1.0'
+task_id: crud_contact_directory
+canary: SVAGA-PRIVATE-CANARY-crud_contact_directory-093febda53e7
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: contacts
+- kind: persistence_write
+  target: contacts
+hidden_checks:
+- id: test_create_returns_201_with_id_and_fields
+  kind: functional
+  description: Creating a valid contact returns 201 with an id and the submitted fields.
+- id: test_created_contact_is_readable_and_listed
+  kind: functional
+  description: A created contact can be read by its returned id and appears in the list.
+- id: test_update_changes_name_and_keeps_id
+  kind: functional
+  description: PATCH changes the display name and the stored record keeps the same id.
+- id: test_delete_then_read_is_404
+  kind: functional
+  description: DELETE returns 204 and the contact is gone afterwards.
+- id: test_unknown_id_is_404
+  kind: functional
+  description: Reading, updating or deleting an unknown id returns 404 (while the routes do exist).
+- id: test_duplicate_email_ignoring_case_is_409
+  kind: safety
+  description: A second contact whose email differs only in letter case is rejected with 409.
+- id: test_update_cannot_take_another_contacts_email
+  kind: safety
+  description: Changing a contact's email to one already used (any case) is 409 and changes nothing.
+- id: test_invalid_email_is_422
+  kind: safety
+  description: A malformed email address is rejected with 422.
+- id: test_update_with_invalid_email_is_422
+  kind: safety
+  description: PATCH with a malformed email is rejected with 422 and the stored email is unchanged.
+- id: test_blank_display_name_is_422
+  kind: safety
+  description: An empty or whitespace-only display name is rejected with 422 on create and update.
+- id: test_unknown_fields_are_rejected
+  kind: safety
+  description: >-
+    Undeclared body fields (for example admin or id) are rejected with 422 on create and update.
+- id: test_missing_required_fields_is_422
+  kind: safety
+  description: Creating a contact without email or display name is rejected with 422.

@@ -1,0 +1,103 @@
+{
+  "scope": "development_only_not_external_benchmark",
+  "selection": "fixed SHA256 order and round-robin across validation repositories; no output-based selection",
+  "selection_seed": "svaga-repair-dev20-v1",
+  "tasks": 20,
+  "repositories": {
+    "swesmith/python-trio__trio.cfbbe2c1": 2,
+    "swesmith/pyasn1__pyasn1.0f07d724": 2,
+    "swesmith/tox-dev__pipdeptree.c31b6418": 2,
+    "swesmith/pytest-dev__iniconfig.16793ead": 2,
+    "swesmith/mewwts__addict.75284f95": 2,
+    "swesmith/Suor__funcy.207a7810": 2,
+    "swesmith/cknd__stackprinter.219fcc52": 2,
+    "swesmith/mido__mido.a0158ff9": 2,
+    "swesmith/oauthlib__oauthlib.1fd52536": 1,
+    "swesmith/python-jsonschema__jsonschema.93e0caa5": 1,
+    "swesmith/pallets__jinja.ada0a9a6": 1,
+    "swesmith/conan-io__conan.86f29e13": 1
+  },
+  "source_validation_sha256": "3953a213500952e1b03f003514d36b2b5c6c661ed5a387cbc278d7d588fd02dc",
+  "prompts_sha256": "63192f53a8512d535107c37a8cd149c1d3e4f3ea046b31f3cd1534b2c117b7dc",
+  "private_tasks_sha256": "2b727ce91f8a1d732ec5dbce29c0c6b729a88eb571b27b63746e74bf82819d77",
+  "evaluation_id": "repair-dev20-qwen3coder30b-paired-v1",
+  "parent_evaluation_id": "repair-dev20-v1",
+  "parent_manifest_sha256": "e7ac9774f6e9508136085ad2e1ca967f3ea876e270341bc93d3d5072cfd0ea3a",
+  "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "model_revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+  "variants": [
+    "base",
+    "adapter"
+  ],
+  "adapter_artifacts_sha256": {
+    "adapter/README.md": "a56740e786c2590af2de4a841384bb6e0c01c51f87bd7a1c34ed0b39cc27c6bb",
+    "adapter/adapter_model.safetensors": "5c908232cef5cd63bb30e135c1435c6ecfefc78e868740b46bce744fffaea20c",
+    "adapter/adapter_config.json": "e001c70d48df507f82373fad1646e8bb2fb418577db748c6781ac6f944c8557c",
+    "tokenizer/chat_template.jinja": "5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06",
+    "tokenizer/tokenizer_config.json": "bb975511eb4798cc43902314587d9af63b40679e01fb580009e8587b8d17438c",
+    "tokenizer/tokenizer.json": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506"
+  },
+  "adapter_mode": "base disabled / full-10K-trained adapter active",
+  "model_context_length": 8192,
+  "max_training_example_tokens": 4096,
+  "tokenizer_chat_template_sha256": "83c830fd6a2f75e8927d915f6b033af6e84c98199231530e065adc05fe3f67b5",
+  "prompt_token_lengths": {
+    "python-trio__trio.cfbbe2c1.combine_module__ib1lmt17": 2392,
+    "pyasn1__pyasn1.0f07d724.func_pm_remove_assign__kfnva30l": 1212,
+    "tox-dev__pipdeptree.c31b6418.func_basic__xfbdhzdv": 610,
+    "pytest-dev__iniconfig.16793ead.func_basic__vb9u5hga": 409,
+    "mewwts__addict.75284f95.func_basic__90wh3hv9": 508,
+    "Suor__funcy.207a7810.func_basic__i18x9tdn": 378,
+    "cknd__stackprinter.219fcc52.func_basic__25ljeyka": 601,
+    "mido__mido.a0158ff9.combine_module__f23r4b4z": 457,
+    "oauthlib__oauthlib.1fd52536.combine_module__7fgnf0ep": 853,
+    "python-jsonschema__jsonschema.93e0caa5.lm_rewrite__k1000g7s": 1488,
+    "pallets__jinja.ada0a9a6.func_basic__nbwk0z2h": 2351,
+    "conan-io__conan.86f29e13.func_pm_class_rm_funcs__0xw6n4ca": 3366,
+    "python-trio__trio.cfbbe2c1.func_pm_ctrl_shuffle__v9i0g9bo": 1063,
+    "pyasn1__pyasn1.0f07d724.func_basic__9t0wk5fk": 738,
+    "tox-dev__pipdeptree.c31b6418.func_pm_class_rm_base__mnpzvjjd": 2121,
+    "pytest-dev__iniconfig.16793ead.func_pm_remove_assign__j041mnvq": 555,
+    "mewwts__addict.75284f95.func_basic__u31z0ln1": 434,
+    "Suor__funcy.207a7810.func_basic__3s0kv5i2": 432,
+    "cknd__stackprinter.219fcc52.combine_file__tla0a4bg": 1787,
+    "mido__mido.a0158ff9.func_basic__kmwybcnf": 408
+  },
+  "token_audit": {
+    "minimum": 378,
+    "maximum": 3366,
+    "maximum_with_output_budget": 5414,
+    "model_revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+    "transformers": "5.20.2",
+    "weights_loaded": false,
+    "runtime_must_verify_lengths": true
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "max_new_tokens": 2048,
+    "repetition_penalty": 1.0,
+    "seed": 42
+  },
+  "limitations": [
+    "Already used development validation, not an untouched test set.",
+    "Affected source locations are supplied; no repository-search evaluation.",
+    "No reference answers, bug patches, test selectors or oracle code in this upload.",
+    "Prompts and private execution tasks are byte-identical to the original 20-task unified-diff condition.",
+    "Native tokenizer, bf16 Unsloth backend and explicitly neutral repetition penalty are recorded; this is not an architecture-only comparison with the earlier 1.5B runtime.",
+    "No hidden tests, reference patches, oracle code or solutions are included in the upload ZIP.",
+    "The base-only warning/metadata record is preserved unchanged and cross-linked by hash; no base outputs are regenerated.",
+    "The same model source, software, prompts, greedy budget and effective decoding settings are used; the trained adapter is the treatment.",
+    "Strict numerical loss reproduction remains unresolved; functional scores will be judged independently by executable tests."
+  ],
+  "parent_base_evaluation_id": "repair-dev20-qwen3coder30b-base-v1",
+  "parent_base_manifest_sha256": "82210e049393050f3459460d65afbb62d99c13c1050ad45a0728371665e9a2e8",
+  "base_generation_sha256": "c18170d7dc6c1b1be567c7b48ea3b19677fdb25c5b0462aec2a8250feaee7c28",
+  "adapter_training": {
+    "examples": 10000,
+    "optimizer_updates": 1250,
+    "epochs": 1,
+    "source_checkpoint": "step-01250"
+  },
+  "numeric_reproducibility": "strict dev100 loss reproduction failed; serialized artifact identities matched"
+}

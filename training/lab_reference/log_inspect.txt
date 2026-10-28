@@ -1,0 +1,26 @@
+nohup: ignoring input
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Dataset({
+    features: ['agent', 'conversations', 'date', 'episode', 'model', 'model_provider', 'result', 'run_id', 'task', 'trace_source', 'trial_name'],
+    num_rows: 10000
+})
+['agent', 'conversations', 'date', 'episode', 'model', 'model_provider', 'result', 'run_id', 'task', 'trace_source', 'trial_name']
+COL agent str terminus-2
+COL conversations list [{'content': 'You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is
+COL date str 2026-04-16T20:08:41.104295+00:00
+COL episode str episode-4
+COL model str hosted_vllm/glm
+COL model_provider str hosted_vllm
+COL result NoneType None
+COL run_id str c7804d02-df04-4048-a4c1-59149b99522a
+COL task str superuser-003114_copy0006
+COL trace_source str main
+COL trial_name str superuser-003114_copy0006__DXSmYA4
+conversation column: conversations
+rows sampled: 2000 | median: 14828 | p90: 28179 | max: 60080
+fits under 4096 : 1.3 %
+fits under 8192 : 18.8 %
+fits under 16384 : 58.0 %
+fits under 24576 : 82.5 %
+fits under 32768 : 96.8 %
+avg turns: 24.8

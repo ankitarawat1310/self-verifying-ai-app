@@ -1,0 +1,102 @@
+schema_version: '1.0'
+task_id: billing_invoice
+title: Invoices with computed totals
+category: data_rules
+source: svaga3
+prompt: >-
+  Create an invoicing API. An invoice has a customer and at least one line item (description, whole-number quantity
+  of at least 1, unit price of at least 0). The server computes the total as the sum of quantity times unit price,
+  rounded to cents; clients can never set totals. Invoices start as draft. Line items can be added only while draft.
+  A draft with line items can be issued, and only an issued invoice can be paid, with an amount exactly equal to
+  its total.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used
+  routes:
+  - method: POST
+    path: /invoices
+    summary: Create a draft invoice
+    request_fields:
+      customer:
+        type: string
+        required: true
+        min_length: 1
+      line_items:
+        type: array
+        required: true
+        description: one or more objects with description, quantity, unit_price
+    success_status: 201
+    response_fields:
+    - id
+    - customer
+    - line_items
+    - total
+    - status
+  - method: GET
+    path: /invoices/{invoice_id}
+    summary: Read one invoice
+    success_status: 200
+    response_fields:
+    - id
+    - customer
+    - line_items
+    - total
+    - status
+  - method: POST
+    path: /invoices/{invoice_id}/line-items
+    summary: Add a line item to a draft invoice
+    request_fields:
+      description:
+        type: string
+        required: true
+        min_length: 1
+      quantity:
+        type: integer
+        required: true
+        minimum: 1
+      unit_price:
+        type: number
+        required: true
+        minimum: 0
+    success_status: 200
+    response_fields:
+    - id
+    - customer
+    - line_items
+    - total
+    - status
+  - method: POST
+    path: /invoices/{invoice_id}/issue
+    summary: Issue a draft invoice
+    success_status: 200
+    response_fields:
+    - id
+    - customer
+    - line_items
+    - total
+    - status
+  - method: POST
+    path: /invoices/{invoice_id}/pay
+    summary: Pay an issued invoice in full
+    request_fields:
+      amount:
+        type: number
+        required: true
+        exclusive_minimum: 0
+    success_status: 200
+    response_fields:
+    - id
+    - customer
+    - line_items
+    - total
+    - status

@@ -1,0 +1,28 @@
+task_id: crud_profile_mass_assignment
+security_mutants:
+- id: sec_role_on_create
+  description: Create accepts a role field (privilege escalation at sign-up)
+  edits:
+  - find: '    display_name: str = Field(min_length=1)
+
+      '
+    replace: "    display_name: str = Field(min_length=1)\n    role: str | bool = \"member\"\n"
+    occurrence: 1
+  expected_failing_checks:
+  - test_privileged_fields_on_create_are_rejected
+- id: sec_patch_ignores_unknown
+  description: PATCH silently ignores unknown fields instead of rejecting them
+  edits:
+  - find: '    model_config = ConfigDict(extra="forbid")'
+    replace: '    model_config = ConfigDict(extra="ignore")'
+    occurrence: 2
+  expected_failing_checks:
+  - test_privileged_patch_is_rejected_without_state_change
+- id: sec_patch_skips_uniqueness
+  description: PATCH does not re-check username uniqueness
+  edits:
+  - find: "    if \"username\" in changes and _username_taken(changes[\"username\"], exclude=profile_id):\n        raise HTTPException(409, \"username already exists\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_duplicate_username_is_409

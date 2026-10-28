@@ -1,0 +1,175 @@
+{
+  "task_id": "room_booking",
+  "seed": 7,
+  "candidates": 34,
+  "sampled": 12,
+  "killed": 10,
+  "survived": 2,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_018",
+      "operator": "change_status",
+      "line": 73,
+      "description": "status code 204 -> 200",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_drop_guard_014",
+      "operator": "drop_guard",
+      "line": 50,
+      "description": "guard disabled: if payload.end_at - payload.start_at > MAX_LENGTH",
+      "outcome": "killed",
+      "killed_by": [
+        "test_four_hour_limit",
+        "test_rejected_bookings_do_not_reserve_the_slot"
+      ],
+      "checks_failed": 2,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_flip_comparison_005",
+      "operator": "flip_comparison",
+      "line": 53,
+      "description": "comparison Eq -> NotEq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_overlapping_bookings_are_409",
+        "test_different_rooms_never_conflict",
+        "test_only_the_booker_can_cancel",
+        "test_list_can_filter_by_room",
+        "test_rejected_bookings_do_not_reserve_the_slot",
+        "test_overlap_is_decided_by_date_and_time_not_time_of_day",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 7,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_032",
+      "operator": "off_by_one",
+      "line": 23,
+      "description": "number 4 -> 5",
+      "outcome": "killed",
+      "killed_by": [
+        "test_four_hour_limit",
+        "test_rejected_bookings_do_not_reserve_the_slot"
+      ],
+      "checks_failed": 2,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_relax_validation_031",
+      "operator": "relax_validation",
+      "line": 29,
+      "description": "validation removed: min_length=1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_swap_boolean_027",
+      "operator": "swap_boolean",
+      "line": 15,
+      "description": "boolean operator Or -> And",
+      "outcome": "killed",
+      "killed_by": [
+        "test_missing_partial_or_unknown_identity_is_403"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_change_status_020",
+      "operator": "change_status",
+      "line": 41,
+      "description": "status code 404 -> 403",
+      "outcome": "killed",
+      "killed_by": [
+        "test_unknown_booking_is_404"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_drop_guard_011",
+      "operator": "drop_guard",
+      "line": 15,
+      "description": "guard disabled: if not actor or not role or role not in allowed",
+      "outcome": "killed",
+      "killed_by": [
+        "test_missing_partial_or_unknown_identity_is_403"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_flip_comparison_002",
+      "operator": "flip_comparison",
+      "line": 50,
+      "description": "comparison Gt -> GtE",
+      "outcome": "killed",
+      "killed_by": [
+        "test_overlapping_bookings_are_409",
+        "test_four_hour_limit"
+      ],
+      "checks_failed": 2,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_033",
+      "operator": "off_by_one",
+      "line": 29,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_booked_by_cannot_be_supplied",
+        "test_missing_partial_or_unknown_identity_is_403",
+        "test_empty_title_missing_fields_and_bad_datetimes_are_422"
+      ],
+      "checks_failed": 3,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_relax_validation_030",
+      "operator": "relax_validation",
+      "line": 27,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_booked_by_cannot_be_supplied"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_swap_boolean_028",
+      "operator": "swap_boolean",
+      "line": 53,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_overlapping_bookings_are_409",
+        "test_back_to_back_bookings_are_allowed",
+        "test_different_rooms_never_conflict",
+        "test_four_hour_limit",
+        "test_cancel_frees_the_slot",
+        "test_only_the_booker_can_cancel",
+        "test_list_can_filter_by_room",
+        "test_booked_by_cannot_be_supplied",
+        "test_missing_partial_or_unknown_identity_is_403",
+        "test_unknown_booking_is_404",
+        "test_rejected_bookings_do_not_reserve_the_slot",
+        "test_overlap_is_decided_by_date_and_time_not_time_of_day",
+        "test_response_fields_match_the_interface",
+        "test_empty_title_missing_fields_and_bad_datetimes_are_422"
+      ],
+      "checks_failed": 14,
+      "checks_total": 17
+    }
+  ]
+}

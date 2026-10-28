@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svaga/task_public.schema.json",
+  "title": "SVAGA public task (the only part any model may see)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "title",
+    "category",
+    "source",
+    "prompt",
+    "interface"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{2,63}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "category": {
+      "enum": [
+        "data_rules",
+        "access_control",
+        "workflow_state",
+        "scheduling",
+        "external_service"
+      ]
+    },
+    "source": {
+      "enum": [
+        "svaga2",
+        "svaga3",
+        "baxbench",
+        "new"
+      ]
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 20
+    },
+    "interface": {
+      "type": "object",
+      "required": [
+        "framework",
+        "auth",
+        "roles",
+        "routes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "framework": {
+          "const": "fastapi"
+        },
+        "auth": {
+          "type": "object",
+          "required": [
+            "scheme"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "scheme": {
+              "enum": [
+                "none",
+                "headers"
+              ]
+            },
+            "actor_header": {
+              "type": "string"
+            },
+            "role_header": {
+              "type": "string"
+            }
+          }
+        },
+        "status_codes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "description": "Conventions every route follows, e.g. validation_error: 422, forbidden: 403"
+        },
+        "clock": {
+          "type": "object",
+          "required": [
+            "header"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "description": "Test clock for time-based rules: the app reads 'now' from this header when present"
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "routes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "method",
+              "path",
+              "summary",
+              "success_status"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "method": {
+                "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "PATCH",
+                  "DELETE"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^/"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "request_fields": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "required": [
+                    "type"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "string",
+                        "integer",
+                        "number",
+                        "boolean",
+                        "date",
+                        "datetime",
+                        "array",
+                        "object"
+                      ]
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "enum": {
+                      "type": "array"
+                    },
+                    "minimum": {
+                      "type": "number"
+                    },
+                    "maximum": {
+                      "type": "number"
+                    },
+                    "min_length": {
+                      "type": "integer"
+                    },
+                    "max_length": {
+                      "type": "integer"
+                    },
+                    "exclusive_minimum": {
+                      "type": "number"
+                    },
+                    "format": {
+                      "enum": [
+                        "email",
+                        "date",
+                        "datetime"
+                      ]
+                    }
+                  }
+                }
+              },
+              "query_params": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "required": [
+                    "type"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
+                      "enum": [
+                        "string",
+                        "integer",
+                        "number",
+                        "boolean",
+                        "date",
+                        "datetime",
+                        "array",
+                        "object"
+                      ]
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "enum": {
+                      "type": "array"
+                    },
+                    "minimum": {
+                      "type": "number"
+                    },
+                    "maximum": {
+                      "type": "number"
+                    },
+                    "min_length": {
+                      "type": "integer"
+                    },
+                    "max_length": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "success_status": {
+                "type": "integer"
+              },
+              "response_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "mock_services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "method",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "method": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

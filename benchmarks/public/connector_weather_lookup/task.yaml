@@ -1,0 +1,53 @@
+schema_version: '1.0'
+task_id: connector_weather_lookup
+title: Weather lookup via a fixed connector
+category: external_service
+source: svaga2
+prompt: >-
+  Create a weather lookup API that accepts a nonblank location and uses only the declared mocked weather endpoint.
+  Validate the mocked response (a numeric temperature and a nonblank condition) and store successful results. Callers
+  cannot select an endpoint. If the connector fails or replies with invalid data, respond 502 and store nothing.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    external_service_failure_or_invalid_reply: 502
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  mock_services:
+  - name: weather
+    method: GET
+    url: http://127.0.0.1:18765/weather/current
+    description: 'Query parameter location; replies {temperature: number, condition: string}'
+  routes:
+  - method: POST
+    path: /weather
+    summary: Look up current weather and store the result
+    request_fields:
+      location:
+        type: string
+        required: true
+        min_length: 1
+        description: not blank
+    success_status: 201
+    response_fields:
+    - id
+    - location
+    - temperature
+    - condition
+  - method: GET
+    path: /weather
+    summary: List stored results
+    success_status: 200
+    response_fields:
+    - id
+    - location
+    - temperature
+    - condition

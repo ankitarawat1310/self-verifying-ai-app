@@ -1,0 +1,31 @@
+task_id: connector_weather_lookup
+security_mutants:
+- id: sec_endpoint_override
+  description: A caller-supplied endpoint replaces the declared connector (SSRF)
+  edits:
+  - find: '    location: str = Field(min_length=1)
+
+      '
+    replace: "    location: str = Field(min_length=1)\n    endpoint: str | None = None\n"
+    occurrence: 1
+  - find: reply = httpx.get(CONNECTOR_URL, params=
+    replace: reply = httpx.get(payload.endpoint or CONNECTOR_URL, params=
+    occurrence: 1
+  expected_failing_checks:
+  - test_endpoint_override_is_rejected_before_any_call
+- id: sec_default_condition
+  description: A missing condition is filled in as Unknown instead of failing
+  edits:
+  - find: data["temperature"], data["condition"]
+    replace: data["temperature"], data.get("condition", "Unknown")
+    occurrence: 1
+  expected_failing_checks:
+  - test_missing_condition_is_502_and_not_stored
+- id: sec_blank_condition
+  description: A blank condition is accepted
+  edits:
+  - find: '    if not isinstance(condition, str) or not condition.strip():'
+    replace: '    if not isinstance(condition, str):'
+    occurrence: 1
+  expected_failing_checks:
+  - test_blank_condition_is_502

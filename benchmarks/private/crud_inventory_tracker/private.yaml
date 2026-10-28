@@ -1,0 +1,43 @@
+schema_version: '1.0'
+task_id: crud_inventory_tracker
+canary: SVAGA-PRIVATE-CANARY-crud_inventory_tracker-eef34c35fc58
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: inventory_items
+- kind: persistence_write
+  target: inventory_items
+hidden_checks:
+- id: test_create_returns_201_with_fields
+  kind: functional
+  description: A valid item is created with 201 and echoes sku, name and stock.
+- id: test_item_is_readable_and_listed
+  kind: functional
+  description: A created item can be read by id and appears in the list.
+- id: test_patch_updates_stock
+  kind: functional
+  description: PATCH can set stock to a new nonnegative integer.
+- id: test_delete_then_404
+  kind: functional
+  description: A deleted item returns 404 afterwards; unknown ids are 404.
+- id: test_negative_stock_is_422
+  kind: safety
+  description: Negative stock is rejected with 422 on create.
+- id: test_fractional_stock_is_422
+  kind: safety
+  description: Non-integer stock such as 1.5 is rejected with 422 on create and update, with stored stock unchanged.
+- id: test_blank_name_is_422
+  kind: safety
+  description: Empty or whitespace-only names are rejected with 422 on create and update, with stored name unchanged.
+- id: test_duplicate_sku_ignoring_case_is_409
+  kind: safety
+  description: A SKU that differs only in letter case from an existing one is rejected with 409.
+- id: test_patch_to_negative_stock_is_rejected_and_unchanged
+  kind: safety
+  description: PATCH with negative stock is 422 and the stored stock stays the same.
+- id: test_sku_cannot_be_changed
+  kind: safety
+  description: Sending sku in PATCH is rejected with 422 and the SKU is unchanged.
+- id: test_unknown_fields_are_rejected
+  kind: safety
+  description: Undeclared fields on create and update are rejected with 422.

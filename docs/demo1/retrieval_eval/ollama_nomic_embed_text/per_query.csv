@@ -1,0 +1,201 @@
+mode,query_id,source,recall@4,hit@4,MRR@10,nDCG@4,top4,relevant
+bm25,q01,dev_task,0.2,1.0,0.333,0.195,wf-thresholds ext-reject-override id-separation-of-duties ext-no-header-forwarding,id-separation-of-duties wf-terminal wf-role-per-transition id-header-identity mt-positive
+bm25,q02,dev_task,0.75,1.0,1.0,0.832,pd-email crud-unique-ci crud-unique-on-update pit-list-only-auth,crud-unique-ci crud-unique-on-update pd-email pd-not-blank
+bm25,q03,dev_task,0.25,1.0,0.25,0.168,id-header-identity id-query-no-widen crud-unique-on-update sec-owasp-api3,pd-forbid-extra sec-owasp-api3 crud-server-fields crud-atomic-update
+bm25,q04,dev_task,0.5,1.0,1.0,0.637,mt-overlap mt-duration-limit tst-boundaries pd-cross-field,mt-overlap mt-duration-limit pd-literal id-separation-of-duties
+bm25,q05,dev_task,0.25,1.0,1.0,0.39,ext-retries mt-lockout-window pit-ignored-extra crud-server-fields,ext-retries ext-fixed-endpoint ext-reject-override pd-object-field
+bm25,q06,dev,1.0,1.0,0.5,0.693,fa-body-model pd-forbid-extra pit-ignored-extra crud-atomic-update,pd-forbid-extra pit-ignored-extra
+bm25,q07,dev,0.0,0.0,0.0,0.0,pd-dates pd-object-field fa-body-model pd-forbid-extra,pd-not-blank
+bm25,q08,dev,1.0,1.0,1.0,1.0,pd-strict-int crud-atomic-update ext-retries pd-object-field,pd-strict-int
+bm25,q09,dev,1.0,1.0,1.0,1.0,mt-positive pd-field-constraints tst-hypothesis-basics id-never-trust-body,pd-field-constraints mt-positive
+bm25,q10,dev,1.0,1.0,1.0,1.0,pd-v2-syntax pit-201-vs-200 pd-forbid-extra pd-object-field,pd-v2-syntax
+bm25,q11,dev,1.0,1.0,0.333,0.571,pd-dates mt-duration-limit crud-merge-revalidate pd-cross-field,pd-cross-field crud-merge-revalidate
+bm25,q12,dev,1.0,1.0,1.0,0.92,pd-partial-update crud-merge-revalidate crud-immutable pit-list-only-auth,pd-partial-update crud-immutable
+bm25,q13,dev,1.0,1.0,1.0,1.0,fa-status-codes pit-201-vs-200 tst-negative crud-delete,fa-status-codes pit-201-vs-200
+bm25,q14,dev,0.5,1.0,1.0,0.613,fa-headers fa-app-setup tst-testclient fa-path-params,fa-headers id-header-identity
+bm25,q15,dev,0.0,0.0,0.2,0.0,id-header-identity crud-ids sec-no-enumeration fa-path-params,id-bola-404 sec-owasp-api1 pit-list-only-auth
+bm25,q16,dev,1.0,1.0,1.0,0.877,id-query-no-widen fa-body-model sec-owasp-api3 fa-query-params,id-query-no-widen fa-query-params
+bm25,q17,dev,0.5,1.0,0.5,0.387,tst-testclient id-never-trust-body id-query-no-widen wf-initial-state,id-never-trust-body crud-server-fields
+bm25,q18,dev,1.0,1.0,1.0,1.0,id-separation-of-duties id-bola-404 tst-negative sec-owasp-api5,id-separation-of-duties
+bm25,q19,dev,0.5,1.0,1.0,0.613,wf-terminal tst-state-after-error fa-http-exception sec-validation-first,wf-terminal wf-state-machine
+bm25,q20,dev,1.0,1.0,1.0,1.0,wf-thresholds mt-compare-money pd-optional-defaults pit-list-only-auth,wf-thresholds
+bm25,q21,dev,0.5,1.0,1.0,0.613,wf-initial-state tst-testclient pd-forbid-extra ext-validate-reply,wf-initial-state crud-server-fields
+bm25,q22,dev,1.0,1.0,1.0,1.0,wf-reopen-rules pd-literal ext-store-after-success wf-terminal,wf-reopen-rules
+bm25,q23,dev,1.0,1.0,1.0,1.0,wf-graph-deps sec-least-privilege crud-store-shape,wf-graph-deps
+bm25,q24,dev,1.0,1.0,1.0,1.0,wf-complete-after-deps sec-least-privilege ext-store-after-success id-bola-404,wf-complete-after-deps
+bm25,q25,dev,0.5,1.0,1.0,0.613,mt-decimal-money mt-compare-money,mt-decimal-money pit-float-equality
+bm25,q26,dev,0.0,0.0,0.2,0.0,sec-owasp-api3 mt-decimal-money tst-testclient mt-compare-money,mt-server-totals
+bm25,q27,dev,1.0,1.0,1.0,1.0,mt-compare-money mt-decimal-money tst-boundaries tst-hypothesis-basics,mt-compare-money
+bm25,q28,dev,1.0,1.0,1.0,1.0,mt-expiry sec-tokens sec-no-enumeration mt-lockout-window,mt-expiry sec-tokens
+bm25,q29,dev,1.0,1.0,1.0,1.0,mt-test-clock mt-aware-now fa-headers tst-one-rule-per-test,mt-test-clock mt-aware-now
+bm25,q30,dev,0.5,1.0,1.0,0.613,mt-lockout-window ext-retries ext-store-after-success mt-expiry,mt-lockout-window sec-owasp-api4
+bm25,q31,dev,1.0,1.0,1.0,1.0,mt-overlap pit-list-only-auth id-bola-404 pd-cross-field,mt-overlap
+bm25,q32,dev,1.0,1.0,1.0,1.0,pit-naive-datetime mt-aware-now pd-email tst-state-after-error,pit-naive-datetime mt-aware-now
+bm25,q33,dev,1.0,1.0,1.0,1.0,ext-fixed-endpoint sec-owasp-api7 crud-list crud-ids,ext-fixed-endpoint sec-owasp-api7
+bm25,q34,dev,1.0,1.0,1.0,1.0,ext-no-header-forwarding fa-headers sec-owasp-api5 sec-owasp-api1,ext-no-header-forwarding
+bm25,q35,dev,0.0,0.0,0.2,0.0,tst-mock-upstream ext-send-minimum sec-owasp-api3 fa-status-codes,ext-fail-closed ext-store-after-success
+bm25,q36,dev,1.0,1.0,1.0,0.92,ext-validate-reply pit-validation-after-write ext-fail-closed ext-store-after-success,ext-validate-reply ext-fail-closed
+bm25,q37,dev,1.0,1.0,1.0,1.0,ext-timeout ext-fail-closed ext-store-after-success ext-retries,ext-timeout
+bm25,q38,dev,1.0,1.0,1.0,1.0,ext-retries mt-duration-limit tst-boundaries sec-owasp-api1,ext-retries
+bm25,q39,dev,1.0,1.0,1.0,1.0,ext-get-params ext-timeout ext-send-minimum fa-body-model,ext-get-params
+bm25,q40,dev,1.0,1.0,0.5,0.651,sec-no-enumeration sec-password-hash id-header-identity sec-no-secrets-out,sec-password-hash sec-no-secrets-out
+bm25,q41,dev,1.0,1.0,1.0,1.0,sec-no-enumeration sec-owasp-api3 wf-role-per-transition mt-overlap,sec-no-enumeration
+bm25,q42,dev,1.0,1.0,1.0,1.0,sec-tokens wf-single-use wf-complete-after-deps mt-decimal-money,wf-single-use sec-tokens
+bm25,q43,dev,1.0,1.0,1.0,1.0,sec-least-privilege tst-testclient fa-app-setup sec-owasp-api3,sec-least-privilege
+bm25,q44,dev,1.0,1.0,0.333,0.5,crud-immutable tst-unique-data crud-unique-ci crud-unique-on-update,crud-unique-ci
+bm25,q45,dev,0.0,0.0,0.0,0.0,pd-email crud-store-shape wf-state-machine id-bola-404,crud-unique-on-update
+bm25,q46,dev,0.5,1.0,1.0,0.613,crud-atomic-update pd-object-field pit-mutable-default crud-unique-on-update,crud-atomic-update sec-validation-first
+bm25,q47,dev,0.5,1.0,0.25,0.264,wf-thresholds mt-duration-limit tst-hypothesis-stateful tst-boundaries,tst-boundaries tst-one-rule-per-test
+bm25,q48,dev,1.0,1.0,1.0,1.0,tst-hypothesis-basics tst-hypothesis-stateful sec-owasp-api3 tst-testclient,tst-hypothesis-basics tst-hypothesis-stateful
+bm25,q49,dev,1.0,1.0,1.0,1.0,tst-mock-upstream fa-http-exception tst-testclient fa-status-codes,tst-mock-upstream
+bm25,q50,dev,1.0,1.0,0.5,0.631,fa-path-params fa-routes-exact ext-reject-override fa-no-debug,fa-routes-exact
+dense,q01,dev_task,0.2,1.0,1.0,0.39,id-separation-of-duties wf-thresholds pd-forbid-extra ext-retries,id-separation-of-duties wf-terminal wf-role-per-transition id-header-identity mt-positive
+dense,q02,dev_task,0.25,1.0,0.5,0.246,fa-status-codes pd-email pd-partial-update ext-retries,crud-unique-ci crud-unique-on-update pd-email pd-not-blank
+dense,q03,dev_task,0.5,1.0,1.0,0.559,crud-server-fields crud-ids pd-partial-update crud-atomic-update,pd-forbid-extra sec-owasp-api3 crud-server-fields crud-atomic-update
+dense,q04,dev_task,0.5,1.0,1.0,0.637,mt-overlap mt-duration-limit ext-timeout pd-cross-field,mt-overlap mt-duration-limit pd-literal id-separation-of-duties
+dense,q05,dev_task,0.25,1.0,1.0,0.39,ext-retries ext-timeout ext-fail-closed fa-http-exception,ext-retries ext-fixed-endpoint ext-reject-override pd-object-field
+dense,q06,dev,1.0,1.0,1.0,1.0,pd-forbid-extra pit-ignored-extra pd-not-blank pd-partial-update,pd-forbid-extra pit-ignored-extra
+dense,q07,dev,1.0,1.0,0.5,0.631,pd-forbid-extra pd-not-blank pd-partial-update pd-object-field,pd-not-blank
+dense,q08,dev,1.0,1.0,1.0,1.0,pd-strict-int crud-atomic-update pd-forbid-extra ext-reject-override,pd-strict-int
+dense,q09,dev,1.0,1.0,1.0,0.92,mt-positive pit-float-equality pd-field-constraints mt-decimal-money,pd-field-constraints mt-positive
+dense,q10,dev,1.0,1.0,1.0,1.0,pd-v2-syntax pd-strict-int pd-optional-defaults pd-object-field,pd-v2-syntax
+dense,q11,dev,1.0,1.0,1.0,0.92,pd-cross-field mt-duration-limit crud-merge-revalidate pit-validation-after-write,pd-cross-field crud-merge-revalidate
+dense,q12,dev,1.0,1.0,1.0,0.877,pd-partial-update crud-atomic-update crud-merge-revalidate crud-immutable,pd-partial-update crud-immutable
+dense,q13,dev,1.0,1.0,1.0,1.0,fa-status-codes pit-201-vs-200 id-never-trust-body wf-initial-state,fa-status-codes pit-201-vs-200
+dense,q14,dev,0.5,1.0,1.0,0.613,fa-headers fa-path-params fa-response-shape fa-http-exception,fa-headers id-header-identity
+dense,q15,dev,0.333,1.0,1.0,0.469,id-bola-404 id-separation-of-duties crud-ids crud-list,id-bola-404 sec-owasp-api1 pit-list-only-auth
+dense,q16,dev,1.0,1.0,1.0,1.0,id-query-no-widen fa-query-params pd-forbid-extra pd-strict-int,id-query-no-widen fa-query-params
+dense,q17,dev,0.5,1.0,1.0,0.613,id-never-trust-body sec-owasp-api1 id-separation-of-duties id-header-identity,id-never-trust-body crud-server-fields
+dense,q18,dev,1.0,1.0,1.0,1.0,id-separation-of-duties pd-forbid-extra sec-validation-first id-query-no-widen,id-separation-of-duties
+dense,q19,dev,0.0,0.0,0.0,0.0,id-separation-of-duties ext-reject-override sec-validation-first fa-http-exception,wf-terminal wf-state-machine
+dense,q20,dev,1.0,1.0,1.0,1.0,wf-thresholds id-separation-of-duties pd-forbid-extra wf-terminal,wf-thresholds
+dense,q21,dev,0.5,1.0,0.333,0.307,id-separation-of-duties pd-forbid-extra wf-initial-state fa-http-exception,wf-initial-state crud-server-fields
+dense,q22,dev,1.0,1.0,1.0,1.0,wf-reopen-rules ext-retries wf-terminal id-bola-404,wf-reopen-rules
+dense,q23,dev,1.0,1.0,1.0,1.0,wf-graph-deps pd-partial-update pit-broad-except wf-complete-after-deps,wf-graph-deps
+dense,q24,dev,1.0,1.0,1.0,1.0,wf-complete-after-deps wf-graph-deps wf-reopen-rules ext-store-after-success,wf-complete-after-deps
+dense,q25,dev,1.0,1.0,1.0,1.0,pit-float-equality mt-decimal-money mt-server-totals pit-201-vs-200,mt-decimal-money pit-float-equality
+dense,q26,dev,1.0,1.0,1.0,1.0,mt-server-totals id-never-trust-body wf-decision-record ext-store-after-success,mt-server-totals
+dense,q27,dev,1.0,1.0,1.0,1.0,mt-compare-money pit-float-equality mt-positive mt-decimal-money,mt-compare-money
+dense,q28,dev,1.0,1.0,1.0,1.0,mt-expiry sec-tokens ext-timeout mt-lockout-window,mt-expiry sec-tokens
+dense,q29,dev,1.0,1.0,1.0,1.0,mt-test-clock mt-aware-now pit-naive-datetime pd-dates,mt-test-clock mt-aware-now
+dense,q30,dev,0.5,1.0,1.0,0.613,mt-lockout-window sec-no-enumeration ext-retries ext-fail-closed,mt-lockout-window sec-owasp-api4
+dense,q31,dev,1.0,1.0,1.0,1.0,mt-overlap pd-cross-field id-bola-404 ext-retries,mt-overlap
+dense,q32,dev,1.0,1.0,1.0,0.92,pit-naive-datetime pd-dates mt-aware-now fa-response-shape,pit-naive-datetime mt-aware-now
+dense,q33,dev,0.0,0.0,0.2,0.0,ext-get-params ext-reject-override ext-no-header-forwarding id-header-identity,ext-fixed-endpoint sec-owasp-api7
+dense,q34,dev,1.0,1.0,1.0,1.0,ext-no-header-forwarding sec-owasp-api1 sec-owasp-api3 fa-headers,ext-no-header-forwarding
+dense,q35,dev,0.5,1.0,1.0,0.613,ext-fail-closed ext-validate-reply tst-mock-upstream ext-send-minimum,ext-fail-closed ext-store-after-success
+dense,q36,dev,1.0,1.0,1.0,1.0,ext-validate-reply ext-fail-closed ext-store-after-success tst-mock-upstream,ext-validate-reply ext-fail-closed
+dense,q37,dev,1.0,1.0,1.0,1.0,ext-timeout ext-fail-closed fa-http-exception ext-store-after-success,ext-timeout
+dense,q38,dev,1.0,1.0,1.0,1.0,ext-retries ext-timeout ext-fail-closed mt-lockout-window,ext-retries
+dense,q39,dev,1.0,1.0,0.5,0.631,ext-timeout ext-get-params ext-fail-closed ext-send-minimum,ext-get-params
+dense,q40,dev,0.5,1.0,1.0,0.613,sec-password-hash sec-no-enumeration id-bola-404 crud-store-shape,sec-password-hash sec-no-secrets-out
+dense,q41,dev,1.0,1.0,1.0,1.0,sec-no-enumeration id-bola-404 id-never-trust-body id-query-no-widen,sec-no-enumeration
+dense,q42,dev,1.0,1.0,1.0,1.0,wf-single-use sec-tokens mt-lockout-window sec-validation-first,wf-single-use sec-tokens
+dense,q43,dev,1.0,1.0,0.5,0.631,fa-app-setup sec-least-privilege fa-no-debug ext-validate-reply,sec-least-privilege
+dense,q44,dev,1.0,1.0,1.0,1.0,crud-unique-ci crud-unique-on-update crud-immutable pd-optional-defaults,crud-unique-ci
+dense,q45,dev,1.0,1.0,0.5,0.631,crud-merge-revalidate crud-unique-on-update crud-store-shape id-bola-404,crud-unique-on-update
+dense,q46,dev,0.5,1.0,1.0,0.613,crud-atomic-update pd-partial-update crud-merge-revalidate pd-forbid-extra,crud-atomic-update sec-validation-first
+dense,q47,dev,1.0,1.0,1.0,0.92,tst-boundaries pd-field-constraints tst-one-rule-per-test wf-thresholds,tst-boundaries tst-one-rule-per-test
+dense,q48,dev,1.0,1.0,1.0,1.0,tst-hypothesis-basics tst-hypothesis-stateful tst-testclient sec-owasp-api3,tst-hypothesis-basics tst-hypothesis-stateful
+dense,q49,dev,1.0,1.0,1.0,1.0,tst-mock-upstream ext-fail-closed ext-no-header-forwarding ext-timeout,tst-mock-upstream
+dense,q50,dev,1.0,1.0,1.0,1.0,fa-routes-exact ext-reject-override id-role-allowlist fa-path-params,fa-routes-exact
+hybrid,q01,dev_task,0.4,1.0,0.5,0.441,wf-thresholds id-separation-of-duties wf-terminal wf-decision-record,id-separation-of-duties wf-terminal wf-role-per-transition id-header-identity mt-positive
+hybrid,q02,dev_task,0.75,1.0,1.0,0.754,pd-email fa-status-codes crud-unique-on-update crud-unique-ci,crud-unique-ci crud-unique-on-update pd-email pd-not-blank
+hybrid,q03,dev_task,0.0,0.0,0.1,0.0,id-header-identity id-query-no-widen id-never-trust-body id-bola-404,pd-forbid-extra sec-owasp-api3 crud-server-fields crud-atomic-update
+hybrid,q04,dev_task,0.5,1.0,1.0,0.637,mt-overlap mt-duration-limit pd-cross-field mt-expiry,mt-overlap mt-duration-limit pd-literal id-separation-of-duties
+hybrid,q05,dev_task,0.25,1.0,1.0,0.39,ext-retries ext-validate-reply ext-timeout ext-fail-closed,ext-retries ext-fixed-endpoint ext-reject-override pd-object-field
+hybrid,q06,dev,1.0,1.0,1.0,1.0,pd-forbid-extra pit-ignored-extra fa-body-model pd-partial-update,pd-forbid-extra pit-ignored-extra
+hybrid,q07,dev,0.0,0.0,0.2,0.0,pd-forbid-extra pd-object-field pd-partial-update pd-v2-syntax,pd-not-blank
+hybrid,q08,dev,1.0,1.0,1.0,1.0,pd-strict-int crud-atomic-update pd-object-field pd-field-constraints,pd-strict-int
+hybrid,q09,dev,1.0,1.0,1.0,1.0,mt-positive pd-field-constraints tst-hypothesis-basics wf-thresholds,pd-field-constraints mt-positive
+hybrid,q10,dev,1.0,1.0,1.0,1.0,pd-v2-syntax pd-object-field pd-forbid-extra pd-literal,pd-v2-syntax
+hybrid,q11,dev,1.0,1.0,0.5,0.693,mt-duration-limit pd-cross-field crud-merge-revalidate pd-dates,pd-cross-field crud-merge-revalidate
+hybrid,q12,dev,1.0,1.0,1.0,0.92,pd-partial-update crud-merge-revalidate crud-immutable crud-atomic-update,pd-partial-update crud-immutable
+hybrid,q13,dev,1.0,1.0,1.0,1.0,fa-status-codes pit-201-vs-200 wf-initial-state crud-ids,fa-status-codes pit-201-vs-200
+hybrid,q14,dev,0.5,1.0,1.0,0.613,fa-headers fa-path-params fa-app-setup fa-status-codes,fa-headers id-header-identity
+hybrid,q15,dev,0.333,1.0,0.5,0.296,crud-ids id-bola-404 sec-no-enumeration id-header-identity,id-bola-404 sec-owasp-api1 pit-list-only-auth
+hybrid,q16,dev,1.0,1.0,1.0,1.0,id-query-no-widen fa-query-params id-bola-404 pd-partial-update,id-query-no-widen fa-query-params
+hybrid,q17,dev,0.5,1.0,1.0,0.613,id-never-trust-body id-query-no-widen crud-ids fa-body-model,id-never-trust-body crud-server-fields
+hybrid,q18,dev,1.0,1.0,1.0,1.0,id-separation-of-duties id-bola-404 id-never-trust-body tst-negative,id-separation-of-duties
+hybrid,q19,dev,0.5,1.0,0.25,0.264,tst-state-after-error fa-http-exception sec-validation-first wf-terminal,wf-terminal wf-state-machine
+hybrid,q20,dev,1.0,1.0,1.0,1.0,wf-thresholds id-separation-of-duties mt-positive pd-field-constraints,wf-thresholds
+hybrid,q21,dev,0.5,1.0,1.0,0.613,wf-initial-state pd-forbid-extra ext-validate-reply tst-testclient,wf-initial-state crud-server-fields
+hybrid,q22,dev,1.0,1.0,1.0,1.0,wf-reopen-rules wf-terminal ext-store-after-success id-bola-404,wf-reopen-rules
+hybrid,q23,dev,1.0,1.0,1.0,1.0,wf-graph-deps crud-store-shape sec-least-privilege pd-partial-update,wf-graph-deps
+hybrid,q24,dev,1.0,1.0,1.0,1.0,wf-complete-after-deps ext-store-after-success sec-least-privilege wf-graph-deps,wf-complete-after-deps
+hybrid,q25,dev,1.0,1.0,1.0,0.92,mt-decimal-money mt-compare-money pit-float-equality mt-server-totals,mt-decimal-money pit-float-equality
+hybrid,q26,dev,1.0,1.0,1.0,1.0,mt-server-totals wf-initial-state pd-forbid-extra sec-owasp-api3,mt-server-totals
+hybrid,q27,dev,1.0,1.0,1.0,1.0,mt-compare-money mt-decimal-money wf-thresholds pd-field-constraints,mt-compare-money
+hybrid,q28,dev,1.0,1.0,1.0,1.0,mt-expiry sec-tokens mt-lockout-window crud-merge-revalidate,mt-expiry sec-tokens
+hybrid,q29,dev,1.0,1.0,1.0,1.0,mt-test-clock mt-aware-now mt-expiry fa-headers,mt-test-clock mt-aware-now
+hybrid,q30,dev,0.5,1.0,1.0,0.613,mt-lockout-window ext-retries sec-no-enumeration ext-store-after-success,mt-lockout-window sec-owasp-api4
+hybrid,q31,dev,1.0,1.0,1.0,1.0,mt-overlap pd-cross-field id-bola-404 crud-unique-on-update,mt-overlap
+hybrid,q32,dev,1.0,1.0,1.0,1.0,pit-naive-datetime mt-aware-now pd-dates fa-response-shape,pit-naive-datetime mt-aware-now
+hybrid,q33,dev,1.0,1.0,1.0,1.0,ext-fixed-endpoint sec-owasp-api7 ext-no-header-forwarding ext-timeout,ext-fixed-endpoint sec-owasp-api7
+hybrid,q34,dev,1.0,1.0,1.0,1.0,ext-no-header-forwarding fa-headers sec-owasp-api1 sec-owasp-api5,ext-no-header-forwarding
+hybrid,q35,dev,0.5,1.0,0.5,0.387,tst-mock-upstream ext-fail-closed ext-send-minimum fa-status-codes,ext-fail-closed ext-store-after-success
+hybrid,q36,dev,1.0,1.0,1.0,1.0,ext-validate-reply ext-fail-closed ext-store-after-success pit-validation-after-write,ext-validate-reply ext-fail-closed
+hybrid,q37,dev,1.0,1.0,1.0,1.0,ext-timeout ext-fail-closed ext-store-after-success ext-retries,ext-timeout
+hybrid,q38,dev,1.0,1.0,1.0,1.0,ext-retries ext-fail-closed mt-duration-limit sec-owasp-api1,ext-retries
+hybrid,q39,dev,1.0,1.0,1.0,1.0,ext-get-params ext-timeout ext-send-minimum ext-fail-closed,ext-get-params
+hybrid,q40,dev,1.0,1.0,0.5,0.693,sec-no-enumeration sec-password-hash sec-no-secrets-out sec-tokens,sec-password-hash sec-no-secrets-out
+hybrid,q41,dev,1.0,1.0,1.0,1.0,sec-no-enumeration sec-owasp-api3 id-bola-404 wf-role-per-transition,sec-no-enumeration
+hybrid,q42,dev,1.0,1.0,1.0,1.0,sec-tokens wf-single-use mt-expiry ext-store-after-success,wf-single-use sec-tokens
+hybrid,q43,dev,1.0,1.0,1.0,1.0,sec-least-privilege fa-app-setup tst-testclient fa-no-debug,sec-least-privilege
+hybrid,q44,dev,1.0,1.0,0.5,0.631,crud-immutable crud-unique-ci crud-unique-on-update tst-unique-data,crud-unique-ci
+hybrid,q45,dev,0.0,0.0,0.167,0.0,crud-store-shape crud-merge-revalidate pd-email id-bola-404,crud-unique-on-update
+hybrid,q46,dev,0.5,1.0,1.0,0.613,crud-atomic-update crud-unique-on-update tst-negative pd-object-field,crud-atomic-update sec-validation-first
+hybrid,q47,dev,0.5,1.0,0.5,0.387,wf-thresholds tst-boundaries mt-duration-limit tst-hypothesis-stateful,tst-boundaries tst-one-rule-per-test
+hybrid,q48,dev,1.0,1.0,1.0,1.0,tst-hypothesis-basics tst-hypothesis-stateful sec-owasp-api3 tst-testclient,tst-hypothesis-basics tst-hypothesis-stateful
+hybrid,q49,dev,1.0,1.0,1.0,1.0,tst-mock-upstream fa-http-exception ext-fail-closed ext-get-params,tst-mock-upstream
+hybrid,q50,dev,1.0,1.0,1.0,1.0,fa-routes-exact fa-path-params ext-reject-override id-role-allowlist,fa-routes-exact
+hybrid_mmr,q01,dev_task,0.4,1.0,0.5,0.441,wf-thresholds id-separation-of-duties wf-terminal wf-decision-record,id-separation-of-duties wf-terminal wf-role-per-transition id-header-identity mt-positive
+hybrid_mmr,q02,dev_task,0.5,1.0,1.0,0.586,pd-email fa-status-codes crud-unique-on-update pd-partial-update,crud-unique-ci crud-unique-on-update pd-email pd-not-blank
+hybrid_mmr,q03,dev_task,0.0,0.0,0.1,0.0,id-header-identity id-query-no-widen id-never-trust-body id-bola-404,pd-forbid-extra sec-owasp-api3 crud-server-fields crud-atomic-update
+hybrid_mmr,q04,dev_task,0.5,1.0,1.0,0.637,mt-overlap mt-duration-limit pd-cross-field mt-expiry,mt-overlap mt-duration-limit pd-literal id-separation-of-duties
+hybrid_mmr,q05,dev_task,0.25,1.0,1.0,0.39,ext-retries ext-validate-reply ext-timeout sec-owasp-api7,ext-retries ext-fixed-endpoint ext-reject-override pd-object-field
+hybrid_mmr,q06,dev,1.0,1.0,1.0,0.92,pd-forbid-extra fa-body-model pit-ignored-extra ext-reject-override,pd-forbid-extra pit-ignored-extra
+hybrid_mmr,q07,dev,0.0,0.0,0.2,0.0,pd-forbid-extra pd-object-field pd-partial-update pd-v2-syntax,pd-not-blank
+hybrid_mmr,q08,dev,1.0,1.0,1.0,1.0,pd-strict-int crud-atomic-update pd-object-field ext-reject-override,pd-strict-int
+hybrid_mmr,q09,dev,1.0,1.0,1.0,1.0,mt-positive pd-field-constraints wf-thresholds tst-hypothesis-basics,pd-field-constraints mt-positive
+hybrid_mmr,q10,dev,1.0,1.0,1.0,1.0,pd-v2-syntax pd-object-field pd-forbid-extra pd-strict-int,pd-v2-syntax
+hybrid_mmr,q11,dev,1.0,1.0,0.5,0.693,mt-duration-limit crud-merge-revalidate pd-cross-field pd-dates,pd-cross-field crud-merge-revalidate
+hybrid_mmr,q12,dev,1.0,1.0,1.0,0.877,pd-partial-update crud-merge-revalidate ext-reject-override crud-immutable,pd-partial-update crud-immutable
+hybrid_mmr,q13,dev,1.0,1.0,1.0,1.0,fa-status-codes pit-201-vs-200 wf-initial-state id-never-trust-body,fa-status-codes pit-201-vs-200
+hybrid_mmr,q14,dev,0.5,1.0,1.0,0.613,fa-headers fa-path-params fa-app-setup fa-status-codes,fa-headers id-header-identity
+hybrid_mmr,q15,dev,0.333,1.0,0.5,0.296,crud-ids id-bola-404 sec-no-enumeration id-header-identity,id-bola-404 sec-owasp-api1 pit-list-only-auth
+hybrid_mmr,q16,dev,1.0,1.0,1.0,1.0,id-query-no-widen fa-query-params id-bola-404 pd-partial-update,id-query-no-widen fa-query-params
+hybrid_mmr,q17,dev,0.5,1.0,1.0,0.613,id-never-trust-body id-query-no-widen fa-body-model crud-ids,id-never-trust-body crud-server-fields
+hybrid_mmr,q18,dev,1.0,1.0,1.0,1.0,id-separation-of-duties id-bola-404 id-never-trust-body id-query-no-widen,id-separation-of-duties
+hybrid_mmr,q19,dev,0.5,1.0,0.25,0.264,tst-state-after-error fa-http-exception sec-validation-first wf-terminal,wf-terminal wf-state-machine
+hybrid_mmr,q20,dev,1.0,1.0,1.0,1.0,wf-thresholds id-separation-of-duties mt-positive pit-list-only-auth,wf-thresholds
+hybrid_mmr,q21,dev,0.5,1.0,1.0,0.613,wf-initial-state pd-forbid-extra tst-testclient ext-validate-reply,wf-initial-state crud-server-fields
+hybrid_mmr,q22,dev,1.0,1.0,1.0,1.0,wf-reopen-rules ext-store-after-success id-bola-404 wf-terminal,wf-reopen-rules
+hybrid_mmr,q23,dev,1.0,1.0,1.0,1.0,wf-graph-deps crud-store-shape sec-least-privilege pit-broad-except,wf-graph-deps
+hybrid_mmr,q24,dev,1.0,1.0,1.0,1.0,wf-complete-after-deps sec-least-privilege ext-store-after-success wf-reopen-rules,wf-complete-after-deps
+hybrid_mmr,q25,dev,0.5,1.0,1.0,0.613,mt-decimal-money mt-compare-money fa-status-codes wf-thresholds,mt-decimal-money pit-float-equality
+hybrid_mmr,q26,dev,1.0,1.0,1.0,1.0,mt-server-totals wf-initial-state sec-owasp-api3 tst-testclient,mt-server-totals
+hybrid_mmr,q27,dev,1.0,1.0,1.0,1.0,mt-compare-money wf-thresholds tst-hypothesis-basics mt-decimal-money,mt-compare-money
+hybrid_mmr,q28,dev,1.0,1.0,1.0,1.0,mt-expiry sec-tokens mt-lockout-window crud-merge-revalidate,mt-expiry sec-tokens
+hybrid_mmr,q29,dev,1.0,1.0,1.0,1.0,mt-test-clock mt-aware-now fa-headers mt-expiry,mt-test-clock mt-aware-now
+hybrid_mmr,q30,dev,0.5,1.0,1.0,0.613,mt-lockout-window ext-retries sec-no-enumeration ext-store-after-success,mt-lockout-window sec-owasp-api4
+hybrid_mmr,q31,dev,1.0,1.0,1.0,1.0,mt-overlap id-bola-404 pd-cross-field crud-unique-on-update,mt-overlap
+hybrid_mmr,q32,dev,1.0,1.0,1.0,0.92,pit-naive-datetime pd-dates mt-aware-now fa-response-shape,pit-naive-datetime mt-aware-now
+hybrid_mmr,q33,dev,0.5,1.0,1.0,0.613,ext-fixed-endpoint ext-timeout crud-list ext-no-header-forwarding,ext-fixed-endpoint sec-owasp-api7
+hybrid_mmr,q34,dev,1.0,1.0,1.0,1.0,ext-no-header-forwarding sec-owasp-api1 fa-headers sec-owasp-api5,ext-no-header-forwarding
+hybrid_mmr,q35,dev,0.5,1.0,0.5,0.387,tst-mock-upstream ext-fail-closed ext-send-minimum fa-status-codes,ext-fail-closed ext-store-after-success
+hybrid_mmr,q36,dev,1.0,1.0,1.0,0.92,ext-validate-reply ext-store-after-success ext-fail-closed pit-validation-after-write,ext-validate-reply ext-fail-closed
+hybrid_mmr,q37,dev,1.0,1.0,1.0,1.0,ext-timeout ext-store-after-success ext-fail-closed ext-fixed-endpoint,ext-timeout
+hybrid_mmr,q38,dev,1.0,1.0,1.0,1.0,ext-retries ext-fail-closed mt-duration-limit sec-owasp-api1,ext-retries
+hybrid_mmr,q39,dev,1.0,1.0,1.0,1.0,ext-get-params ext-timeout ext-send-minimum fa-body-model,ext-get-params
+hybrid_mmr,q40,dev,0.5,1.0,0.5,0.387,sec-no-enumeration sec-password-hash crud-ids mt-expiry,sec-password-hash sec-no-secrets-out
+hybrid_mmr,q41,dev,1.0,1.0,1.0,1.0,sec-no-enumeration sec-owasp-api3 mt-overlap wf-role-per-transition,sec-no-enumeration
+hybrid_mmr,q42,dev,1.0,1.0,1.0,1.0,sec-tokens wf-single-use ext-store-after-success pd-strict-int,wf-single-use sec-tokens
+hybrid_mmr,q43,dev,1.0,1.0,1.0,1.0,sec-least-privilege fa-app-setup sec-owasp-api3 fa-no-debug,sec-least-privilege
+hybrid_mmr,q44,dev,1.0,1.0,0.333,0.5,crud-immutable tst-unique-data crud-unique-ci crud-unique-on-update,crud-unique-ci
+hybrid_mmr,q45,dev,0.0,0.0,0.167,0.0,crud-store-shape pd-email id-bola-404 wf-state-machine,crud-unique-on-update
+hybrid_mmr,q46,dev,0.5,1.0,1.0,0.613,crud-atomic-update pd-object-field tst-negative crud-unique-on-update,crud-atomic-update sec-validation-first
+hybrid_mmr,q47,dev,0.5,1.0,0.5,0.387,wf-thresholds tst-boundaries mt-duration-limit tst-hypothesis-stateful,tst-boundaries tst-one-rule-per-test
+hybrid_mmr,q48,dev,1.0,1.0,1.0,0.877,tst-hypothesis-basics sec-owasp-api3 tst-testclient tst-hypothesis-stateful,tst-hypothesis-basics tst-hypothesis-stateful
+hybrid_mmr,q49,dev,1.0,1.0,1.0,1.0,tst-mock-upstream fa-http-exception tst-testclient ext-get-params,tst-mock-upstream
+hybrid_mmr,q50,dev,1.0,1.0,1.0,1.0,fa-routes-exact ext-reject-override pit-201-vs-200 fa-path-params,fa-routes-exact

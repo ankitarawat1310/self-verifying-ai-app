@@ -1,0 +1,118 @@
+schema_version: '1.0'
+task_id: ticket_lifecycle
+title: Support ticket lifecycle
+category: workflow_state
+source: svaga3
+prompt: >-
+  Create a support-ticket API. Customers open tickets. Agents start work on open tickets and resolve tickets that
+  are in progress. The customer who opened a ticket may close it once it is resolved, or reopen a resolved ticket
+  (back to in progress); agents may also reopen resolved tickets. Closed tickets can be reopened only by a manager.
+  Actions by a role that is not allowed are 403; actions that do not fit the ticket's current status are 409.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+    wrong_status_for_action: 409
+  roles:
+  - name: customer
+    description: Opens tickets; closes or reopens their own resolved tickets
+  - name: agent
+    description: Starts, resolves and reopens resolved tickets
+  - name: manager
+    description: Reopens closed tickets
+  routes:
+  - method: POST
+    path: /tickets
+    summary: Open a ticket (status open)
+    roles:
+    - customer
+    request_fields:
+      title:
+        type: string
+        required: true
+        min_length: 1
+      description:
+        type: string
+        required: true
+        min_length: 1
+    success_status: 201
+    response_fields:
+    - id
+    - requester_id
+    - title
+    - description
+    - status
+  - method: GET
+    path: /tickets/{ticket_id}
+    summary: Read a ticket
+    roles:
+    - customer
+    - agent
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - title
+    - description
+    - status
+  - method: POST
+    path: /tickets/{ticket_id}/start
+    summary: open -> in_progress
+    roles:
+    - agent
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - title
+    - description
+    - status
+  - method: POST
+    path: /tickets/{ticket_id}/resolve
+    summary: in_progress -> resolved
+    roles:
+    - agent
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - title
+    - description
+    - status
+  - method: POST
+    path: /tickets/{ticket_id}/close
+    summary: resolved -> closed (requesting customer only)
+    roles:
+    - customer
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - title
+    - description
+    - status
+  - method: POST
+    path: /tickets/{ticket_id}/reopen
+    summary: >-
+      resolved -> in_progress (requesting customer or agent); closed -> in_progress (manager only)
+    roles:
+    - customer
+    - agent
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - title
+    - description
+    - status

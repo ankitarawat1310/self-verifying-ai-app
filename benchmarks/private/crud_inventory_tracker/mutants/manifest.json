@@ -1,0 +1,168 @@
+{
+  "task_id": "crud_inventory_tracker",
+  "seed": 7,
+  "candidates": 26,
+  "sampled": 12,
+  "killed": 7,
+  "survived": 5,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_006",
+      "operator": "change_status",
+      "line": 38,
+      "description": "status code 201 -> 200",
+      "outcome": "killed",
+      "killed_by": [
+        "test_create_returns_201_with_fields",
+        "test_duplicate_sku_ignoring_case_is_409"
+      ],
+      "checks_failed": 2,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_drop_guard_004",
+      "operator": "drop_guard",
+      "line": 33,
+      "description": "guard disabled: if item_id not in ITEMS",
+      "outcome": "killed",
+      "killed_by": [
+        "test_delete_then_404",
+        "test_negative_stock_is_422",
+        "test_fractional_stock_is_422",
+        "test_blank_name_is_422",
+        "test_duplicate_sku_ignoring_case_is_409",
+        "test_patch_to_negative_stock_is_rejected_and_unchanged",
+        "test_sku_cannot_be_changed",
+        "test_unknown_fields_are_rejected"
+      ],
+      "checks_failed": 8,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_flip_comparison_001",
+      "operator": "flip_comparison",
+      "line": 12,
+      "description": "comparison IsNot -> Is",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_name_is_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_off_by_one_021",
+      "operator": "off_by_one",
+      "line": 19,
+      "description": "number 1 -> 2",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_relax_validation_020",
+      "operator": "relax_validation",
+      "line": 28,
+      "description": "type StrictInt -> int",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_swap_boolean_011",
+      "operator": "swap_boolean",
+      "line": 12,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_create_returns_201_with_fields",
+        "test_item_is_readable_and_listed",
+        "test_patch_updates_stock",
+        "test_delete_then_404",
+        "test_fractional_stock_is_422",
+        "test_blank_name_is_422",
+        "test_duplicate_sku_ignoring_case_is_409",
+        "test_patch_to_negative_stock_is_rejected_and_unchanged",
+        "test_sku_cannot_be_changed",
+        "test_unknown_fields_are_rejected"
+      ],
+      "checks_failed": 10,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_change_status_010",
+      "operator": "change_status",
+      "line": 68,
+      "description": "status code 204 -> 200",
+      "outcome": "killed",
+      "killed_by": [
+        "test_delete_then_404"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_drop_guard_003",
+      "operator": "drop_guard",
+      "line": 12,
+      "description": "guard disabled: if value is not None and (not value.strip())",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_name_is_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_flip_comparison_000",
+      "operator": "flip_comparison",
+      "line": 33,
+      "description": "comparison NotIn -> In",
+      "outcome": "killed",
+      "killed_by": [
+        "test_item_is_readable_and_listed",
+        "test_patch_updates_stock",
+        "test_delete_then_404",
+        "test_fractional_stock_is_422",
+        "test_blank_name_is_422",
+        "test_patch_to_negative_stock_is_rejected_and_unchanged",
+        "test_sku_cannot_be_changed"
+      ],
+      "checks_failed": 7,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_off_by_one_024",
+      "operator": "off_by_one",
+      "line": 27,
+      "description": "number 1 -> 2",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_relax_validation_015",
+      "operator": "relax_validation",
+      "line": 21,
+      "description": "type StrictInt -> int",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_change_status_007",
+      "operator": "change_status",
+      "line": 64,
+      "description": "status code 204 -> 200",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 11
+    }
+  ]
+}

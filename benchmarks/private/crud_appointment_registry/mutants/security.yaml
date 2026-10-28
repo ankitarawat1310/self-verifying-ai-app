@@ -1,0 +1,28 @@
+task_id: crud_appointment_registry
+security_mutants:
+- id: sec_patch_skips_time_rule
+  description: PATCH does not re-validate end after start
+  edits:
+  - find: "    if merged[\"end_at\"] <= merged[\"start_at\"]:\n        raise HTTPException(422, \"end_at must be after start_at\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_partial_update_cannot_break_the_time_rule
+- id: sec_zero_length_allowed
+  description: Create accepts an end equal to the start
+  edits:
+  - find: '        if self.end_at <= self.start_at:'
+    replace: '        if self.end_at < self.start_at:'
+    occurrence: 1
+  expected_failing_checks:
+  - test_end_equal_to_start_is_422
+- id: sec_code_changeable
+  description: PATCH lets clients change the unique appointment code
+  edits:
+  - find: '    title: str | None = Field(default=None, min_length=1)
+
+      '
+    replace: "    title: str | None = Field(default=None, min_length=1)\n    code: str | None = None\n"
+    occurrence: 1
+  expected_failing_checks:
+  - test_unknown_fields_are_rejected

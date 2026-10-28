@@ -1,0 +1,32 @@
+task_id: approval_emergency_access
+security_mutants:
+- id: sec_no_upper_bound
+  description: Duration has no 8-hour maximum
+  edits:
+  - find: '    duration_hours: StrictInt = Field(ge=1, le=8)'
+    replace: '    duration_hours: StrictInt = Field(ge=1)'
+    occurrence: 1
+  expected_failing_checks:
+  - test_duration_outside_1_to_8_is_422
+- id: sec_auto_approve_honored
+  description: A caller-supplied auto_approve flag approves the request immediately
+  edits:
+  - find: '    duration_hours: StrictInt = Field(ge=1, le=8)
+
+      '
+    replace: "    duration_hours: StrictInt = Field(ge=1, le=8)\n    auto_approve: bool = False\n"
+    occurrence: 1
+  - find: "    actor, _ = _identity(x_actor_id, x_actor_role, {\"user\"})\n    return _submit(actor, payload.model_dump())"
+    replace: "    actor, _ = _identity(x_actor_id, x_actor_role, {\"user\"})\n    record = _submit(actor, payload.model_dump(exclude={\"auto_approve\"}))\n    if payload.auto_approve:\n        record[\"\
+      status\"] = \"approved\"\n    return record"
+    occurrence: 1
+  expected_failing_checks:
+  - test_bypass_fields_are_rejected
+- id: sec_self_approval
+  description: Requesters can approve their own access
+  edits:
+  - find: "    if record[\"requester_id\"] == actor:\n        raise HTTPException(403, \"requesters cannot decide their own request\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_requester_cannot_self_approve

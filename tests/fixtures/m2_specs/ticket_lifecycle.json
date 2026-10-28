@@ -1,0 +1,11 @@
+{"task_id":"ticket_lifecycle","entities":["tickets"],
+"operations":[
+ {"route":"POST /tickets","kind":"create","entity":"tickets","roles":["customer"]},
+ {"route":"GET /tickets/{ticket_id}","kind":"read","entity":"tickets","roles":["customer","agent","manager"]},
+ {"route":"POST /tickets/{ticket_id}/start","kind":"action","entity":"tickets","roles":["agent"],"transitions":[{"from_state":"open","to_state":"in_progress"}]},
+ {"route":"POST /tickets/{ticket_id}/resolve","kind":"action","entity":"tickets","roles":["agent"],"transitions":[{"from_state":"in_progress","to_state":"resolved"}]},
+ {"route":"POST /tickets/{ticket_id}/close","kind":"action","entity":"tickets","roles":["customer"],"transitions":[{"from_state":"resolved","to_state":"closed"}],
+  "rules":[{"kind":"owner_only","fields":["requester_id"],"error_status":403}]},
+ {"route":"POST /tickets/{ticket_id}/reopen","kind":"action","entity":"tickets","roles":["customer","agent","manager"],
+  "transitions":[{"from_state":"resolved","to_state":"in_progress","roles":["agent","customer"]},{"from_state":"closed","to_state":"in_progress","roles":["manager"]}]}],
+"state_machines":[{"entity":"tickets","field":"status","initial":"open","states":["open","in_progress","resolved","closed"],"terminal":[]}]}

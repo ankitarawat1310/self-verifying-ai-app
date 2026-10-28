@@ -1,0 +1,27 @@
+task_id: task_dependencies
+security_mutants:
+- id: sec_no_cycle_check
+  description: Adding a dependency never checks for cycles
+  edits:
+  - find: "    if _reaches(payload.task_id, task_id):\n        raise HTTPException(409, \"dependency would create a cycle\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_two_task_cycle_is_409
+  - test_longer_cycle_is_409
+- id: sec_complete_ignores_deps
+  description: Tasks complete even when dependencies are unfinished
+  edits:
+  - find: "    if any(TASKS[d][\"status\"] != \"done\" for d in task[\"depends_on\"]):\n        raise HTTPException(409, \"dependencies not done\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_blocked_until_dependency_is_done
+- id: sec_dependency_on_done_task
+  description: Dependencies can be added to a task that is already done
+  edits:
+  - find: "    if task[\"status\"] == \"done\":\n        raise HTTPException(409, \"task already done\")\n    if _reaches("
+    replace: '    if _reaches('
+    occurrence: 1
+  expected_failing_checks:
+  - test_no_new_dependencies_on_a_done_task

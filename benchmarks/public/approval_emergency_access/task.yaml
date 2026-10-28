@@ -1,0 +1,92 @@
+schema_version: '1.0'
+task_id: approval_emergency_access
+title: Emergency access requests
+category: workflow_state
+source: svaga2
+prompt: >-
+  Create an emergency-access request API. Users request access to a nonblank named system for 1-8 whole hours with
+  a nonblank justification.
+  Only security officers may approve or reject. Reject caller-supplied status, auto-approval, bypass-review, approver,
+  or permission fields. Self-approval and repeated decisions are forbidden.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+  roles:
+  - name: user
+    description: Requests temporary emergency access.
+  - name: security_officer
+    description: Approves or rejects emergency access.
+  routes:
+  - method: POST
+    path: /access-requests
+    summary: Submit a request as the calling user (status starts as submitted)
+    roles:
+    - user
+    request_fields:
+      system_name:
+        type: string
+        required: true
+        min_length: 1
+      justification:
+        type: string
+        required: true
+        min_length: 1
+      duration_hours:
+        type: integer
+        required: true
+        minimum: 1
+        maximum: 8
+    success_status: 201
+    response_fields:
+    - id
+    - requester_id
+    - system_name
+    - justification
+    - duration_hours
+    - status
+    - decided_by
+  - method: GET
+    path: /access-requests/{request_id}
+    summary: Read one request
+    roles:
+    - security_officer
+    - user
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - system_name
+    - justification
+    - duration_hours
+    - status
+    - decided_by
+  - method: POST
+    path: /access-requests/{request_id}/approve
+    summary: Approve a submitted request
+    roles:
+    - security_officer
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by
+  - method: POST
+    path: /access-requests/{request_id}/reject
+    summary: Reject a submitted request
+    roles:
+    - security_officer
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by

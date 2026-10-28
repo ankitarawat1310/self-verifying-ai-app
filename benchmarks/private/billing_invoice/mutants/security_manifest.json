@@ -1,0 +1,55 @@
+{
+  "task_id": "billing_invoice",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_client_total_trusted",
+      "description": "A client-supplied total overrides the computed one",
+      "expected_failing_checks": [
+        "test_client_cannot_set_total_or_status"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_client_cannot_set_total_or_status"
+      ],
+      "expected_hit": [
+        "test_client_cannot_set_total_or_status"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_any_payment_accepted",
+      "description": "Any payment amount marks the invoice paid",
+      "expected_failing_checks": [
+        "test_wrong_payment_amount_is_422_and_unpaid"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_wrong_payment_amount_is_422_and_unpaid"
+      ],
+      "expected_hit": [
+        "test_wrong_payment_amount_is_422_and_unpaid"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_float_totals",
+      "description": "Totals use raw floating point instead of rounding to cents",
+      "expected_failing_checks": [
+        "test_total_is_rounded_to_cents"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_total_is_rounded_to_cents"
+      ],
+      "expected_hit": [
+        "test_total_is_rounded_to_cents"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

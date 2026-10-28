@@ -1,0 +1,55 @@
+{
+  "task_id": "approval_purchase_request",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_reject_skips_limit",
+      "description": "Managers can reject high-value requests (limit applied only to approve)",
+      "expected_failing_checks": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "expected_hit": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_status_injection",
+      "description": "Unknown submit fields such as status are silently accepted",
+      "expected_failing_checks": [
+        "test_status_injection_is_422"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_status_injection_is_422"
+      ],
+      "expected_hit": [
+        "test_status_injection_is_422"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_wrong_limit",
+      "description": "Manager limit doubled to 10000",
+      "expected_failing_checks": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "expected_hit": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

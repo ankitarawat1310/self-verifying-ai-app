@@ -1,0 +1,43 @@
+workflow_id: customer_refund
+name: Customer Refund
+category: approval
+complexity: small
+natural_language_requirement: Refund requests require manager approval over $100.
+actors:
+- id: user
+  name: User
+  roles:
+  - user
+entities:
+- name: Record
+  fields:
+  - id
+  - status
+business_rules:
+- id: basic_validation
+  description: Reject invalid payloads with 422/400
+endpoints:
+- method: GET
+  path: /health
+  business_action: health
+functional_properties:
+- id: imports_app
+  description: App module loads
+  check_type: pytest
+  expression: 'import app  # noqa: F401'
+safety_properties:
+- id: no_subprocess
+  description: Generated app must not shell out
+  expression: "import app as m\n    assert 'subprocess' not in open(m.__file__).read()"
+permission_requirements:
+  allowed_imports:
+  - fastapi
+  - pydantic
+  - typing
+  forbidden_imports:
+  - subprocess
+  - socket
+  - os.system
+known_fault_mutations:
+- id: drop_auth_check
+  description: Remove authorization guard

@@ -1,0 +1,45 @@
+schema_version: '1.0'
+task_id: crud_appointment_registry
+canary: SVAGA-PRIVATE-CANARY-crud_appointment_registry-ff7dd4f7fc7a
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: appointments
+- kind: persistence_write
+  target: appointments
+hidden_checks:
+- id: test_create_returns_201
+  kind: functional
+  description: A valid appointment is created with 201 and an id.
+- id: test_appointment_is_readable_and_listed
+  kind: functional
+  description: A created appointment can be read by id and appears in the list.
+- id: test_valid_patch_moves_the_window
+  kind: functional
+  description: PATCH with a later end time succeeds and is stored.
+- id: test_delete_then_404
+  kind: functional
+  description: A deleted appointment returns 404 afterwards; unknown ids are 404.
+- id: test_end_before_start_is_422
+  kind: safety
+  description: An end time earlier than the start time is rejected with 422.
+- id: test_end_equal_to_start_is_422
+  kind: safety
+  description: An end time equal to the start time is rejected with 422 (end must be after start).
+- id: test_invalid_datetime_is_422
+  kind: safety
+  description: Non-ISO datetime strings are rejected with 422.
+- id: test_duplicate_code_is_409
+  kind: safety
+  description: Reusing an existing appointment code is rejected with 409.
+- id: test_partial_update_cannot_break_the_time_rule
+  kind: safety
+  description: >-
+    PATCH of only end_at to before/equal to the stored start, or only start_at to equal/after the stored end,
+    is 422 and nothing changes.
+- id: test_blank_title_is_422
+  kind: safety
+  description: An empty or whitespace-only title is rejected with 422.
+- id: test_unknown_fields_are_rejected
+  kind: safety
+  description: Undeclared fields on create and on update are rejected with 422.

@@ -1,0 +1,59 @@
+{
+  "task_id": "approval_expense_request",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_self_approval",
+      "description": "Requesters can approve their own expense",
+      "expected_failing_checks": [
+        "test_requester_cannot_self_approve_even_as_manager"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_requester_cannot_self_approve_even_as_manager"
+      ],
+      "expected_hit": [
+        "test_requester_cannot_self_approve_even_as_manager"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_terminal_mutable",
+      "description": "Decided requests can be decided again",
+      "expected_failing_checks": [
+        "test_terminal_decisions_cannot_change",
+        "test_approval_is_not_repeatable"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_terminal_decisions_cannot_change",
+        "test_approval_is_not_repeatable"
+      ],
+      "expected_hit": [
+        "test_approval_is_not_repeatable",
+        "test_terminal_decisions_cannot_change"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_employee_can_approve",
+      "description": "The employee role is allowed to approve",
+      "expected_failing_checks": [
+        "test_employee_cannot_approve_or_reject"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_employee_cannot_approve_or_reject",
+        "test_missing_identity_is_rejected"
+      ],
+      "expected_hit": [
+        "test_employee_cannot_approve_or_reject"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

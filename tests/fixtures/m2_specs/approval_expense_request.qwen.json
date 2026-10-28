@@ -1,0 +1,140 @@
+{
+  "task_id": "approval_expense_request",
+  "entities": [
+    "expense_requests"
+  ],
+  "operations": [
+    {
+      "route": "POST /expense-requests",
+      "kind": "create",
+      "entity": "expense_requests",
+      "roles": [
+        "employee"
+      ],
+      "transitions": [
+        {
+          "from_state": "draft",
+          "to_state": "submitted",
+          "roles": []
+        }
+      ],
+      "rules": [
+        {
+          "kind": "not_self",
+          "description": "Requester cannot be the actor",
+          "fields": [
+            "requester_id"
+          ],
+          "op": null,
+          "error_status": 403
+        }
+      ]
+    },
+    {
+      "route": "GET /expense-requests/{request_id}",
+      "kind": "read",
+      "entity": "expense_requests",
+      "roles": [
+        "employee",
+        "manager"
+      ],
+      "transitions": [],
+      "rules": []
+    },
+    {
+      "route": "POST /expense-requests/{request_id}/approve",
+      "kind": "action",
+      "entity": "expense_requests",
+      "roles": [
+        "manager"
+      ],
+      "transitions": [
+        {
+          "from_state": "submitted",
+          "to_state": "approved",
+          "roles": [
+            "manager"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "kind": "not_self",
+          "description": "Requester cannot approve own request",
+          "fields": [
+            "requester_id"
+          ],
+          "op": null,
+          "error_status": 403
+        }
+      ]
+    },
+    {
+      "route": "POST /expense-requests/{request_id}/reject",
+      "kind": "action",
+      "entity": "expense_requests",
+      "roles": [
+        "manager"
+      ],
+      "transitions": [
+        {
+          "from_state": "submitted",
+          "to_state": "rejected",
+          "roles": [
+            "manager"
+          ]
+        }
+      ],
+      "rules": [
+        {
+          "kind": "not_self",
+          "description": "Requester cannot reject own request",
+          "fields": [
+            "requester_id"
+          ],
+          "op": null,
+          "error_status": 403
+        }
+      ]
+    }
+  ],
+  "state_machines": [
+    {
+      "entity": "expense_requests",
+      "field": "status",
+      "initial": "draft",
+      "states": [
+        "draft",
+        "submitted",
+        "approved",
+        "rejected"
+      ],
+      "terminal": [
+        "approved",
+        "rejected"
+      ]
+    }
+  ],
+  "invariants": [
+    "An expense request's status can only transition from 'submitted' to 'approved' or 'rejected'.",
+    "Once an expense request reaches 'approved' or 'rejected', its status cannot change.",
+    "Only managers may approve or reject requests.",
+    "Requesters cannot approve or reject their own requests."
+  ],
+  "policy": {
+    "allowed_imports": [
+      "fastapi",
+      "pydantic",
+      "typing",
+      "uuid",
+      "datetime"
+    ],
+    "forbidden_imports": [
+      "ctypes",
+      "os.system",
+      "socket",
+      "subprocess"
+    ],
+    "outbound_hosts": []
+  }
+}

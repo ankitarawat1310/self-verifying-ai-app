@@ -1,0 +1,13 @@
+{"task_id":"approval_leave_request","entities":["leave_requests"],
+"operations":[
+ {"route":"POST /leave-requests","kind":"create","entity":"leave_requests","roles":["employee"],
+  "rules":[{"kind":"field_order","fields":["start_date","end_date"],"op":"<=","error_status":422,"description":"end not before start"}]},
+ {"route":"GET /leave-requests/{request_id}","kind":"read","entity":"leave_requests","roles":["employee","manager"]},
+ {"route":"POST /leave-requests/{request_id}/approve","kind":"action","entity":"leave_requests","roles":["manager"],
+  "transitions":[{"from_state":"submitted","to_state":"approved"}],
+  "rules":[{"kind":"not_self","fields":["requester_id"],"error_status":403}]},
+ {"route":"POST /leave-requests/{request_id}/reject","kind":"action","entity":"leave_requests","roles":["manager"],
+  "transitions":[{"from_state":"submitted","to_state":"rejected"}],
+  "rules":[{"kind":"not_self","fields":["requester_id"],"error_status":403}]}],
+"state_machines":[{"entity":"leave_requests","field":"status","initial":"submitted","states":["submitted","approved","rejected"],"terminal":["approved","rejected"]}],
+"invariants":["decided requests never change"]}

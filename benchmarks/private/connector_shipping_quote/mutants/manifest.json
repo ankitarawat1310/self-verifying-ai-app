@@ -1,0 +1,170 @@
+{
+  "task_id": "connector_shipping_quote",
+  "seed": 7,
+  "candidates": 14,
+  "sampled": 12,
+  "killed": 12,
+  "survived": 0,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_002",
+      "operator": "change_status",
+      "line": 28,
+      "description": "status code 502 -> 500",
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_price_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_drop_guard_000",
+      "operator": "drop_guard",
+      "line": 27,
+      "description": "guard disabled: if isinstance(price, bool) or not isinstance(price, (int, float))",
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_price_is_502",
+        "test_connector_error_is_502_and_not_stored",
+        "test_missing_fields_are_422"
+      ],
+      "checks_failed": 3,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_off_by_one_012",
+      "operator": "off_by_one",
+      "line": 16,
+      "description": "number 0 -> 1",
+      "outcome": "killed",
+      "killed_by": [
+        "test_small_weight_is_accepted"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_relax_validation_008",
+      "operator": "relax_validation",
+      "line": 16,
+      "description": "validation removed: gt=0",
+      "outcome": "killed",
+      "killed_by": [
+        "test_invalid_input_is_rejected_before_any_call"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_swap_boolean_004",
+      "operator": "swap_boolean",
+      "line": 27,
+      "description": "boolean operator Or -> And",
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_price_is_502",
+        "test_connector_error_is_502_and_not_stored",
+        "test_missing_fields_are_422"
+      ],
+      "checks_failed": 3,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_change_status_001",
+      "operator": "change_status",
+      "line": 19,
+      "description": "status code 201 -> 200",
+      "outcome": "killed",
+      "killed_by": [
+        "test_quote_returns_201_with_connector_price",
+        "test_exactly_one_call_to_the_declared_endpoint",
+        "test_postal_code_length_bounds",
+        "test_small_weight_is_accepted"
+      ],
+      "checks_failed": 4,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_off_by_one_013",
+      "operator": "off_by_one",
+      "line": 16,
+      "description": "number 100 -> 101",
+      "outcome": "killed",
+      "killed_by": [
+        "test_invalid_input_is_rejected_before_any_call"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_relax_validation_005",
+      "operator": "relax_validation",
+      "line": 14,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_change_status_003",
+      "operator": "change_status",
+      "line": 26,
+      "description": "status code 502 -> 500",
+      "outcome": "killed",
+      "killed_by": [
+        "test_malformed_reply_is_502_and_not_stored",
+        "test_connector_error_is_502_and_not_stored"
+      ],
+      "checks_failed": 2,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_off_by_one_010",
+      "operator": "off_by_one",
+      "line": 15,
+      "description": "number 5 -> 6",
+      "outcome": "killed",
+      "killed_by": [
+        "test_quote_returns_201_with_connector_price",
+        "test_exactly_one_call_to_the_declared_endpoint",
+        "test_quote_is_stored_and_listed",
+        "test_postal_code_length_bounds",
+        "test_small_weight_is_accepted",
+        "test_malformed_reply_is_502_and_not_stored",
+        "test_non_numeric_price_is_502",
+        "test_connector_error_is_502_and_not_stored"
+      ],
+      "checks_failed": 8,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_relax_validation_009",
+      "operator": "relax_validation",
+      "line": 16,
+      "description": "validation removed: le=100",
+      "outcome": "killed",
+      "killed_by": [
+        "test_invalid_input_is_rejected_before_any_call"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    },
+    {
+      "id": "auto_off_by_one_011",
+      "operator": "off_by_one",
+      "line": 15,
+      "description": "number 10 -> 11",
+      "outcome": "killed",
+      "killed_by": [
+        "test_invalid_input_is_rejected_before_any_call"
+      ],
+      "checks_failed": 1,
+      "checks_total": 11
+    }
+  ]
+}

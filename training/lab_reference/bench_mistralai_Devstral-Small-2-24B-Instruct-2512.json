@@ -1,0 +1,12 @@
+{
+ "model": "mistralai/Devstral-Small-2-24B-Instruct-2512",
+ "runs": [
+  {
+   "seq_len": 2048,
+   "error": "NotImplementedError('Cannot copy out of meta tensor; no data!')"
+  }
+ ],
+ "load_seconds": 46.4,
+ "gpu_after_load_gb": 22.2,
+ "gen_tokens_per_s": 1.7
+}

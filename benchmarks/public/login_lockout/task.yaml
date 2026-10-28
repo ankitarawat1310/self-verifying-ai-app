@@ -1,0 +1,60 @@
+schema_version: '1.0'
+task_id: login_lockout
+title: Login with lockout after repeated failures
+category: access_control
+source: svaga3
+prompt: >-
+  Create a user registration and login API. Usernames are unique and passwords have at least 8 characters; passwords
+  are never returned in any response. Logging in with a wrong password or an unknown username returns 401. After
+  5 consecutive failed logins for the same username, that account is locked for 15 minutes: every login attempt
+  during the lock returns 423, even with the correct password. A successful login resets the failure count. Use
+  the test clock header as the current time when it is present.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  clock:
+    header: x-clock-now
+    description: ISO 8601 timestamp used as the current time when present
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    wrong_credentials: 401
+    account_locked: 423
+  roles:
+  - name: user
+    description: Anyone registering or logging in
+  routes:
+  - method: POST
+    path: /users
+    summary: Register a user
+    request_fields:
+      username:
+        type: string
+        required: true
+        min_length: 1
+      password:
+        type: string
+        required: true
+        min_length: 8
+    success_status: 201
+    response_fields:
+    - id
+    - username
+  - method: POST
+    path: /login
+    summary: Log in; returns a session token
+    request_fields:
+      username:
+        type: string
+        required: true
+      password:
+        type: string
+        required: true
+    success_status: 200
+    response_fields:
+    - username
+    - token

@@ -1,0 +1,54 @@
+schema_version: '1.0'
+task_id: connector_address_validation
+title: Address validation via a fixed connector
+category: external_service
+source: svaga2
+prompt: >-
+  Create an address-validation API that accepts one nonblank address, calls only the declared mocked endpoint, validates
+  its response (a nonblank normalized_address and a boolean valid flag), and stores successful results, including
+  addresses the service reports as invalid. Callers cannot choose the connector endpoint or method. If the connector
+  fails or replies with invalid data, respond 502 and store nothing.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    external_service_failure_or_invalid_reply: 502
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  mock_services:
+  - name: address
+    method: POST
+    url: http://127.0.0.1:18765/address/validate
+    description: 'JSON body {address}; replies {normalized_address: string, valid: boolean}'
+  routes:
+  - method: POST
+    path: /address-validations
+    summary: Validate an address and store the result
+    request_fields:
+      address:
+        type: string
+        required: true
+        min_length: 1
+        description: not blank
+    success_status: 201
+    response_fields:
+    - id
+    - address
+    - normalized_address
+    - valid
+  - method: GET
+    path: /address-validations
+    summary: List stored results
+    success_status: 200
+    response_fields:
+    - id
+    - address
+    - normalized_address
+    - valid

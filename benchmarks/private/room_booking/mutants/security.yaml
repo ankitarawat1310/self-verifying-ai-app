@@ -1,0 +1,26 @@
+task_id: room_booking
+security_mutants:
+- id: sec_anyone_cancels
+  description: Any employee can cancel anyone's booking
+  edits:
+  - find: "    if booking[\"booked_by\"] != actor:\n        raise HTTPException(403, \"only the booker can cancel\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_only_the_booker_can_cancel
+- id: sec_no_max_length
+  description: The 4-hour limit is not enforced
+  edits:
+  - find: "    if payload.end_at - payload.start_at > MAX_LENGTH:\n        raise HTTPException(422, \"bookings last at most 4 hours\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_four_hour_limit
+- id: sec_naive_overlap
+  description: Overlap test only checks whether the new start falls inside an existing booking
+  edits:
+  - find: 'payload.start_at < other["end_at"] and other["start_at"] < payload.end_at:'
+    replace: 'other["start_at"] <= payload.start_at < other["end_at"]:'
+    occurrence: 1
+  expected_failing_checks:
+  - test_overlapping_bookings_are_409

@@ -1,0 +1,30 @@
+{
+ "model": "unsloth/gpt-oss-20b-unsloth-bnb-4bit",
+ "runs": [
+  {
+   "seq_len": 2048,
+   "avg_step_s": 1.29,
+   "tokens_per_s": 1583,
+   "peak_gpu_gb": 15.6
+  },
+  {
+   "seq_len": 4096,
+   "avg_step_s": 2.98,
+   "tokens_per_s": 1375,
+   "peak_gpu_gb": 16.8
+  },
+  {
+   "seq_len": 8192,
+   "avg_step_s": 7.37,
+   "tokens_per_s": 1111,
+   "peak_gpu_gb": 19.3
+  },
+  {
+   "seq_len": 16384,
+   "error": "RuntimeError('Unsloth: No or negligible GPU memory available for fused cross entropy.')"
+  }
+ ],
+ "load_seconds": 205.8,
+ "gpu_after_load_gb": 12.6,
+ "gen_tokens_per_s": 18.9
+}

@@ -1,0 +1,92 @@
+schema_version: '1.0'
+task_id: crud_appointment_registry
+title: Appointment registry
+category: data_rules
+source: svaga2
+prompt: >-
+  Create an appointment CRUD API with unique appointment codes. Start and end values use ISO datetimes, and every
+  end time must be after its start time, including after partial updates. Titles cannot be blank.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  routes:
+  - method: POST
+    path: /appointments
+    summary: Create an appointment
+    request_fields:
+      code:
+        type: string
+        required: true
+        min_length: 1
+      title:
+        type: string
+        required: true
+        min_length: 1
+      start_at:
+        type: datetime
+        required: true
+      end_at:
+        type: datetime
+        required: true
+    success_status: 201
+    response_fields:
+    - id
+    - code
+    - title
+    - start_at
+    - end_at
+  - method: GET
+    path: /appointments
+    summary: List appointments
+    success_status: 200
+    response_fields:
+    - id
+    - code
+    - title
+    - start_at
+    - end_at
+  - method: GET
+    path: /appointments/{appointment_id}
+    summary: Read one appointment
+    success_status: 200
+    response_fields:
+    - id
+    - code
+    - title
+    - start_at
+    - end_at
+  - method: PATCH
+    path: /appointments/{appointment_id}
+    summary: Update title, start and/or end
+    request_fields:
+      title:
+        type: string
+        required: false
+        min_length: 1
+      start_at:
+        type: datetime
+        required: false
+      end_at:
+        type: datetime
+        required: false
+    success_status: 200
+    response_fields:
+    - id
+    - code
+    - title
+    - start_at
+    - end_at
+  - method: DELETE
+    path: /appointments/{appointment_id}
+    summary: Delete an appointment
+    success_status: 204

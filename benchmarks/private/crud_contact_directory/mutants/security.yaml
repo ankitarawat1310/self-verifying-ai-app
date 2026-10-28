@@ -1,0 +1,26 @@
+task_id: crud_contact_directory
+security_mutants:
+- id: sec_email_case_sensitive
+  description: Email uniqueness compares case-sensitively, so ADA@X and ada@X both exist
+  edits:
+  - find: c["email"].lower() == email.lower()
+    replace: c["email"] == email
+    occurrence: 1
+  expected_failing_checks:
+  - test_duplicate_email_ignoring_case_is_409
+- id: sec_patch_skips_uniqueness
+  description: PATCH does not re-check email uniqueness
+  edits:
+  - find: "    if \"email\" in changes and _email_taken(changes[\"email\"], exclude=contact_id):\n        raise HTTPException(409, \"email already exists\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_update_cannot_take_another_contacts_email
+- id: sec_mass_assignment
+  description: Create accepts and stores undeclared fields such as admin
+  edits:
+  - find: '    model_config = ConfigDict(extra="forbid")'
+    replace: '    model_config = ConfigDict(extra="allow")'
+    occurrence: 1
+  expected_failing_checks:
+  - test_unknown_fields_are_rejected

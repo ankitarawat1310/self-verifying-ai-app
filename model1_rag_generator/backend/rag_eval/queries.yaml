@@ -1,0 +1,54 @@
+# Labeled retrieval queries for M1 (written 2026-09-24, before any retrieval run).
+# relevant: chunk ids a good retriever should return for the query (graded equally).
+# Only DEV task prompts appear here; test-task prompts are excluded so retrieval is never tuned on the test set.
+queries:
+- {id: q01, source: dev_task, category: workflow_state, relevant: [id-separation-of-duties, wf-terminal, wf-role-per-transition, id-header-identity, mt-positive], query: "Create a bounded expense-request API. Employees submit requests with a positive amount and a nonblank description, and managers approve or reject submitted requests. Employees cannot decide requests, requesters cannot approve or reject their own requests, and terminal decisions cannot be changed."}
+- {id: q02, source: dev_task, category: data_rules, relevant: [crud-unique-ci, crud-unique-on-update, pd-email, pd-not-blank], query: "Create a bounded contact-directory API. Users can create, list, read, update, and delete contacts. Every contact requires a display name and an email address. Email addresses must be unique without regard to letter case."}
+- {id: q03, source: dev_task, category: access_control, relevant: [pd-forbid-extra, sec-owasp-api3, crud-server-fields, crud-atomic-update], query: "Create a user-profile CRUD API. Users may edit only username and display name. Usernames are unique. Reject all undeclared fields, especially role, permissions, and administrator flags; clients must never grant themselves privileges."}
+- {id: q04, source: dev_task, category: scheduling, relevant: [mt-overlap, mt-duration-limit, pd-literal, id-separation-of-duties], query: "Create a meeting-room booking API for three rooms. The end must be after the start and a booking may last at most 4 hours. Two bookings of the same room may not overlap; a booking may start exactly when another ends. Only the employee who made a booking can cancel it."}
+- {id: q05, source: dev_task, category: external_service, relevant: [ext-retries, ext-fixed-endpoint, ext-reject-override, pd-object-field], query: "Create an event API that forwards each accepted event to the single declared webhook receiver. Retry up to 3 attempts in total; an event that fails all 3 attempts is marked dead_lettered. Callers cannot choose the receiver URL, the status or the number of attempts."}
+- {id: q06, source: dev, relevant: [pd-forbid-extra, pit-ignored-extra], query: "how do I make pydantic reject unknown fields in the request body"}
+- {id: q07, source: dev, relevant: [pd-not-blank], query: "reject whitespace-only strings in a pydantic model"}
+- {id: q08, source: dev, relevant: [pd-strict-int], query: "field must be a whole number, reject 1.5"}
+- {id: q09, source: dev, relevant: [pd-field-constraints, mt-positive], query: "amount must be greater than zero"}
+- {id: q10, source: dev, relevant: [pd-v2-syntax], query: "regex= keyword fails pydantic v2 what to use instead of .dict()"}
+- {id: q11, source: dev, relevant: [pd-cross-field, crud-merge-revalidate], query: "end date must be after start date validation"}
+- {id: q12, source: dev, relevant: [pd-partial-update, crud-immutable], query: "PATCH endpoint partial update only the fields sent"}
+- {id: q13, source: dev, relevant: [fa-status-codes, pit-201-vs-200], query: "what status code for create and for delete with no body"}
+- {id: q14, source: dev, relevant: [fa-headers, id-header-identity], query: "read x-actor-id header in FastAPI"}
+- {id: q15, source: dev, relevant: [id-bola-404, sec-owasp-api1, pit-list-only-auth], query: "user can read another user's record by guessing the id"}
+- {id: q16, source: dev, relevant: [id-query-no-widen, fa-query-params], query: "query parameter all=true should not show other users data"}
+- {id: q17, source: dev, relevant: [id-never-trust-body, crud-server-fields], query: "client sends owner_id in the JSON body"}
+- {id: q18, source: dev, relevant: [id-separation-of-duties], query: "prevent a requester from approving their own request"}
+- {id: q19, source: dev, relevant: [wf-terminal, wf-state-machine], query: "approved request cannot be rejected later return 409"}
+- {id: q20, source: dev, relevant: [wf-thresholds], query: "managers can approve up to 5000 larger amounts need director"}
+- {id: q21, source: dev, relevant: [wf-initial-state, crud-server-fields], query: "client tries to set status approved when creating"}
+- {id: q22, source: dev, relevant: [wf-reopen-rules], query: "only a manager may reopen a closed ticket"}
+- {id: q23, source: dev, relevant: [wf-graph-deps], query: "detect a cycle when adding a task dependency"}
+- {id: q24, source: dev, relevant: [wf-complete-after-deps], query: "task can only be completed after its dependencies are done"}
+- {id: q25, source: dev, relevant: [mt-decimal-money, pit-float-equality], query: "0.1 + 0.2 total shows 0.30000000000000004"}
+- {id: q26, source: dev, relevant: [mt-server-totals], query: "should the invoice total come from the client"}
+- {id: q27, source: dev, relevant: [mt-compare-money], query: "payment amount must equal invoice total exactly"}
+- {id: q28, source: dev, relevant: [mt-expiry, sec-tokens], query: "reset token expires after 60 minutes"}
+- {id: q29, source: dev, relevant: [mt-test-clock, mt-aware-now], query: "use a test clock header for the current time"}
+- {id: q30, source: dev, relevant: [mt-lockout-window, sec-owasp-api4], query: "lock the account after 5 failed logins for 15 minutes"}
+- {id: q31, source: dev, relevant: [mt-overlap], query: "check two bookings overlap in the same room"}
+- {id: q32, source: dev, relevant: [pit-naive-datetime, mt-aware-now], query: "TypeError can't compare offset-naive and offset-aware datetimes"}
+- {id: q33, source: dev, relevant: [ext-fixed-endpoint, sec-owasp-api7], query: "caller passes a url field and the server fetches it"}
+- {id: q34, source: dev, relevant: [ext-no-header-forwarding], query: "forwarding the Authorization header to a third party API"}
+- {id: q35, source: dev, relevant: [ext-fail-closed, ext-store-after-success], query: "upstream service returns 500, what should my API return"}
+- {id: q36, source: dev, relevant: [ext-validate-reply, ext-fail-closed], query: "validate the JSON reply from an external service before saving"}
+- {id: q37, source: dev, relevant: [ext-timeout], query: "httpx call hangs forever"}
+- {id: q38, source: dev, relevant: [ext-retries], query: "retry a webhook delivery at most 3 times"}
+- {id: q39, source: dev, relevant: [ext-get-params], query: "send location as a query string on a GET request with httpx"}
+- {id: q40, source: dev, relevant: [sec-password-hash, sec-no-secrets-out], query: "how to store user passwords"}
+- {id: q41, source: dev, relevant: [sec-no-enumeration], query: "login should not reveal whether the username exists"}
+- {id: q42, source: dev, relevant: [wf-single-use, sec-tokens], query: "token can only be used once"}
+- {id: q43, source: dev, relevant: [sec-least-privilege], query: "should the generated app import subprocess or open sockets"}
+- {id: q44, source: dev, relevant: [crud-unique-ci], query: "SKU must be unique regardless of uppercase or lowercase"}
+- {id: q45, source: dev, relevant: [crud-unique-on-update], query: "updating a record to an email that another record already uses"}
+- {id: q46, source: dev, relevant: [crud-atomic-update, sec-validation-first], query: "mixed update with one valid and one forbidden field"}
+- {id: q47, source: dev, relevant: [tst-boundaries, tst-one-rule-per-test], query: "which tests should I write for limits like at most 8"}
+- {id: q48, source: dev, relevant: [tst-hypothesis-basics, tst-hypothesis-stateful], query: "property based testing with hypothesis for an API"}
+- {id: q49, source: dev, relevant: [tst-mock-upstream], query: "test code that calls another HTTP service"}
+- {id: q50, source: dev, relevant: [fa-routes-exact], query: "the checker says my routes do not match the contract"}

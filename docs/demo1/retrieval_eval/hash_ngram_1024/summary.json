@@ -1,0 +1,32 @@
+{
+  "embedder": "hash-ngram-1024",
+  "queries": 50,
+  "chunks": 98,
+  "k": 4,
+  "modes": {
+    "bm25": {
+      "recall@4": 0.759,
+      "hit@4": 0.9,
+      "MRR@10": 0.802,
+      "nDCG@4": 0.726
+    },
+    "dense": {
+      "recall@4": 0.769,
+      "hit@4": 0.92,
+      "MRR@10": 0.831,
+      "nDCG@4": 0.747
+    },
+    "hybrid": {
+      "recall@4": 0.78,
+      "hit@4": 0.92,
+      "MRR@10": 0.8,
+      "nDCG@4": 0.74
+    },
+    "hybrid_mmr": {
+      "recall@4": 0.67,
+      "hit@4": 0.88,
+      "MRR@10": 0.784,
+      "nDCG@4": 0.659
+    }
+  }
+}

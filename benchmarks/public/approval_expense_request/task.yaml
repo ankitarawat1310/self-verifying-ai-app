@@ -1,0 +1,84 @@
+schema_version: '1.0'
+task_id: approval_expense_request
+title: Expense request approval
+category: workflow_state
+source: svaga2
+prompt: >-
+  Create a bounded expense-request API. Employees submit requests with a positive amount and a nonblank description,
+  and managers approve or reject submitted requests. Employees cannot decide requests, requesters cannot approve or
+  reject their own requests, and terminal decisions cannot be changed.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+  roles:
+  - name: employee
+    description: Submits expense requests.
+  - name: manager
+    description: Approves or rejects submitted requests.
+  routes:
+  - method: POST
+    path: /expense-requests
+    summary: Submit a request as the calling user (status starts as submitted)
+    roles:
+    - employee
+    request_fields:
+      amount:
+        type: number
+        required: true
+        exclusive_minimum: 0
+      description:
+        type: string
+        required: true
+        min_length: 1
+    success_status: 201
+    response_fields:
+    - id
+    - requester_id
+    - amount
+    - description
+    - status
+    - decided_by
+  - method: GET
+    path: /expense-requests/{request_id}
+    summary: Read one request
+    roles:
+    - employee
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - amount
+    - description
+    - status
+    - decided_by
+  - method: POST
+    path: /expense-requests/{request_id}/approve
+    summary: Approve a submitted request
+    roles:
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by
+  - method: POST
+    path: /expense-requests/{request_id}/reject
+    summary: Reject a submitted request
+    roles:
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by

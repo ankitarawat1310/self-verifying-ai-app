@@ -1,0 +1,59 @@
+{
+  "task_id": "webhook_dispatcher",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_five_attempts",
+      "description": "Retries 5 times instead of 3",
+      "expected_failing_checks": [
+        "test_gives_up_after_three_attempts"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_gives_up_after_three_attempts",
+        "test_client_error_status_also_counts_as_failure",
+        "test_response_fields_match_the_interface",
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "expected_hit": [
+        "test_gives_up_after_three_attempts"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_4xx_is_success",
+      "description": "Any answer below 500 counts as delivered",
+      "expected_failing_checks": [
+        "test_client_error_status_also_counts_as_failure"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_client_error_status_also_counts_as_failure",
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "expected_hit": [
+        "test_client_error_status_also_counts_as_failure"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_ignores_unknown_fields",
+      "description": "Caller-supplied url/status/max_attempts are silently ignored instead of rejected",
+      "expected_failing_checks": [
+        "test_caller_cannot_choose_url_status_or_attempts"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_caller_cannot_choose_url_status_or_attempts"
+      ],
+      "expected_hit": [
+        "test_caller_cannot_choose_url_status_or_attempts"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

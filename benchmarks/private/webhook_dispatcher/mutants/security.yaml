@@ -1,0 +1,26 @@
+task_id: webhook_dispatcher
+security_mutants:
+- id: sec_five_attempts
+  description: Retries 5 times instead of 3
+  edits:
+  - find: MAX_ATTEMPTS = 3
+    replace: MAX_ATTEMPTS = 5
+    occurrence: 1
+  expected_failing_checks:
+  - test_gives_up_after_three_attempts
+- id: sec_4xx_is_success
+  description: Any answer below 500 counts as delivered
+  edits:
+  - find: 'if 200 <= reply.status_code < 300:'
+    replace: 'if reply.status_code < 500:'
+    occurrence: 1
+  expected_failing_checks:
+  - test_client_error_status_also_counts_as_failure
+- id: sec_ignores_unknown_fields
+  description: Caller-supplied url/status/max_attempts are silently ignored instead of rejected
+  edits:
+  - find: '    model_config = ConfigDict(extra="forbid")'
+    replace: '    model_config = ConfigDict(extra="ignore")'
+    occurrence: 1
+  expected_failing_checks:
+  - test_caller_cannot_choose_url_status_or_attempts

@@ -1,0 +1,26 @@
+task_id: password_reset_token
+security_mutants:
+- id: sec_token_reusable
+  description: Tokens are not marked used after a reset
+  edits:
+  - find: "    record[\"valid\"] = False\n    _set_password(USERS[record[\"email\"]], payload.new_password)"
+    replace: '    _set_password(USERS[record["email"]], payload.new_password)'
+    occurrence: 1
+  expected_failing_checks:
+  - test_token_works_only_once
+- id: sec_no_expiry
+  description: Tokens never expire
+  edits:
+  - find: 'if record is None or not record["valid"] or now >= record["expires"]:'
+    replace: 'if record is None or not record["valid"]:'
+    occurrence: 1
+  expected_failing_checks:
+  - test_token_expires_after_60_minutes
+- id: sec_account_enumeration
+  description: Reset requests for unknown emails return 404
+  edits:
+  - find: "    if payload.email in USERS:\n        for record"
+    replace: "    if payload.email not in USERS:\n        raise HTTPException(404, \"unknown email\")\n    if payload.email in USERS:\n        for record"
+    occurrence: 1
+  expected_failing_checks:
+  - test_request_does_not_reveal_accounts

@@ -1,0 +1,36 @@
+{
+  "status": "experimental_unverified_imitation_subset_not_executed",
+  "counts": {
+    "train": {
+      "excluded": 3843,
+      "selected": 160
+    },
+    "validation": {
+      "excluded": 437,
+      "selected": 8
+    }
+  },
+  "tokenizer": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "max_total_tokens": 4096,
+  "source_candidate_sha256": {
+    "train": "16953a1f48b3117b0db91e30ed4d38e454bbf5d91f223c3300b763ffc63dbb7e",
+    "validation": "9e169d2629e94c97dd8fdc5abf64a854c5cc4455ae78615bb3063bf67ceaecaa"
+  },
+  "audit_sha256": "729b0d64ed227668bc934e96073582991e62b67c15a4fb641bc12697b05d4928",
+  "review_log_sha256": "68b59f89e67a9bb73e770f30f7ee0a40bf5da9bb1e3e6dfd7715b233707e2d1c",
+  "policy_sha256": "2c5bb0957c467994101fcfdbf2c1b809015b0d7b27f717b876d696a308b417c2",
+  "files_sha256": {
+    "README.md": "1c82b076f7c32296aec1d2872444eec8319f2fdc39b7797ae205a500727a1e7e",
+    "selection.audit-only.jsonl": "af6e455289494ee444362f8edc3142bf790db1a7673523a8dd97b209c7e667a8",
+    "train.jsonl": "fd2b4a5c53d9e9a308179893bd297d64c3c9c46f0c27a2db0c8ff69fb12350d1",
+    "validation.jsonl": "4865f25f6ebe2c3160dac4ef1787a5170e5d244ce9da7567fb1126a740ff5cb7"
+  },
+  "notes": [
+    "Unknown outcomes retained as unknown; no independent replay.",
+    "Automatic selection is not human review or correctness approval.",
+    "Validation is development-only and includes previously used examples.",
+    "Mask all context; train only on final assistant target. Never execute dataset commands.",
+    "Subset is short sed-based repairs, not representative of full 10K or all four SVAGA approaches."
+  ]
+}

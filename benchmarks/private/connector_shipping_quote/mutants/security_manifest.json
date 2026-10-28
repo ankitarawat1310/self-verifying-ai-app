@@ -1,0 +1,56 @@
+{
+  "task_id": "connector_shipping_quote",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_endpoint_override",
+      "description": "A caller-supplied endpoint replaces the declared connector (SSRF)",
+      "expected_failing_checks": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "expected_hit": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_fail_open",
+      "description": "Connector failure stores a zero-price quote instead of returning 502",
+      "expected_failing_checks": [
+        "test_connector_error_is_502_and_not_stored"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_malformed_reply_is_502_and_not_stored",
+        "test_connector_error_is_502_and_not_stored"
+      ],
+      "expected_hit": [
+        "test_connector_error_is_502_and_not_stored"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_unvalidated_price",
+      "description": "The connector's price is stored without type checking",
+      "expected_failing_checks": [
+        "test_non_numeric_price_is_502"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_price_is_502"
+      ],
+      "expected_hit": [
+        "test_non_numeric_price_is_502"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

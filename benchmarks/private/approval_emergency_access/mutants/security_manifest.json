@@ -1,0 +1,55 @@
+{
+  "task_id": "approval_emergency_access",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_no_upper_bound",
+      "description": "Duration has no 8-hour maximum",
+      "expected_failing_checks": [
+        "test_duration_outside_1_to_8_is_422"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_duration_outside_1_to_8_is_422"
+      ],
+      "expected_hit": [
+        "test_duration_outside_1_to_8_is_422"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_auto_approve_honored",
+      "description": "A caller-supplied auto_approve flag approves the request immediately",
+      "expected_failing_checks": [
+        "test_bypass_fields_are_rejected"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_bypass_fields_are_rejected"
+      ],
+      "expected_hit": [
+        "test_bypass_fields_are_rejected"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_self_approval",
+      "description": "Requesters can approve their own access",
+      "expected_failing_checks": [
+        "test_requester_cannot_self_approve"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_requester_cannot_self_approve"
+      ],
+      "expected_hit": [
+        "test_requester_cannot_self_approve"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

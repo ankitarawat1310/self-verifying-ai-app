@@ -1,0 +1,210 @@
+{
+  "task_id": "task_dependencies",
+  "seed": 7,
+  "candidates": 35,
+  "sampled": 12,
+  "killed": 12,
+  "survived": 0,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_020",
+      "operator": "change_status",
+      "line": 31,
+      "description": "status code 404 -> 403",
+      "outcome": "killed",
+      "killed_by": [
+        "test_adding_a_valid_dependency_and_unknown_task",
+        "test_adding_a_dependency_to_an_unknown_task_is_404"
+      ],
+      "checks_failed": 2,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_drop_guard_018",
+      "operator": "drop_guard",
+      "line": 52,
+      "description": "guard disabled: if dep not in TASKS",
+      "outcome": "killed",
+      "killed_by": [
+        "test_unknown_dependency_is_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_flip_comparison_005",
+      "operator": "flip_comparison",
+      "line": 84,
+      "description": "comparison Eq -> NotEq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_task_without_dependencies_can_complete",
+        "test_blocked_until_dependency_is_done",
+        "test_chain_must_complete_in_order",
+        "test_completing_twice_is_409",
+        "test_no_new_dependencies_on_a_done_task",
+        "test_added_dependencies_block_completion",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 7,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_off_by_one_034",
+      "operator": "off_by_one",
+      "line": 19,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_new_task_is_todo",
+        "test_task_without_dependencies_can_complete",
+        "test_blocked_until_dependency_is_done",
+        "test_chain_must_complete_in_order",
+        "test_all_dependencies_are_required",
+        "test_unknown_dependency_is_422",
+        "test_self_dependency_is_422",
+        "test_two_task_cycle_is_409",
+        "test_longer_cycle_is_409",
+        "test_completing_twice_is_409",
+        "test_no_new_dependencies_on_a_done_task",
+        "test_adding_a_valid_dependency_and_unknown_task",
+        "test_added_dependencies_block_completion",
+        "test_diamond_dependencies_are_not_cycles",
+        "test_adding_a_dependency_to_an_unknown_task_is_404",
+        "test_unknown_and_self_dependencies_change_nothing",
+        "test_response_fields_match_the_interface",
+        "test_add_dependency_body_is_validated"
+      ],
+      "checks_failed": 18,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_relax_validation_031",
+      "operator": "relax_validation",
+      "line": 18,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_status_cannot_be_supplied"
+      ],
+      "checks_failed": 1,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_swap_boolean_030",
+      "operator": "swap_boolean",
+      "line": 41,
+      "description": "constant True -> False",
+      "outcome": "killed",
+      "killed_by": [
+        "test_two_task_cycle_is_409",
+        "test_longer_cycle_is_409",
+        "test_diamond_dependencies_are_not_cycles"
+      ],
+      "checks_failed": 3,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_change_status_025",
+      "operator": "change_status",
+      "line": 85,
+      "description": "status code 409 -> 400",
+      "outcome": "killed",
+      "killed_by": [
+        "test_completing_twice_is_409"
+      ],
+      "checks_failed": 1,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_drop_guard_013",
+      "operator": "drop_guard",
+      "line": 70,
+      "description": "guard disabled: if payload.task_id == task_id",
+      "outcome": "killed",
+      "killed_by": [
+        "test_self_dependency_is_422",
+        "test_unknown_and_self_dependencies_change_nothing"
+      ],
+      "checks_failed": 2,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_flip_comparison_002",
+      "operator": "flip_comparison",
+      "line": 70,
+      "description": "comparison Eq -> NotEq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_self_dependency_is_422",
+        "test_two_task_cycle_is_409",
+        "test_longer_cycle_is_409",
+        "test_no_new_dependencies_on_a_done_task",
+        "test_adding_a_valid_dependency_and_unknown_task",
+        "test_added_dependencies_block_completion",
+        "test_diamond_dependencies_are_not_cycles",
+        "test_unknown_and_self_dependencies_change_nothing",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 9,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_relax_validation_033",
+      "operator": "relax_validation",
+      "line": 25,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_add_dependency_body_is_validated"
+      ],
+      "checks_failed": 1,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_swap_boolean_029",
+      "operator": "swap_boolean",
+      "line": 46,
+      "description": "constant False -> True",
+      "outcome": "killed",
+      "killed_by": [
+        "test_adding_a_valid_dependency_and_unknown_task",
+        "test_added_dependencies_block_completion",
+        "test_diamond_dependencies_are_not_cycles",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 4,
+      "checks_total": 20
+    },
+    {
+      "id": "auto_change_status_019",
+      "operator": "change_status",
+      "line": 49,
+      "description": "status code 201 -> 200",
+      "outcome": "killed",
+      "killed_by": [
+        "test_new_task_is_todo",
+        "test_task_without_dependencies_can_complete",
+        "test_blocked_until_dependency_is_done",
+        "test_chain_must_complete_in_order",
+        "test_all_dependencies_are_required",
+        "test_unknown_dependency_is_422",
+        "test_self_dependency_is_422",
+        "test_two_task_cycle_is_409",
+        "test_longer_cycle_is_409",
+        "test_completing_twice_is_409",
+        "test_no_new_dependencies_on_a_done_task",
+        "test_adding_a_valid_dependency_and_unknown_task",
+        "test_added_dependencies_block_completion",
+        "test_diamond_dependencies_are_not_cycles",
+        "test_adding_a_dependency_to_an_unknown_task_is_404",
+        "test_unknown_and_self_dependencies_change_nothing",
+        "test_response_fields_match_the_interface",
+        "test_add_dependency_body_is_validated"
+      ],
+      "checks_failed": 18,
+      "checks_total": 20
+    }
+  ]
+}

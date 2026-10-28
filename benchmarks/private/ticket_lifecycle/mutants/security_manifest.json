@@ -1,0 +1,56 @@
+{
+  "task_id": "ticket_lifecycle",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_any_customer_closes",
+      "description": "Any customer can close someone else's ticket",
+      "expected_failing_checks": [
+        "test_other_customer_cannot_close"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_other_customer_cannot_close",
+        "test_reopened_ticket_can_go_around_the_lifecycle_again"
+      ],
+      "expected_hit": [
+        "test_other_customer_cannot_close"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_customer_reopens_closed",
+      "description": "Customers can reopen closed tickets without a manager",
+      "expected_failing_checks": [
+        "test_closed_ticket_cannot_be_reopened_without_manager"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_closed_ticket_cannot_be_reopened_without_manager"
+      ],
+      "expected_hit": [
+        "test_closed_ticket_cannot_be_reopened_without_manager"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_customer_resolves",
+      "description": "Customers can resolve tickets",
+      "expected_failing_checks": [
+        "test_customer_cannot_resolve_or_start"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_customer_cannot_resolve_or_start"
+      ],
+      "expected_hit": [
+        "test_customer_cannot_resolve_or_start"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

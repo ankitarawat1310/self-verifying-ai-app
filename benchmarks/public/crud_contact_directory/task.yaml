@@ -1,0 +1,77 @@
+schema_version: '1.0'
+task_id: crud_contact_directory
+title: Contact directory
+category: data_rules
+source: svaga2
+prompt: >-
+  Create a bounded contact-directory API. Users can create, list, read, update, and delete contacts. Every contact
+  requires a display name and an email address. Email addresses must be unique without regard to letter case.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  routes:
+  - method: POST
+    path: /contacts
+    summary: Create a contact
+    request_fields:
+      email:
+        type: string
+        required: true
+        format: email
+      display_name:
+        type: string
+        required: true
+        min_length: 1
+        description: not blank
+    success_status: 201
+    response_fields:
+    - id
+    - email
+    - display_name
+  - method: GET
+    path: /contacts
+    summary: List all contacts
+    success_status: 200
+    response_fields:
+    - id
+    - email
+    - display_name
+  - method: GET
+    path: /contacts/{contact_id}
+    summary: Read one contact
+    success_status: 200
+    response_fields:
+    - id
+    - email
+    - display_name
+  - method: PATCH
+    path: /contacts/{contact_id}
+    summary: Update email and/or display name
+    request_fields:
+      email:
+        type: string
+        required: false
+        format: email
+      display_name:
+        type: string
+        required: false
+        min_length: 1
+    success_status: 200
+    response_fields:
+    - id
+    - email
+    - display_name
+  - method: DELETE
+    path: /contacts/{contact_id}
+    summary: Delete a contact
+    success_status: 204

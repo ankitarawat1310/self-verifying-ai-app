@@ -1,0 +1,77 @@
+schema_version: '1.0'
+task_id: task_dependencies
+title: Tasks with dependencies
+category: scheduling
+source: svaga3
+prompt: >-
+  Create a task API where tasks can depend on other tasks. A task starts as todo and can be completed only when
+  every task it depends on is done (otherwise 409); completing a done task again is a conflict. Dependencies must
+  reference existing tasks (otherwise 422), a task cannot depend on itself (422), and adding a dependency that would
+  create a cycle is a conflict (409). A dependency cannot be added to a task that is already done (409), because
+  that would leave a done task waiting on unfinished work.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    unknown_or_self_dependency: 422
+    cycle_or_wrong_status: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used
+  routes:
+  - method: POST
+    path: /tasks
+    summary: Create a task (status todo)
+    request_fields:
+      title:
+        type: string
+        required: true
+        min_length: 1
+      depends_on:
+        type: array
+        required: false
+        description: list of existing task ids
+    success_status: 201
+    response_fields:
+    - id
+    - title
+    - depends_on
+    - status
+  - method: GET
+    path: /tasks/{task_id}
+    summary: Read a task
+    success_status: 200
+    response_fields:
+    - id
+    - title
+    - depends_on
+    - status
+  - method: POST
+    path: /tasks/{task_id}/dependencies
+    summary: Add one dependency
+    request_fields:
+      task_id:
+        type: string
+        required: true
+        description: id of the task depended on
+    success_status: 200
+    response_fields:
+    - id
+    - title
+    - depends_on
+    - status
+  - method: POST
+    path: /tasks/{task_id}/complete
+    summary: Mark done if every dependency is done
+    success_status: 200
+    response_fields:
+    - id
+    - title
+    - depends_on
+    - status

@@ -1,0 +1,4 @@
+model,Runs,Errors,Accepted,Functional pass,Hidden checks passed,Safety checks passed,False assurance (of accepted),Broken apps shipped,False rejection (of rejected),Benchmark bugs caught by own tests,Own-app mutants caught by own tests,Excess imports,Tokens,LLM calls,Verification s,Wall s
+m0,45,0,17,0.1333,0.725,0.7,0.8235,0.359,0.1071,0.0,0.289,0,4463,1,0.962,47.671
+m1,45,0,17,0.3556,0.843,0.822,0.5294,0.3103,0.2857,0.011,0.412,0,5917.289,2,1.193,52.826
+m2,45,0,25,0.2667,0.732,0.728,0.6,0.4545,0.1,0.397,0.206,0,6237.711,2.422,0.971,41.068

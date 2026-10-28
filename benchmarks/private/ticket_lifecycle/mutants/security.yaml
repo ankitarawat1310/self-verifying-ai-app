@@ -1,0 +1,26 @@
+task_id: ticket_lifecycle
+security_mutants:
+- id: sec_any_customer_closes
+  description: Any customer can close someone else's ticket
+  edits:
+  - find: "    if ticket[\"requester_id\"] != actor:\n        raise HTTPException(403, \"only the requester can close\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_other_customer_cannot_close
+- id: sec_customer_reopens_closed
+  description: Customers can reopen closed tickets without a manager
+  edits:
+  - find: "        if role != \"manager\":\n            raise HTTPException(403, \"only a manager can reopen a closed ticket\")"
+    replace: "        if role not in {\"manager\", \"customer\"}:\n            raise HTTPException(403, \"only a manager can reopen a closed ticket\")"
+    occurrence: 1
+  expected_failing_checks:
+  - test_closed_ticket_cannot_be_reopened_without_manager
+- id: sec_customer_resolves
+  description: Customers can resolve tickets
+  edits:
+  - find: "    _identity(x_actor_id, x_actor_role, {\"agent\"})\n    return _move(_get(ticket_id), \"in_progress\", \"resolved\")"
+    replace: "    _identity(x_actor_id, x_actor_role, {\"agent\", \"customer\"})\n    return _move(_get(ticket_id), \"in_progress\", \"resolved\")"
+    occurrence: 1
+  expected_failing_checks:
+  - test_customer_cannot_resolve_or_start

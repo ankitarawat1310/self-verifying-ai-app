@@ -1,0 +1,28 @@
+task_id: login_lockout
+security_mutants:
+- id: sec_lock_after_10
+  description: Lockout threshold is 10 instead of 5
+  edits:
+  - find: MAX_FAILURES = 5
+    replace: MAX_FAILURES = 10
+    occurrence: 1
+  expected_failing_checks:
+  - test_fifth_failure_locks_even_the_correct_password
+- id: sec_user_enumeration
+  description: Unknown usernames return 404, revealing which accounts exist
+  edits:
+  - find: '    user = USERS.get(name)
+
+      '
+    replace: "    user = USERS.get(name)\n    if user is None:\n        raise HTTPException(404, \"no such user\")\n"
+    occurrence: 1
+  expected_failing_checks:
+  - test_wrong_password_and_unknown_user_are_401
+- id: sec_password_echo
+  description: Registration echoes the password back
+  edits:
+  - find: '    return {"id": USERS[payload.username]["id"], "username": payload.username}'
+    replace: '    return {"id": USERS[payload.username]["id"], "username": payload.username, "password": payload.password}'
+    occurrence: 1
+  expected_failing_checks:
+  - test_register_never_returns_the_password

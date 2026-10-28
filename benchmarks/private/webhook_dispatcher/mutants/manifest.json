@@ -1,0 +1,189 @@
+{
+  "task_id": "webhook_dispatcher",
+  "seed": 7,
+  "candidates": 12,
+  "sampled": 12,
+  "killed": 11,
+  "survived": 1,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_003",
+      "operator": "change_status",
+      "line": 35,
+      "description": "status code 201 -> 200",
+      "outcome": "killed",
+      "killed_by": [
+        "test_delivered_on_first_attempt",
+        "test_gives_up_after_three_attempts",
+        "test_recovers_on_the_second_attempt",
+        "test_response_fields_match_the_interface",
+        "test_empty_and_nested_payloads_are_delivered_unchanged"
+      ],
+      "checks_failed": 5,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_drop_guard_002",
+      "operator": "drop_guard",
+      "line": 45,
+      "description": "guard disabled: if event_id not in EVENTS",
+      "outcome": "killed",
+      "killed_by": [
+        "test_event_can_be_read",
+        "test_unknown_event_type_is_rejected_before_any_call",
+        "test_payload_must_be_an_object",
+        "test_caller_cannot_choose_url_status_or_attempts",
+        "test_recovers_on_the_second_attempt",
+        "test_any_2xx_answer_counts_as_delivered",
+        "test_every_attempt_resends_the_same_event",
+        "test_response_fields_match_the_interface",
+        "test_missing_type_or_payload_is_422_before_any_call",
+        "test_empty_and_nested_payloads_are_delivered_unchanged",
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "checks_failed": 11,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_flip_comparison_001",
+      "operator": "flip_comparison",
+      "line": 52,
+      "description": "comparison Eq -> NotEq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_dead_letters_list_only_failed_events",
+        "test_recovers_on_the_second_attempt",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 3,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_009",
+      "operator": "off_by_one",
+      "line": 23,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_gives_up_after_three_attempts",
+        "test_client_error_status_also_counts_as_failure",
+        "test_response_fields_match_the_interface",
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "checks_failed": 4,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_relax_validation_005",
+      "operator": "relax_validation",
+      "line": 16,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_caller_cannot_choose_url_status_or_attempts"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_change_status_004",
+      "operator": "change_status",
+      "line": 46,
+      "description": "status code 404 -> 403",
+      "outcome": "killed",
+      "killed_by": [
+        "test_event_can_be_read"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_flip_comparison_000",
+      "operator": "flip_comparison",
+      "line": 45,
+      "description": "comparison NotIn -> In",
+      "outcome": "killed",
+      "killed_by": [
+        "test_event_can_be_read",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 2,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_006",
+      "operator": "off_by_one",
+      "line": 10,
+      "description": "number 3 -> 4",
+      "outcome": "killed",
+      "killed_by": [
+        "test_gives_up_after_three_attempts",
+        "test_client_error_status_also_counts_as_failure",
+        "test_response_fields_match_the_interface",
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "checks_failed": 4,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_010",
+      "operator": "off_by_one",
+      "line": 27,
+      "description": "number 200 -> 201",
+      "outcome": "killed",
+      "killed_by": [
+        "test_delivered_on_first_attempt",
+        "test_retries_until_success",
+        "test_dead_letters_list_only_failed_events",
+        "test_event_can_be_read",
+        "test_recovers_on_the_second_attempt",
+        "test_any_2xx_answer_counts_as_delivered",
+        "test_empty_and_nested_payloads_are_delivered_unchanged"
+      ],
+      "checks_failed": 7,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_008",
+      "operator": "off_by_one",
+      "line": 37,
+      "description": "number 0 -> 1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_011",
+      "operator": "off_by_one",
+      "line": 27,
+      "description": "number 300 -> 301",
+      "outcome": "killed",
+      "killed_by": [
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "checks_failed": 1,
+      "checks_total": 17
+    },
+    {
+      "id": "auto_off_by_one_007",
+      "operator": "off_by_one",
+      "line": 23,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_delivered_on_first_attempt",
+        "test_retries_until_success",
+        "test_gives_up_after_three_attempts",
+        "test_client_error_status_also_counts_as_failure",
+        "test_recovers_on_the_second_attempt",
+        "test_any_2xx_answer_counts_as_delivered",
+        "test_every_attempt_resends_the_same_event",
+        "test_a_3xx_answer_is_not_success"
+      ],
+      "checks_failed": 8,
+      "checks_total": 17
+    }
+  ]
+}

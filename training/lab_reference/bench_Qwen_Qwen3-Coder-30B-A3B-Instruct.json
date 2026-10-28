@@ -1,0 +1,24 @@
+{
+ "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+ "runs": [
+  {
+   "seq_len": 16384,
+   "avg_step_s": 6.98,
+   "tokens_per_s": 2347,
+   "peak_gpu_gb": 20.5
+  },
+  {
+   "seq_len": 24576,
+   "avg_step_s": 12.61,
+   "tokens_per_s": 1948,
+   "peak_gpu_gb": 22.2
+  },
+  {
+   "seq_len": 32768,
+   "error": "RuntimeError('Unsloth: No or negligible GPU memory available for fused cross entropy.')"
+  }
+ ],
+ "load_seconds": 64.7,
+ "gpu_after_load_gb": 16.8,
+ "gen_tokens_per_s": 7.7
+}

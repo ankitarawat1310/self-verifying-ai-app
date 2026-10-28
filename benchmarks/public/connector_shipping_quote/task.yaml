@@ -1,0 +1,59 @@
+schema_version: '1.0'
+task_id: connector_shipping_quote
+title: Shipping quotes via a fixed connector
+category: external_service
+source: svaga2
+prompt: >-
+  Create a bounded shipping-quote API that obtains quotes only from the declared mocked shipping connector and stores
+  returned quotes. Callers provide a postal code (5 to 10 characters) and a package weight in kg (greater than 0
+  and at most 100); they cannot choose or override the connector endpoint. If the connector fails or does not return
+  a numeric price, respond 502 and store nothing.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    external_service_failure_or_invalid_reply: 502
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  mock_services:
+  - name: shipping
+    method: POST
+    url: http://127.0.0.1:18765/shipping/quotes
+    description: 'JSON body {postal_code, weight}; replies {price: number}'
+  routes:
+  - method: POST
+    path: /quotes
+    summary: Get a quote from the shipping connector and store it
+    request_fields:
+      postal_code:
+        type: string
+        required: true
+        min_length: 5
+        max_length: 10
+      weight:
+        type: number
+        required: true
+        exclusive_minimum: 0
+        maximum: 100
+    success_status: 201
+    response_fields:
+    - id
+    - postal_code
+    - weight
+    - price
+  - method: GET
+    path: /quotes
+    summary: List stored quotes
+    success_status: 200
+    response_fields:
+    - id
+    - postal_code
+    - weight
+    - price

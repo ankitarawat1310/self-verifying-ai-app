@@ -1,0 +1,58 @@
+{
+  "task_id": "crud_profile_mass_assignment",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_role_on_create",
+      "description": "Create accepts a role field (privilege escalation at sign-up)",
+      "expected_failing_checks": [
+        "test_privileged_fields_on_create_are_rejected"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_create_returns_201_with_only_declared_fields",
+        "test_privileged_fields_on_create_are_rejected"
+      ],
+      "expected_hit": [
+        "test_privileged_fields_on_create_are_rejected"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_patch_ignores_unknown",
+      "description": "PATCH silently ignores unknown fields instead of rejecting them",
+      "expected_failing_checks": [
+        "test_privileged_patch_is_rejected_without_state_change"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_privileged_patch_is_rejected_without_state_change",
+        "test_mixed_patch_is_rejected_entirely",
+        "test_id_cannot_be_overwritten"
+      ],
+      "expected_hit": [
+        "test_privileged_patch_is_rejected_without_state_change"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_patch_skips_uniqueness",
+      "description": "PATCH does not re-check username uniqueness",
+      "expected_failing_checks": [
+        "test_duplicate_username_is_409"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_duplicate_username_is_409"
+      ],
+      "expected_hit": [
+        "test_duplicate_username_is_409"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

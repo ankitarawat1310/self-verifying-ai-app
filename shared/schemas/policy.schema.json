@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PolicyDocument",
+  "type": "object",
+  "properties": {
+    "allowed_imports": { "type": "array", "items": { "type": "string" } },
+    "forbidden_imports": { "type": "array", "items": { "type": "string" } },
+    "allowed_file_roots": { "type": "array", "items": { "type": "string" } },
+    "max_upload_bytes": { "type": ["integer", "null"] }
+  }
+}

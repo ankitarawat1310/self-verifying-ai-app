@@ -1,0 +1,59 @@
+{
+  "task_id": "role_scoped_documents",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_bola_read",
+      "description": "Reading by id does not check ownership (broken object-level authorization)",
+      "expected_failing_checks": [
+        "test_reading_another_users_document_is_404"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_reading_another_users_document_is_404",
+        "test_unknown_document_is_404_and_a_foreign_one_looks_identical",
+        "test_admin_owner_is_the_caller_and_cannot_be_changed",
+        "test_query_parameters_cannot_widen_a_single_read"
+      ],
+      "expected_hit": [
+        "test_reading_another_users_document_is_404"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_list_all_param",
+      "description": "?all=true returns every document to any user",
+      "expected_failing_checks": [
+        "test_query_parameters_cannot_widen_the_list"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_query_parameters_cannot_widen_the_list"
+      ],
+      "expected_hit": [
+        "test_query_parameters_cannot_widen_the_list"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_owner_from_body",
+      "description": "A client-supplied owner_id is trusted on create",
+      "expected_failing_checks": [
+        "test_owner_cannot_be_supplied_or_changed"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_owner_cannot_be_supplied_or_changed",
+        "test_admin_owner_is_the_caller_and_cannot_be_changed"
+      ],
+      "expected_hit": [
+        "test_owner_cannot_be_supplied_or_changed"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

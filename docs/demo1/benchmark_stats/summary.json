@@ -1,0 +1,33 @@
+{
+  "tasks": 20,
+  "dev": 5,
+  "test": 15,
+  "by_category": {
+    "workflow_state": 6,
+    "data_rules": 4,
+    "external_service": 5,
+    "access_control": 3,
+    "scheduling": 2
+  },
+  "hidden_checks": 293,
+  "safety_checks": 182,
+  "functional_checks": 111,
+  "checks_per_task_min": 10,
+  "checks_per_task_max": 21,
+  "seeded_bugs": 261,
+  "auto_bugs_kept": 201,
+  "security_bugs": 60,
+  "bug_generator_sampled": 237,
+  "bug_generator_caught_rate": 0.848,
+  "tasks_with_state_machine": 10,
+  "tasks_with_header_identity": 7,
+  "tasks_with_mock_service": 5,
+  "tasks_with_test_clock": 2,
+  "routes_total": 78,
+  "prompt_with_interface_words_median": 198,
+  "manually_reviewed": 20,
+  "sources": {
+    "svaga2": 12,
+    "svaga3": 8
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "status": "reviews_complete_tokenizer_preflight_pending_not_trained",
+  "train_records": 4,
+  "validation_pending_records": 0,
+  "tokenizer": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+  "review_log_sha256": "68b59f89e67a9bb73e770f30f7ee0a40bf5da9bb1e3e6dfd7715b233707e2d1c",
+  "source_candidate_sha256": {
+    "train": "16953a1f48b3117b0db91e30ed4d38e454bbf5d91f223c3300b763ffc63dbb7e",
+    "validation": "9e169d2629e94c97dd8fdc5abf64a854c5cc4455ae78615bb3063bf67ceaecaa"
+  },
+  "files_sha256": {
+    "train.reviewed-unverified.jsonl": "f8c5bbff67bc8b9bd66840ecc685d3d7e3ff09bbbe183702579c4542acd34840",
+    "validation.pending-review.jsonl": "d133f0e56da27bfae2c8d2cf6c2a788a87e419904944453c319e50f5034a52af",
+    "validation.reviewed-unverified.jsonl": "0905a4721773dcf51f3bda8e3c2d98e778f7b1dbca80377b9c24e6553d9d6617"
+  },
+  "limitations": [
+    "No independent replay or correctness certification.",
+    "Short examples selected; not representative of full corpus.",
+    "Retokenize with actual training model; these lengths use Qwen3-Coder.",
+    "Use final-assistant-target-only loss; mask preceding context.",
+    "Validation observations must not be used for optimizer updates."
+  ],
+  "validation_reviewed_records": 2,
+  "validation_rejected_records": 1,
+  "validation_shortlist_records": 3,
+  "active_validation_file": "validation.reviewed-unverified.jsonl",
+  "historical_shortlist_file": "validation.pending-review.jsonl"
+}

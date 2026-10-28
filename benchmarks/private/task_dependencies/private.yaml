@@ -1,0 +1,90 @@
+schema_version: '1.0'
+task_id: task_dependencies
+canary: SVAGA-PRIVATE-CANARY-task_dependencies-a5b7e85d0897
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: tasks
+- kind: persistence_write
+  target: tasks
+state_machine:
+  entity: task
+  states:
+  - todo
+  - done
+  initial: todo
+  terminal:
+  - done
+  transitions:
+  - from: todo
+    to: done
+    action: complete
+    roles:
+    - user
+    guard: all dependencies done
+hidden_checks:
+- id: test_new_task_is_todo
+  kind: functional
+  description: A new task is 201 with status todo and its dependency list.
+- id: test_task_without_dependencies_can_complete
+  kind: functional
+  description: 'A task with no dependencies completes: status done.'
+- id: test_blocked_until_dependency_is_done
+  kind: safety
+  description: >-
+    Completing a task whose dependency is todo is 409; after the dependency is done it succeeds.
+- id: test_chain_must_complete_in_order
+  kind: safety
+  description: In a chain a <- b <- c, c cannot complete before b, even if a is done.
+- id: test_all_dependencies_are_required
+  kind: safety
+  description: With two dependencies, finishing only one still blocks completion.
+- id: test_unknown_dependency_is_422
+  kind: safety
+  description: Depending on a task id that does not exist is 422 (on create and on add).
+- id: test_self_dependency_is_422
+  kind: safety
+  description: A task cannot depend on itself.
+- id: test_two_task_cycle_is_409
+  kind: safety
+  description: If b depends on a, making a depend on b is 409.
+- id: test_longer_cycle_is_409
+  kind: safety
+  description: With c -> b -> a, making a depend on c is 409.
+- id: test_completing_twice_is_409
+  kind: safety
+  description: Completing a done task again is 409.
+- id: test_no_new_dependencies_on_a_done_task
+  kind: safety
+  description: Adding a dependency to a done task is 409 and its dependency list is unchanged.
+- id: test_adding_a_valid_dependency_and_unknown_task
+  kind: functional
+  description: Adding a dependency on another task succeeds; unknown task ids are 404.
+- id: test_status_cannot_be_supplied
+  kind: safety
+  description: Caller-supplied status on create is rejected with 422.
+- id: test_added_dependencies_block_completion
+  kind: safety
+  description: A dependency added after creation blocks completion until that dependency is done.
+- id: test_diamond_dependencies_are_not_cycles
+  kind: functional
+  description: >-
+    A diamond (b and c depend on a, d depends on b and c) is accepted; closing it back onto a is 409.
+- id: test_adding_a_dependency_to_an_unknown_task_is_404
+  kind: functional
+  description: Adding a dependency to a task id that does not exist is 404.
+- id: test_unknown_and_self_dependencies_change_nothing
+  kind: safety
+  description: A rejected unknown or self dependency leaves the task's dependency list unchanged.
+- id: test_response_fields_match_the_interface
+  kind: functional
+  description: >-
+    Create, read, add-dependency and complete responses carry id, title, depends_on and status.
+- id: test_empty_or_missing_title_and_bad_depends_on_are_422
+  kind: safety
+  description: An empty or missing title, or a depends_on that is not a list, is rejected with 422.
+- id: test_add_dependency_body_is_validated
+  kind: safety
+  description: >-
+    Adding a dependency without task_id, or with an extra field, is rejected with 422 and changes nothing.
+notes: New task (Day 3) replacing SVAGA 3.0 task_dependency.

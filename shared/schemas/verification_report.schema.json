@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VerificationReport",
+  "type": "object",
+  "required": ["passed", "verifiers"],
+  "properties": {
+    "passed": { "type": "boolean" },
+    "verifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "passed"],
+        "properties": {
+          "name": { "type": "string" },
+          "passed": { "type": "boolean" },
+          "details": { "type": "object" },
+          "wall_seconds": { "type": "number" }
+        }
+      }
+    },
+    "counterexamples": { "type": "array" }
+  }
+}

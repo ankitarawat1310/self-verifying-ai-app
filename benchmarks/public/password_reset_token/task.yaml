@@ -1,0 +1,94 @@
+schema_version: '1.0'
+task_id: password_reset_token
+title: Single-use expiring password reset
+category: workflow_state
+source: svaga3
+prompt: >-
+  Create a password-reset API. Users register with an email and a password of at least 8 characters, and can log
+  in. Emails are unique: registering an email that is already registered returns 409 and leaves the existing account
+  unchanged. Requesting a reset always answers 202 with the same body, whether or not the email is registered, so
+  callers cannot discover accounts. For a registered email, a reset token is placed in that user's outbox (a stand-in
+  for email; unregistered emails get nothing). A token expires 60 minutes after it was issued, works only once,
+  and becomes invalid as soon as a newer token is requested for the same email. Confirming with a valid token and
+  a new password (at least 8 characters) changes the password; an invalid, used, superseded or expired token returns
+  400. A confirmation rejected for validation reasons does not use up the token. Passwords are never returned. Use
+  the test clock header as the current time when it is present.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  clock:
+    header: x-clock-now
+    description: ISO 8601 timestamp used as the current time when present
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    wrong_credentials: 401
+    invalid_or_expired_token: 400
+    reset_requested: 202
+  roles:
+  - name: user
+    description: Anyone registering, logging in or resetting a password
+  routes:
+  - method: POST
+    path: /users
+    summary: Register
+    request_fields:
+      email:
+        type: string
+        required: true
+        format: email
+      password:
+        type: string
+        required: true
+        min_length: 8
+    success_status: 201
+    response_fields:
+    - id
+    - email
+  - method: POST
+    path: /login
+    summary: Log in
+    request_fields:
+      email:
+        type: string
+        required: true
+      password:
+        type: string
+        required: true
+    success_status: 200
+    response_fields:
+    - email
+  - method: POST
+    path: /password-resets
+    summary: Request a reset token (always 202, same body)
+    request_fields:
+      email:
+        type: string
+        required: true
+    success_status: 202
+    response_fields:
+    - status
+  - method: GET
+    path: /outbox/{email}
+    summary: Latest reset token delivered to this email; 404 if none
+    success_status: 200
+    response_fields:
+    - token
+  - method: POST
+    path: /password-resets/confirm
+    summary: Set a new password with a token
+    request_fields:
+      token:
+        type: string
+        required: true
+      new_password:
+        type: string
+        required: true
+        min_length: 8
+    success_status: 200
+    response_fields:
+    - status

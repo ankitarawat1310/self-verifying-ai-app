@@ -1,0 +1,196 @@
+{
+  "task_id": "ticket_lifecycle",
+  "seed": 7,
+  "candidates": 32,
+  "sampled": 12,
+  "killed": 11,
+  "survived": 1,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_019",
+      "operator": "change_status",
+      "line": 38,
+      "description": "status code 409 -> 400",
+      "outcome": "killed",
+      "killed_by": [
+        "test_status_order_is_enforced",
+        "test_closing_twice_is_409",
+        "test_actions_that_do_not_fit_the_status_are_409"
+      ],
+      "checks_failed": 3,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_drop_guard_011",
+      "operator": "drop_guard",
+      "line": 31,
+      "description": "guard disabled: if ticket_id not in TICKETS",
+      "outcome": "killed",
+      "killed_by": [
+        "test_unknown_ticket_is_404",
+        "test_missing_partial_or_unknown_identity_is_403",
+        "test_only_customers_can_open_tickets",
+        "test_only_the_right_role_can_start_resolve_or_close",
+        "test_actions_that_do_not_fit_the_status_are_409",
+        "test_reopened_ticket_can_go_around_the_lifecycle_again",
+        "test_response_fields_match_the_interface",
+        "test_unknown_ticket_is_404_on_every_route",
+        "test_empty_or_missing_title_and_description_are_422"
+      ],
+      "checks_failed": 9,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_flip_comparison_005",
+      "operator": "flip_comparison",
+      "line": 83,
+      "description": "comparison NotEq -> Eq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_manager_reopens_closed_ticket",
+        "test_closed_ticket_cannot_be_reopened_without_manager",
+        "test_reopened_ticket_can_go_around_the_lifecycle_again"
+      ],
+      "checks_failed": 3,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_off_by_one_031",
+      "operator": "off_by_one",
+      "line": 26,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_open_ticket_is_201_open",
+        "test_missing_partial_or_unknown_identity_is_403",
+        "test_only_customers_can_open_tickets"
+      ],
+      "checks_failed": 3,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_relax_validation_027",
+      "operator": "relax_validation",
+      "line": 24,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_status_injection_is_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_swap_boolean_023",
+      "operator": "swap_boolean",
+      "line": 8,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_open_ticket_is_201_open",
+        "test_agent_starts_and_resolves",
+        "test_requester_closes_resolved_ticket",
+        "test_resolved_ticket_can_be_reopened_by_requester_or_agent",
+        "test_manager_reopens_closed_ticket",
+        "test_closed_ticket_cannot_be_reopened_without_manager",
+        "test_other_customer_cannot_reopen",
+        "test_customer_cannot_resolve_or_start",
+        "test_other_customer_cannot_close",
+        "test_status_order_is_enforced",
+        "test_closing_twice_is_409",
+        "test_unknown_ticket_is_404",
+        "test_missing_partial_or_unknown_identity_is_403",
+        "test_only_customers_can_open_tickets",
+        "test_only_the_right_role_can_start_resolve_or_close",
+        "test_actions_that_do_not_fit_the_status_are_409",
+        "test_reopened_ticket_can_go_around_the_lifecycle_again",
+        "test_response_fields_match_the_interface",
+        "test_unknown_ticket_is_404_on_every_route"
+      ],
+      "checks_failed": 19,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_change_status_022",
+      "operator": "change_status",
+      "line": 84,
+      "description": "status code 403 -> 404",
+      "outcome": "killed",
+      "killed_by": [
+        "test_closed_ticket_cannot_be_reopened_without_manager"
+      ],
+      "checks_failed": 1,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_drop_guard_013",
+      "operator": "drop_guard",
+      "line": 73,
+      "description": "guard disabled: if ticket['requester_id'] != actor",
+      "outcome": "killed",
+      "killed_by": [
+        "test_other_customer_cannot_close",
+        "test_reopened_ticket_can_go_around_the_lifecycle_again"
+      ],
+      "checks_failed": 2,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_flip_comparison_002",
+      "operator": "flip_comparison",
+      "line": 73,
+      "description": "comparison NotEq -> Eq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_requester_closes_resolved_ticket",
+        "test_manager_reopens_closed_ticket",
+        "test_closed_ticket_cannot_be_reopened_without_manager",
+        "test_other_customer_cannot_close",
+        "test_status_order_is_enforced",
+        "test_closing_twice_is_409",
+        "test_actions_that_do_not_fit_the_status_are_409",
+        "test_reopened_ticket_can_go_around_the_lifecycle_again",
+        "test_response_fields_match_the_interface"
+      ],
+      "checks_failed": 9,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_off_by_one_030",
+      "operator": "off_by_one",
+      "line": 25,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_open_ticket_is_201_open",
+        "test_missing_partial_or_unknown_identity_is_403",
+        "test_only_customers_can_open_tickets"
+      ],
+      "checks_failed": 3,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_relax_validation_029",
+      "operator": "relax_validation",
+      "line": 26,
+      "description": "validation removed: min_length=1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_swap_boolean_025",
+      "operator": "swap_boolean",
+      "line": 86,
+      "description": "boolean operator Or -> And",
+      "outcome": "killed",
+      "killed_by": [
+        "test_other_customer_cannot_reopen"
+      ],
+      "checks_failed": 1,
+      "checks_total": 21
+    }
+  ]
+}

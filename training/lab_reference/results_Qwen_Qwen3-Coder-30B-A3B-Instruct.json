@@ -1,0 +1,19 @@
+{
+ "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+ "runs": [
+  {
+   "seq_len": 1024,
+   "avg_step_s": 1.07,
+   "tokens_per_s": 956,
+   "peak_gpu_gb": 17.9
+  },
+  {
+   "seq_len": 2048,
+   "avg_step_s": 1.13,
+   "tokens_per_s": 1820,
+   "peak_gpu_gb": 18.1
+  }
+ ],
+ "load_seconds": 64.3,
+ "gpu_after_load_gb": 16.8
+}

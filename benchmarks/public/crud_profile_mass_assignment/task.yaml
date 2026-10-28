@@ -1,0 +1,77 @@
+schema_version: '1.0'
+task_id: crud_profile_mass_assignment
+title: User profiles without mass assignment
+category: access_control
+source: svaga2
+prompt: >-
+  Create a user-profile CRUD API. Users may edit only username and display name. Usernames are unique. Reject all
+  undeclared fields, especially role, permissions, and administrator flags; clients must never grant themselves
+  privileges.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  routes:
+  - method: POST
+    path: /profiles
+    summary: Create a profile
+    request_fields:
+      username:
+        type: string
+        required: true
+        min_length: 1
+      display_name:
+        type: string
+        required: true
+        min_length: 1
+    success_status: 201
+    response_fields:
+    - id
+    - username
+    - display_name
+  - method: GET
+    path: /profiles
+    summary: List profiles
+    success_status: 200
+    response_fields:
+    - id
+    - username
+    - display_name
+  - method: GET
+    path: /profiles/{profile_id}
+    summary: Read one profile
+    success_status: 200
+    response_fields:
+    - id
+    - username
+    - display_name
+  - method: PATCH
+    path: /profiles/{profile_id}
+    summary: Update username and/or display name
+    request_fields:
+      username:
+        type: string
+        required: false
+        min_length: 1
+      display_name:
+        type: string
+        required: false
+        min_length: 1
+    success_status: 200
+    response_fields:
+    - id
+    - username
+    - display_name
+  - method: DELETE
+    path: /profiles/{profile_id}
+    summary: Delete a profile
+    success_status: 204

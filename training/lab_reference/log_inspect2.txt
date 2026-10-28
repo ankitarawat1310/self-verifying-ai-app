@@ -1,0 +1,11 @@
+nohup: ignoring input
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+result values: [('None', 6366), ('AgentTimeoutError', 3516), ('ContextLengthExceededError', 85), ('DaytonaError', 18), ('DaytonaNotFoundError', 8)]
+trace_source: [('main', 8083), (None, 1222), ('summarization-1-summary', 323), ('summarization-1-answers', 252), ('summarization-3-answers', 47), ('summarization-3-summary', 44), ('summarization-5-answers', 11), ('summarization-5-summary', 11)]
+unique tasks: 8360 of 10000
+task prefixes: [('swesmith', 2688), ('issue', 2675), ('superuser', 2390), ('tezos', 2247)]
+message keys: ['content', 'role'] | roles: ['user', 'assistant', 'user', 'assistant', 'user', 'assistant']
+RANDOM sample | median: 15058 | mean: 16415 | p90: 28901 | max: 54942
+cap 12288: DROP -> 36.5% = 3655 rows, 30M tokens, ~3.2 h | TRUNCATE -> 10000 rows, 108M tokens, ~11.7 h
+cap 16384: DROP -> 56.1% = 5615 rows, 58M tokens, ~6.9 h | TRUNCATE -> 10000 rows, 130M tokens, ~15.4 h
+cap 24576: DROP -> 82.2% = 8225 rows, 111M tokens, ~15.8 h | TRUNCATE -> 10000 rows, 154M tokens, ~22.0 h

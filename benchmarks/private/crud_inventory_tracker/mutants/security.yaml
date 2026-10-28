@@ -1,0 +1,28 @@
+task_id: crud_inventory_tracker
+security_mutants:
+- id: sec_patch_negative_stock
+  description: PATCH drops the nonnegative stock rule
+  edits:
+  - find: '    stock: StrictInt | None = Field(default=None, ge=0)'
+    replace: '    stock: StrictInt | None = None'
+    occurrence: 1
+  expected_failing_checks:
+  - test_patch_to_negative_stock_is_rejected_and_unchanged
+- id: sec_sku_case_sensitive
+  description: SKU uniqueness compares case-sensitively
+  edits:
+  - find: i["sku"].lower() == payload.sku.lower()
+    replace: i["sku"] == payload.sku
+    occurrence: 1
+  expected_failing_checks:
+  - test_duplicate_sku_ignoring_case_is_409
+- id: sec_sku_changeable
+  description: PATCH lets clients change the SKU of an existing item
+  edits:
+  - find: '    name: str | None = Field(default=None, min_length=1)
+
+      '
+    replace: "    name: str | None = Field(default=None, min_length=1)\n    sku: str | None = None\n"
+    occurrence: 1
+  expected_failing_checks:
+  - test_sku_cannot_be_changed

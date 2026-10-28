@@ -1,0 +1,85 @@
+schema_version: '1.0'
+task_id: crud_inventory_tracker
+title: Inventory tracker
+category: data_rules
+source: svaga2
+prompt: >-
+  Create an inventory CRUD API with unique SKUs (unique without regard to letter case). Item names cannot be blank
+  and stock must always be a nonnegative integer. The SKU of an existing item cannot be changed.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  routes:
+  - method: POST
+    path: /items
+    summary: Create an inventory item
+    request_fields:
+      sku:
+        type: string
+        required: true
+        min_length: 1
+      name:
+        type: string
+        required: true
+        min_length: 1
+        description: not blank
+      stock:
+        type: integer
+        required: true
+        minimum: 0
+    success_status: 201
+    response_fields:
+    - id
+    - sku
+    - name
+    - stock
+  - method: GET
+    path: /items
+    summary: List items
+    success_status: 200
+    response_fields:
+    - id
+    - sku
+    - name
+    - stock
+  - method: GET
+    path: /items/{item_id}
+    summary: Read one item
+    success_status: 200
+    response_fields:
+    - id
+    - sku
+    - name
+    - stock
+  - method: PATCH
+    path: /items/{item_id}
+    summary: Update name and/or stock
+    request_fields:
+      name:
+        type: string
+        required: false
+        min_length: 1
+      stock:
+        type: integer
+        required: false
+        minimum: 0
+    success_status: 200
+    response_fields:
+    - id
+    - sku
+    - name
+    - stock
+  - method: DELETE
+    path: /items/{item_id}
+    summary: Delete an item
+    success_status: 204

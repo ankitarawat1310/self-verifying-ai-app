@@ -1,0 +1,60 @@
+schema_version: '1.0'
+task_id: connector_document_delivery
+title: Document delivery via a fixed connector
+category: external_service
+source: svaga2
+prompt: >-
+  Create a mocked document-delivery API accepting only document_id and recipient. It must use only the declared
+  mock endpoint and POST method. Reject caller-supplied endpoint, method, token, authorization, callback URL, status,
+  or delivery ID fields, and never forward the caller's own Authorization header to the connector. Validate responses
+  (a nonblank delivery_id and a status of accepted or queued) before storing them; otherwise respond 502 and store
+  nothing.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    external_service_failure_or_invalid_reply: 502
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used.
+  mock_services:
+  - name: delivery
+    method: POST
+    url: http://127.0.0.1:18765/documents/deliver
+    description: 'JSON body {document_id, recipient}; replies {delivery_id: string, status: accepted|queued}'
+  routes:
+  - method: POST
+    path: /deliveries
+    summary: Deliver a document through the connector and store the result
+    request_fields:
+      document_id:
+        type: string
+        required: true
+        min_length: 1
+      recipient:
+        type: string
+        required: true
+        min_length: 1
+    success_status: 201
+    response_fields:
+    - id
+    - document_id
+    - recipient
+    - delivery_id
+    - status
+  - method: GET
+    path: /deliveries
+    summary: List stored deliveries
+    success_status: 200
+    response_fields:
+    - id
+    - document_id
+    - recipient
+    - delivery_id
+    - status

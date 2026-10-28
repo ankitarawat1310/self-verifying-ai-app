@@ -1,0 +1,34 @@
+task_id: connector_document_delivery
+security_mutants:
+- id: sec_forward_authorization
+  description: The caller's Authorization header is forwarded to the connector
+  edits:
+  - find: from fastapi import FastAPI, HTTPException
+    replace: from fastapi import FastAPI, Header, HTTPException
+    occurrence: 1
+  - find: 'def deliver(payload: DeliveryIn) -> dict:'
+    replace: 'def deliver(payload: DeliveryIn, authorization: str | None = Header(None)) -> dict:'
+    occurrence: 1
+  - find: reply = httpx.post(CONNECTOR_URL, json=payload.model_dump(), timeout=5.0)
+    replace: 'reply = httpx.post(CONNECTOR_URL, json=payload.model_dump(), timeout=5.0, headers={"Authorization": authorization} if authorization else None)'
+    occurrence: 1
+  expected_failing_checks:
+  - test_caller_authorization_header_is_not_forwarded
+- id: sec_any_status
+  description: Any status from the connector is stored
+  edits:
+  - find: 'if not isinstance(delivery_id, str) or not delivery_id.strip() or status not in ALLOWED_STATUS:'
+    replace: 'if not isinstance(delivery_id, str) or not delivery_id.strip():'
+    occurrence: 1
+  expected_failing_checks:
+  - test_unexpected_status_is_502_and_not_stored
+- id: sec_callback_forwarded
+  description: A caller-supplied callback_url is accepted and forwarded
+  edits:
+  - find: '    recipient: str = Field(min_length=1)
+
+      '
+    replace: "    recipient: str = Field(min_length=1)\n    callback_url: str | None = None\n"
+    occurrence: 1
+  expected_failing_checks:
+  - test_injected_fields_are_rejected_before_any_call

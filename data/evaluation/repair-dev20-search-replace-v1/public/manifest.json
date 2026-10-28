@@ -1,0 +1,80 @@
+{
+  "evaluation_id": "repair-dev20-search-replace-v1",
+  "scope": "development_only_not_external_benchmark",
+  "selection": "fixed SHA256 order and round-robin across validation repositories; no output-based selection",
+  "selection_seed": "svaga-repair-dev20-v1",
+  "tasks": 20,
+  "repositories": {
+    "swesmith/python-trio__trio.cfbbe2c1": 2,
+    "swesmith/pyasn1__pyasn1.0f07d724": 2,
+    "swesmith/tox-dev__pipdeptree.c31b6418": 2,
+    "swesmith/pytest-dev__iniconfig.16793ead": 2,
+    "swesmith/mewwts__addict.75284f95": 2,
+    "swesmith/Suor__funcy.207a7810": 2,
+    "swesmith/cknd__stackprinter.219fcc52": 2,
+    "swesmith/mido__mido.a0158ff9": 2,
+    "swesmith/oauthlib__oauthlib.1fd52536": 1,
+    "swesmith/python-jsonschema__jsonschema.93e0caa5": 1,
+    "swesmith/pallets__jinja.ada0a9a6": 1,
+    "swesmith/conan-io__conan.86f29e13": 1
+  },
+  "source_validation_sha256": "3953a213500952e1b03f003514d36b2b5c6c661ed5a387cbc278d7d588fd02dc",
+  "prompts_sha256": "d8f2f3a508751b41af7c193b83ae274dbd509012caa0862627a138cddc0ecf15",
+  "private_tasks_sha256": "2b6eab9cfece95113648ab0ab968bec8451d60ca859783f4c361a2df1d92b32e",
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "adapter_artifacts_sha256": {
+    "adapter/adapter_model.safetensors": "d2e8e505c7340bd7067ac3a2c7b1696ce126961356fa3789e176a195c34e96fa",
+    "adapter/adapter_config.json": "2616e47d993696d5ba99c689e05fab22ccca163d1afc99f0f469ccf80e008fb8",
+    "tokenizer/tokenizer.json": "3fd169731d2cbde95e10bf356d66d5997fd885dd8dbb6fb4684da3f23b2585d8",
+    "tokenizer/tokenizer_config.json": "8b6f658e2435ec8da6866013cb485a1d2a6559bed4bf76ed99ea68b031854b41",
+    "tokenizer/chat_template.jinja": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "max_new_tokens": 2048,
+    "seed": 42
+  },
+  "variants": [
+    "base",
+    "adapter"
+  ],
+  "limitations": [
+    "Already used development validation, not an untouched test set.",
+    "Affected source locations are supplied; no repository-search evaluation.",
+    "No reference answers, bug patches, test selectors or oracle code in this upload.",
+    "Same already-used development tasks, not a new test set.",
+    "Adapter was trained on unified diffs, not this edit format; this is an inference ablation.",
+    "A change in output format/instructions is tested; no guaranteed correctness improvement."
+  ],
+  "edit_format": "exact_line_search_replace",
+  "experiment_kind": "prompt_and_output_format_ablation_no_additional_training",
+  "source_evaluation_id": "repair-dev20-v1",
+  "source_manifest_sha256": "e7ac9774f6e9508136085ad2e1ca967f3ea876e270341bc93d3d5072cfd0ea3a",
+  "original_prompts_sha256": "63192f53a8512d535107c37a8cd149c1d3e4f3ea046b31f3cd1534b2c117b7dc",
+  "original_private_tasks_sha256": "2b727ce91f8a1d732ec5dbce29c0c6b729a88eb571b27b63746e74bf82819d77",
+  "issue_and_buggy_context_body_sha256": {
+    "python-trio__trio.cfbbe2c1.combine_module__ib1lmt17": "9927e328601b55b372c5c068a66cd1aca7f7bc1c954b88a8389a01395d63ff91",
+    "pyasn1__pyasn1.0f07d724.func_pm_remove_assign__kfnva30l": "c03584823ca64da9077654d03ba38cee0e8973f952d1270c4106882e465d8f31",
+    "tox-dev__pipdeptree.c31b6418.func_basic__xfbdhzdv": "2f26bc36035e368d4e1300bfec7467efffb089136b6dcb9f354d410870ea99c9",
+    "pytest-dev__iniconfig.16793ead.func_basic__vb9u5hga": "898eb67ea51491f852f53575069adcbc0081f7c14bbda51b8d56caa5e18f5ea6",
+    "mewwts__addict.75284f95.func_basic__90wh3hv9": "aa552b74aef70bee1c5156595874a5f4caceb02dc6c7aed32e2968458fb617e3",
+    "Suor__funcy.207a7810.func_basic__i18x9tdn": "3dee8d3a96d1aa5427f5d76706a0683f44fe9e18ecb91801df758d8a7324592f",
+    "cknd__stackprinter.219fcc52.func_basic__25ljeyka": "5aac1fc3cf7727f942717a84cedb8162c0b6da3ea532425efb025916143047b0",
+    "mido__mido.a0158ff9.combine_module__f23r4b4z": "5d8282fea346c4e0d7d7b40fa02f112bf6bccb14087fdd0e89950b958bfabee2",
+    "oauthlib__oauthlib.1fd52536.combine_module__7fgnf0ep": "ca27563d50e3bc315d4fe192bedeffd4bbbaf53f45fb41709e3d7177de493819",
+    "python-jsonschema__jsonschema.93e0caa5.lm_rewrite__k1000g7s": "4570d6813bd83c79dc083e3d3f96fab6dfdbcfe92137255d6f34f25980a32255",
+    "pallets__jinja.ada0a9a6.func_basic__nbwk0z2h": "abb9a2fbc9ecd3df74e9ec52e9707ae7f3038cdc6ee00a25d28b4c27cd66cef3",
+    "conan-io__conan.86f29e13.func_pm_class_rm_funcs__0xw6n4ca": "b4d415ee004d628a9a9a20681c9055906cfc76c8f3a8a367f752b19f08c3b9c3",
+    "python-trio__trio.cfbbe2c1.func_pm_ctrl_shuffle__v9i0g9bo": "d6dc399b1c7aad98b61bb7d6bbaeae8ceb442b0ee4c703a74a0656f9ea3fca9d",
+    "pyasn1__pyasn1.0f07d724.func_basic__9t0wk5fk": "043abeb947f9d9341c3fcfe2dde3aaed403223ed9488c82b51a4154bb037fa96",
+    "tox-dev__pipdeptree.c31b6418.func_pm_class_rm_base__mnpzvjjd": "a30faf6d5e360923f6645e43cc30a32e4fbf80d05d200079193759853f3dee42",
+    "pytest-dev__iniconfig.16793ead.func_pm_remove_assign__j041mnvq": "e05c4ca10d57dc7ace542844362782db67bcf56f526d115be4c05a44a2243eb9",
+    "mewwts__addict.75284f95.func_basic__u31z0ln1": "98330cd0a274bc3ce9826d88c3d10ec6e8138306c79e8ad4058d7c98e2199345",
+    "Suor__funcy.207a7810.func_basic__3s0kv5i2": "399e10d0f135d917c2ab1e33603f2ce92d01eb5ec94e696fefe742377a28e317",
+    "cknd__stackprinter.219fcc52.combine_file__tla0a4bg": "e32d918fd910c08c3a0ad08148830f221dd68fb8c25778892d79ca7d334e7ad5",
+    "mido__mido.a0158ff9.func_basic__kmwybcnf": "2aafdb49123b08174e06fc1c0ba7683e62359e835e94b8c103633b06eda8a974"
+  },
+  "application_policy": "Exact complete-line search; unique match required; sequential edits planned atomically; no fuzzy matching. Tool renders its own diff from exact edits."
+}

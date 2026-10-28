@@ -1,0 +1,41 @@
+workflow_id: state_machine_task
+name: Task State Machine
+category: ticketing
+complexity: small
+natural_language_requirement: Tasks flow open->in_progress->done.
+endpoints:
+- method: GET
+  path: /health
+  business_action: health
+  allowed_roles:
+  - user
+actors:
+- id: user
+  name: User
+- id: admin
+  name: Admin
+entities:
+- name: Record
+  fields:
+  - name: id
+    type: string
+business_rules:
+- id: state_machine_task_rule
+  description: Tasks flow open->in_progress->done.
+functional_properties: []
+safety_properties:
+- id: no_subprocess
+  description: Generated app must not spawn subprocesses
+  predicate: no_subprocess
+permission_requirements:
+  allowed_capabilities:
+  - fastapi
+  - pydantic
+  forbidden_imports:
+  - subprocess
+  - socket
+  allowed_imports:
+  - fastapi
+  - pydantic
+  - typing
+known_fault_mutations: []

@@ -1,0 +1,118 @@
+schema_version: '1.0'
+task_id: ticket_lifecycle
+canary: SVAGA-PRIVATE-CANARY-ticket_lifecycle-3ce424c6fed4
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: tickets
+- kind: persistence_write
+  target: tickets
+state_machine:
+  entity: ticket
+  states:
+  - open
+  - in_progress
+  - resolved
+  - closed
+  initial: open
+  terminal: []
+  transitions:
+  - from: open
+    to: in_progress
+    action: start
+    roles:
+    - agent
+  - from: in_progress
+    to: resolved
+    action: resolve
+    roles:
+    - agent
+  - from: resolved
+    to: closed
+    action: close
+    roles:
+    - customer
+    guard: actor == requester
+  - from: resolved
+    to: in_progress
+    action: reopen
+    roles:
+    - customer
+    - agent
+    guard: role == agent or actor == requester
+  - from: closed
+    to: in_progress
+    action: reopen
+    roles:
+    - manager
+hidden_checks:
+- id: test_open_ticket_is_201_open
+  kind: functional
+  description: 'A customer opens a ticket: 201, status open, requester from the header.'
+- id: test_agent_starts_and_resolves
+  kind: functional
+  description: An agent moves open -> in_progress -> resolved.
+- id: test_requester_closes_resolved_ticket
+  kind: functional
+  description: The requesting customer closes a resolved ticket.
+- id: test_resolved_ticket_can_be_reopened_by_requester_or_agent
+  kind: functional
+  description: A resolved ticket goes back to in_progress when the requester or an agent reopens it.
+- id: test_manager_reopens_closed_ticket
+  kind: functional
+  description: A manager reopens a closed ticket to in_progress.
+- id: test_closed_ticket_cannot_be_reopened_without_manager
+  kind: safety
+  description: Requester or agent reopening a closed ticket is 403 and it stays closed.
+- id: test_other_customer_cannot_reopen
+  kind: safety
+  description: A customer who did not open the ticket cannot reopen it (403); it stays resolved.
+- id: test_customer_cannot_resolve_or_start
+  kind: safety
+  description: Customers cannot start or resolve tickets (403).
+- id: test_other_customer_cannot_close
+  kind: safety
+  description: A customer who did not open the ticket cannot close it (403).
+- id: test_status_order_is_enforced
+  kind: safety
+  description: Resolving an open ticket, closing an in-progress ticket, or starting twice is 409.
+- id: test_closing_twice_is_409
+  kind: safety
+  description: Closing an already closed ticket is 409.
+- id: test_status_injection_is_422
+  kind: safety
+  description: Caller-supplied status or requester_id on open is 422.
+- id: test_unknown_ticket_is_404
+  kind: functional
+  description: Acting on an unknown ticket is 404 (while the routes exist).
+- id: test_missing_partial_or_unknown_identity_is_403
+  kind: safety
+  description: >-
+    Missing, partial or unknown-role identity headers are exactly 403 on every route and change nothing.
+- id: test_only_customers_can_open_tickets
+  kind: safety
+  description: Agents and managers cannot open tickets (403).
+- id: test_only_the_right_role_can_start_resolve_or_close
+  kind: safety
+  description: >-
+    Managers cannot start, resolve or close and agents cannot close (403); the status moves only for the right role.
+- id: test_actions_that_do_not_fit_the_status_are_409
+  kind: safety
+  description: >-
+    Reopening an open or in-progress ticket, and starting or resolving a resolved or closed one, is 409 and changes
+    nothing.
+- id: test_reopened_ticket_can_go_around_the_lifecycle_again
+  kind: functional
+  description: >-
+    After a manager reopens a closed ticket it is resolved and closed again, still by its original requester.
+- id: test_response_fields_match_the_interface
+  kind: functional
+  description: >-
+    Open, read and every transition return id, requester_id, title, description and status; all roles can read.
+- id: test_unknown_ticket_is_404_on_every_route
+  kind: functional
+  description: Reading or acting on an unknown ticket id is 404 when the caller has the right role.
+- id: test_empty_or_missing_title_and_description_are_422
+  kind: safety
+  description: An empty or missing title or description is rejected with 422.
+notes: New task (Day 3) replacing SVAGA 3.0 ticket_resolve.

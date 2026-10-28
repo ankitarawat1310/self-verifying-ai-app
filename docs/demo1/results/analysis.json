@@ -1,0 +1,196 @@
+{
+  "stats": {
+    "m0": {
+      "functional_pass": {
+        "value": 0.1333,
+        "ci_low": 0.0,
+        "ci_high": 0.2889
+      },
+      "hidden_check_rate": {
+        "value": 0.7252,
+        "ci_low": 0.5793,
+        "ci_high": 0.8446
+      },
+      "false_assurance_of_accepted": {
+        "value": 0.8235,
+        "ci_low": 0.5,
+        "ci_high": 1.0
+      },
+      "shipped_broken_per_run": {
+        "value": 0.3111,
+        "ci_low": 0.1333,
+        "ci_high": 0.5111
+      },
+      "false_rejection_of_rejected": {
+        "value": 0.1071,
+        "ci_low": 0.0,
+        "ci_high": 0.2593
+      },
+      "benchmark_bug_recall": {
+        "value": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 0.0
+      },
+      "own_mutation_score": {
+        "value": 0.2889,
+        "ci_low": 0.2,
+        "ci_high": 0.3733
+      }
+    },
+    "m1": {
+      "functional_pass": {
+        "value": 0.3556,
+        "ci_low": 0.1778,
+        "ci_high": 0.5556
+      },
+      "hidden_check_rate": {
+        "value": 0.843,
+        "ci_low": 0.7546,
+        "ci_high": 0.9174
+      },
+      "false_assurance_of_accepted": {
+        "value": 0.5294,
+        "ci_low": 0.25,
+        "ci_high": 0.8333
+      },
+      "shipped_broken_per_run": {
+        "value": 0.2,
+        "ci_low": 0.0889,
+        "ci_high": 0.3333
+      },
+      "false_rejection_of_rejected": {
+        "value": 0.2857,
+        "ci_low": 0.0645,
+        "ci_high": 0.5357
+      },
+      "benchmark_bug_recall": {
+        "value": 0.0111,
+        "ci_low": 0.0,
+        "ci_high": 0.0333
+      },
+      "own_mutation_score": {
+        "value": 0.4119,
+        "ci_low": 0.323,
+        "ci_high": 0.4889
+      }
+    },
+    "m2": {
+      "functional_pass": {
+        "value": 0.2667,
+        "ci_low": 0.1333,
+        "ci_high": 0.4222
+      },
+      "hidden_check_rate": {
+        "value": 0.7322,
+        "ci_low": 0.6091,
+        "ci_high": 0.8414
+      },
+      "false_assurance_of_accepted": {
+        "value": 0.6,
+        "ci_low": 0.3571,
+        "ci_high": 0.8077
+      },
+      "shipped_broken_per_run": {
+        "value": 0.3333,
+        "ci_low": 0.1556,
+        "ci_high": 0.5333
+      },
+      "false_rejection_of_rejected": {
+        "value": 0.1,
+        "ci_low": 0.0,
+        "ci_high": 0.2333
+      },
+      "benchmark_bug_recall": {
+        "value": 0.3969,
+        "ci_low": 0.2794,
+        "ci_high": 0.5246
+      },
+      "own_mutation_score": {
+        "value": 0.2058,
+        "ci_low": 0.1396,
+        "ci_high": 0.282
+      }
+    }
+  },
+  "paired_tests": {
+    "m0_vs_m1": {
+      "passes_all_hidden_checks": {
+        "pairs": 45,
+        "m0_only": 1,
+        "m1_only": 11,
+        "p_value": 0.0063
+      },
+      "shipped_broken_app": {
+        "pairs": 45,
+        "m0_only": 10,
+        "m1_only": 5,
+        "p_value": 0.3018
+      }
+    },
+    "m0_vs_m2": {
+      "passes_all_hidden_checks": {
+        "pairs": 45,
+        "m0_only": 4,
+        "m2_only": 10,
+        "p_value": 0.1796
+      },
+      "shipped_broken_app": {
+        "pairs": 45,
+        "m0_only": 8,
+        "m2_only": 9,
+        "p_value": 1.0
+      }
+    },
+    "m1_vs_m2": {
+      "passes_all_hidden_checks": {
+        "pairs": 45,
+        "m1_only": 8,
+        "m2_only": 4,
+        "p_value": 0.3877
+      },
+      "shipped_broken_app": {
+        "pairs": 45,
+        "m1_only": 6,
+        "m2_only": 12,
+        "p_value": 0.2379
+      }
+    }
+  },
+  "failure_taxonomy": {
+    "m0": {
+      "Identity treated as validation (422, expected 403)": 7,
+      "Accepts invalid or unknown input (2xx, expected 422)": 29,
+      "Server crash (500) or no valid response": 54,
+      "Rejects valid requests (4xx, expected 2xx)": 11,
+      "Wrong response shape (missing key, wrong type)": 16,
+      "Other wrong status code": 11,
+      "Missing permission check (2xx, expected 403)": 3,
+      "App did not start": 36,
+      "Outside-service error not handled (expected 502)": 5,
+      "Missing conflict or state rule (2xx, expected 409)": 5
+    },
+    "m1": {
+      "Identity treated as validation (422, expected 403)": 2,
+      "Rejects valid requests (4xx, expected 2xx)": 3,
+      "Wrong response shape (missing key, wrong type)": 6,
+      "Accepts invalid or unknown input (2xx, expected 422)": 22,
+      "Missing permission check (2xx, expected 403)": 4,
+      "Outside-service error not handled (expected 502)": 6,
+      "Server crash (500) or no valid response": 22,
+      "App did not start": 30,
+      "Other wrong status code": 7,
+      "Missing conflict or state rule (2xx, expected 409)": 1
+    },
+    "m2": {
+      "Accepts invalid or unknown input (2xx, expected 422)": 13,
+      "Server crash (500) or no valid response": 83,
+      "Missing permission check (2xx, expected 403)": 8,
+      "App did not start": 44,
+      "Rejects valid requests (4xx, expected 2xx)": 10,
+      "Wrong response shape (missing key, wrong type)": 7,
+      "Outside-service error not handled (expected 502)": 15,
+      "Other wrong status code": 3,
+      "Wrong value or state": 2
+    }
+  }
+}

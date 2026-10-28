@@ -1,0 +1,60 @@
+{
+  "seed": 2026,
+  "rule": "one dev task per category, drawn with random.Random(seed).choice over sorted task ids",
+  "dev": [
+    "approval_expense_request",
+    "crud_contact_directory",
+    "crud_profile_mass_assignment",
+    "room_booking",
+    "webhook_dispatcher"
+  ],
+  "test": [
+    "approval_emergency_access",
+    "approval_leave_request",
+    "approval_purchase_request",
+    "billing_invoice",
+    "connector_address_validation",
+    "connector_document_delivery",
+    "connector_shipping_quote",
+    "connector_weather_lookup",
+    "crud_appointment_registry",
+    "crud_inventory_tracker",
+    "login_lockout",
+    "password_reset_token",
+    "role_scoped_documents",
+    "task_dependencies",
+    "ticket_lifecycle"
+  ],
+  "by_category": {
+    "access_control": [
+      "crud_profile_mass_assignment",
+      "login_lockout",
+      "role_scoped_documents"
+    ],
+    "data_rules": [
+      "billing_invoice",
+      "crud_appointment_registry",
+      "crud_contact_directory",
+      "crud_inventory_tracker"
+    ],
+    "external_service": [
+      "connector_address_validation",
+      "connector_document_delivery",
+      "connector_shipping_quote",
+      "connector_weather_lookup",
+      "webhook_dispatcher"
+    ],
+    "scheduling": [
+      "room_booking",
+      "task_dependencies"
+    ],
+    "workflow_state": [
+      "approval_emergency_access",
+      "approval_expense_request",
+      "approval_leave_request",
+      "approval_purchase_request",
+      "password_reset_token",
+      "ticket_lifecycle"
+    ]
+  }
+}

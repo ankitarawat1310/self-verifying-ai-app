@@ -1,0 +1,41 @@
+workflow_id: rate_limit_login
+name: Rate Limit Login
+category: security
+complexity: small
+natural_language_requirement: Lock account after 5 failed login attempts.
+endpoints:
+- method: GET
+  path: /health
+  business_action: health
+  allowed_roles:
+  - user
+actors:
+- id: user
+  name: User
+- id: admin
+  name: Admin
+entities:
+- name: Record
+  fields:
+  - name: id
+    type: string
+business_rules:
+- id: rate_limit_login_rule
+  description: Lock account after 5 failed login attempts.
+functional_properties: []
+safety_properties:
+- id: no_subprocess
+  description: Generated app must not spawn subprocesses
+  predicate: no_subprocess
+permission_requirements:
+  allowed_capabilities:
+  - fastapi
+  - pydantic
+  forbidden_imports:
+  - subprocess
+  - socket
+  allowed_imports:
+  - fastapi
+  - pydantic
+  - typing
+known_fault_mutations: []

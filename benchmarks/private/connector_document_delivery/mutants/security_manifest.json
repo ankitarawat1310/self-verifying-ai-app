@@ -1,0 +1,56 @@
+{
+  "task_id": "connector_document_delivery",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_forward_authorization",
+      "description": "The caller's Authorization header is forwarded to the connector",
+      "expected_failing_checks": [
+        "test_caller_authorization_header_is_not_forwarded"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_caller_authorization_header_is_not_forwarded"
+      ],
+      "expected_hit": [
+        "test_caller_authorization_header_is_not_forwarded"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_any_status",
+      "description": "Any status from the connector is stored",
+      "expected_failing_checks": [
+        "test_unexpected_status_is_502_and_not_stored"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_unexpected_status_is_502_and_not_stored"
+      ],
+      "expected_hit": [
+        "test_unexpected_status_is_502_and_not_stored"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_callback_forwarded",
+      "description": "A caller-supplied callback_url is accepted and forwarded",
+      "expected_failing_checks": [
+        "test_injected_fields_are_rejected_before_any_call"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_exactly_one_post_with_only_declared_fields",
+        "test_injected_fields_are_rejected_before_any_call"
+      ],
+      "expected_hit": [
+        "test_injected_fields_are_rejected_before_any_call"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

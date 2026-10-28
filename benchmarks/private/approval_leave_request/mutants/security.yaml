@@ -1,0 +1,26 @@
+task_id: approval_leave_request
+security_mutants:
+- id: sec_self_approval
+  description: Requesters can approve their own leave
+  edits:
+  - find: "    if record[\"requester_id\"] == actor:\n        raise HTTPException(403, \"requesters cannot decide their own request\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_requester_cannot_self_approve_even_as_manager
+- id: sec_terminal_mutable
+  description: Approved or rejected requests can be decided again
+  edits:
+  - find: "    if record[\"status\"] != \"submitted\":\n        raise HTTPException(409, \"request already decided\")\n"
+    replace: ''
+    occurrence: 1
+  expected_failing_checks:
+  - test_terminal_decisions_cannot_change
+- id: sec_employee_can_approve
+  description: The employee role is allowed to approve
+  edits:
+  - find: "    actor, _ = _identity(x_actor_id, x_actor_role, {\"manager\"})\n    return _decide(request_id, actor, \"approved\")"
+    replace: "    actor, _ = _identity(x_actor_id, x_actor_role, {\"manager\", \"employee\"})\n    return _decide(request_id, actor, \"approved\")"
+    occurrence: 1
+  expected_failing_checks:
+  - test_employee_role_cannot_decide

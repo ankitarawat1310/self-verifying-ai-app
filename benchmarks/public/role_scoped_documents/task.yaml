@@ -1,0 +1,103 @@
+schema_version: '1.0'
+task_id: role_scoped_documents
+title: Documents visible only to their owner
+category: access_control
+source: svaga3
+prompt: >-
+  Create a document API where each document belongs to the user who created it. Users can list, read, update and
+  delete only their own documents; admins can list, read, update and delete every document. A user asking for another
+  user's document gets 404, exactly as if it did not exist, and query parameters can never widen what a user sees.
+  The owner is always the caller and cannot be supplied or changed by the client. Titles cannot be blank.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+    not_visible_to_caller: 404
+  roles:
+  - name: user
+    description: Sees and changes only their own documents
+  - name: admin
+    description: Sees and changes all documents
+  routes:
+  - method: POST
+    path: /documents
+    summary: Create a document owned by the caller
+    roles:
+    - user
+    - admin
+    request_fields:
+      title:
+        type: string
+        required: true
+        min_length: 1
+        description: not blank
+      body:
+        type: string
+        required: true
+    success_status: 201
+    response_fields:
+    - id
+    - owner_id
+    - title
+    - body
+  - method: GET
+    path: /documents
+    summary: List documents visible to the caller
+    roles:
+    - user
+    - admin
+    success_status: 200
+    response_fields:
+    - id
+    - owner_id
+    - title
+    - body
+  - method: GET
+    path: /documents/{document_id}
+    summary: Read one visible document
+    roles:
+    - user
+    - admin
+    success_status: 200
+    response_fields:
+    - id
+    - owner_id
+    - title
+    - body
+  - method: PATCH
+    path: /documents/{document_id}
+    summary: Update title and/or body
+    roles:
+    - user
+    - admin
+    request_fields:
+      title:
+        type: string
+        required: false
+        min_length: 1
+        description: not blank
+      body:
+        type: string
+        required: false
+    success_status: 200
+    response_fields:
+    - id
+    - owner_id
+    - title
+    - body
+  - method: DELETE
+    path: /documents/{document_id}
+    summary: Delete a visible document
+    roles:
+    - user
+    - admin
+    success_status: 204

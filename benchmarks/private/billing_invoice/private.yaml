@@ -1,0 +1,72 @@
+schema_version: '1.0'
+task_id: billing_invoice
+canary: SVAGA-PRIVATE-CANARY-billing_invoice-63d11227f6ea
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: invoices
+- kind: persistence_write
+  target: invoices
+state_machine:
+  entity: invoice
+  states:
+  - draft
+  - issued
+  - paid
+  initial: draft
+  terminal:
+  - paid
+  transitions:
+  - from: draft
+    to: issued
+    action: issue
+    roles:
+    - user
+  - from: issued
+    to: paid
+    action: pay
+    roles:
+    - user
+    guard: amount == total
+hidden_checks:
+- id: test_create_computes_total_and_starts_draft
+  kind: functional
+  description: A new invoice is 201, status draft, total = sum of quantity x unit price.
+- id: test_total_is_rounded_to_cents
+  kind: functional
+  description: >-
+    Totals are exact to the cent: 0.10 + 0.20 is 0.30 and 3 x 1.10 is 3.30 (no floating-point residue).
+- id: test_adding_a_line_updates_the_total
+  kind: functional
+  description: Adding a line item to a draft updates the stored total.
+- id: test_issue_then_pay_exact_total
+  kind: functional
+  description: 'Issue a draft, then pay exactly the total: status paid.'
+- id: test_client_cannot_set_total_or_status
+  kind: safety
+  description: total, subtotal or status in the create body are rejected with 422.
+- id: test_line_item_cannot_carry_its_own_total
+  kind: safety
+  description: A line item with an extra field such as line_total is rejected with 422 on create and add-line.
+- id: test_empty_invoice_is_422
+  kind: safety
+  description: An invoice with no line items is rejected with 422.
+- id: test_empty_customer_or_description_is_422
+  kind: safety
+  description: An empty customer or line-item description is rejected with 422.
+- id: test_invalid_quantity_or_price_is_422
+  kind: safety
+  description: Quantity 0, fractional quantity, or a negative unit price is rejected with 422 on create and add-line.
+- id: test_no_line_items_after_issue
+  kind: safety
+  description: Adding a line to an issued invoice is 409 and the total does not change.
+- id: test_wrong_payment_amount_is_422_and_unpaid
+  kind: safety
+  description: Paying less or more than the total is 422 and the invoice stays issued.
+- id: test_state_order_is_enforced
+  kind: safety
+  description: Paying a draft is 409; issuing twice is 409; paying twice is 409.
+- id: test_unknown_invoice_is_404
+  kind: functional
+  description: Reading or issuing an unknown invoice is 404 (while the routes exist).
+notes: New task (Day 3) replacing SVAGA 3.0 billing_invoice, which had one route and one check.

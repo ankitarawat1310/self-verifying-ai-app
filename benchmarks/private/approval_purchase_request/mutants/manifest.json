@@ -1,0 +1,173 @@
+{
+  "task_id": "approval_purchase_request",
+  "seed": 7,
+  "candidates": 29,
+  "sampled": 12,
+  "killed": 10,
+  "survived": 2,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_016",
+      "operator": "change_status",
+      "line": 40,
+      "description": "status code 409 -> 400",
+      "outcome": "killed",
+      "killed_by": [
+        "test_terminal_decisions_cannot_change"
+      ],
+      "checks_failed": 1,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_drop_guard_006",
+      "operator": "drop_guard",
+      "line": 12,
+      "description": "guard disabled: if isinstance(value, str) and (not value.strip())",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_vendor_is_422",
+        "test_blank_description_is_422"
+      ],
+      "checks_failed": 2,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_flip_comparison_002",
+      "operator": "flip_comparison",
+      "line": 39,
+      "description": "comparison NotEq -> Eq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_manager_approves_at_the_5000_limit",
+        "test_director_decides_high_value",
+        "test_director_can_reject_high_value",
+        "test_director_decides_low_value",
+        "test_manager_rejects_at_the_5000_limit",
+        "test_terminal_decisions_cannot_change"
+      ],
+      "checks_failed": 6,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_off_by_one_025",
+      "operator": "off_by_one",
+      "line": 47,
+      "description": "number 5000 -> 5001",
+      "outcome": "killed",
+      "killed_by": [
+        "test_manager_cannot_decide_above_5000"
+      ],
+      "checks_failed": 1,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_relax_validation_022",
+      "operator": "relax_validation",
+      "line": 52,
+      "description": "validation removed: min_length=1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_swap_boolean_019",
+      "operator": "swap_boolean",
+      "line": 18,
+      "description": "boolean operator Or -> And",
+      "outcome": "killed",
+      "killed_by": [
+        "test_employee_cannot_decide"
+      ],
+      "checks_failed": 1,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_change_status_013",
+      "operator": "change_status",
+      "line": 19,
+      "description": "status code 403 -> 404",
+      "outcome": "killed",
+      "killed_by": [
+        "test_employee_cannot_decide"
+      ],
+      "checks_failed": 1,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_drop_guard_010",
+      "operator": "drop_guard",
+      "line": 39,
+      "description": "guard disabled: if record['status'] != 'submitted'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_terminal_decisions_cannot_change"
+      ],
+      "checks_failed": 1,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_flip_comparison_001",
+      "operator": "flip_comparison",
+      "line": 37,
+      "description": "comparison Eq -> NotEq",
+      "outcome": "killed",
+      "killed_by": [
+        "test_manager_approves_at_the_5000_limit",
+        "test_director_decides_high_value",
+        "test_director_can_reject_high_value",
+        "test_director_decides_low_value",
+        "test_requester_cannot_decide_own_request",
+        "test_manager_rejects_at_the_5000_limit",
+        "test_terminal_decisions_cannot_change"
+      ],
+      "checks_failed": 7,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_off_by_one_027",
+      "operator": "off_by_one",
+      "line": 53,
+      "description": "number 1 -> 2",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_relax_validation_021",
+      "operator": "relax_validation",
+      "line": 51,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_status_injection_is_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 15
+    },
+    {
+      "id": "auto_swap_boolean_018",
+      "operator": "swap_boolean",
+      "line": 12,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_submit_returns_201_submitted",
+        "test_manager_approves_at_the_5000_limit",
+        "test_director_decides_high_value",
+        "test_director_can_reject_high_value",
+        "test_director_decides_low_value",
+        "test_manager_cannot_decide_above_5000",
+        "test_requester_cannot_decide_own_request",
+        "test_employee_cannot_decide",
+        "test_manager_rejects_at_the_5000_limit",
+        "test_terminal_decisions_cannot_change",
+        "test_unknown_request_is_404"
+      ],
+      "checks_failed": 11,
+      "checks_total": 15
+    }
+  ]
+}

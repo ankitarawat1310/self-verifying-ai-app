@@ -1,0 +1,56 @@
+{
+  "task_id": "crud_contact_directory",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_email_case_sensitive",
+      "description": "Email uniqueness compares case-sensitively, so ADA@X and ada@X both exist",
+      "expected_failing_checks": [
+        "test_duplicate_email_ignoring_case_is_409"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_duplicate_email_ignoring_case_is_409",
+        "test_update_cannot_take_another_contacts_email"
+      ],
+      "expected_hit": [
+        "test_duplicate_email_ignoring_case_is_409"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_patch_skips_uniqueness",
+      "description": "PATCH does not re-check email uniqueness",
+      "expected_failing_checks": [
+        "test_update_cannot_take_another_contacts_email"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_update_cannot_take_another_contacts_email"
+      ],
+      "expected_hit": [
+        "test_update_cannot_take_another_contacts_email"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_mass_assignment",
+      "description": "Create accepts and stores undeclared fields such as admin",
+      "expected_failing_checks": [
+        "test_unknown_fields_are_rejected"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_unknown_fields_are_rejected"
+      ],
+      "expected_hit": [
+        "test_unknown_fields_are_rejected"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

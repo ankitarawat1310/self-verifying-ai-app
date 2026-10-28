@@ -1,0 +1,54 @@
+{
+  "status": "candidate_target_met",
+  "dataset": "open-thoughts/OpenThoughts-Agent-SFT-100K",
+  "revision": "45fb28fcc38d352133cb28a1c8a43a2f14fea97b",
+  "source_split": "train",
+  "source_rows_scanned": 22922,
+  "counts": {
+    "train": 10000,
+    "validation": 1000
+  },
+  "targets": {
+    "train": 10000,
+    "validation": 1000
+  },
+  "pilot_counts": {
+    "train": 100,
+    "validation": 20
+  },
+  "source_prefix_counts": {
+    "train:swesmith": 10000,
+    "validation:swesmith": 1000
+  },
+  "exclusion_counts": {
+    "recorded_execution_error": 8575,
+    "task_group_already_selected": 3240,
+    "split_target_already_met": 107
+  },
+  "outcomes_scanned": {
+    "None": 14347,
+    "AgentTimeoutError": 8553,
+    "DaytonaError": 13,
+    "DaytonaNotFoundError": 6,
+    "ContextLengthExceededError": 3
+  },
+  "benchmark_revision": "7131e4375048a0e408a8fb404b5f499d726b695b",
+  "audit_report_sha256": "5572016599b8dd5ebcf57da459e84993c941e3958dbd51a5860199a55b692307",
+  "review_file_sha256": "6b79fb09a4f5ec5b43d21307cf1dec14ee1bfb783d736f7582c76dcb08fa1255",
+  "sampling": "Deterministic source-order scan until quotas met. One selected example per task group; SHA256(3407:group) determines split. Not representative of entire source and not stratified by source.",
+  "files_sha256": {
+    "exclusions.audit-only.jsonl": "cd707a2085cac4e1d2caf40c9ab8f289ce5f7f4e1c99b5b38b21a5e28478c9b6",
+    "full.train.jsonl": "fb60c0970b9c505aa152d9e2136da3e681c2ef5a0ef5a1e39e3a8b32f41eae0f",
+    "full.validation.jsonl": "010b142255206d625243ced3d7290865e6b482f58214e3fa496c83d490b394be",
+    "pilot.train.jsonl": "921bd5984930d92fd73c63e72f4868a73a81884d76036b71982a2758bb5280c4",
+    "pilot.validation.jsonl": "715415e6ba041bc165077dacd295979c4afd3598cf8718c160c136bc9ed3796a"
+  },
+  "limitations": [
+    "Unknown outcomes are not verified successful solutions.",
+    "Benchmark screening is exact-ID and instruction 5-gram heuristic, not full semantic or solution leakage clearance.",
+    "All retained candidates screened, but skipped error/invalid rows need not be benchmark screened.",
+    "Source-order selection can overrepresent early source families; consult prefix counts.",
+    "Tokenizer lengths, assistant-only masking and full licence/provenance review still required.",
+    "Supersedes the previous package; do not mix old splits/pilots with these splits."
+  ]
+}

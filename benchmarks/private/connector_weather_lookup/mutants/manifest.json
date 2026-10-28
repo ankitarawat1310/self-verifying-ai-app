@@ -1,0 +1,155 @@
+{
+  "task_id": "connector_weather_lookup",
+  "seed": 7,
+  "candidates": 12,
+  "sampled": 12,
+  "killed": 10,
+  "survived": 2,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_006",
+      "operator": "change_status",
+      "line": 33,
+      "description": "status code 502 -> 500",
+      "outcome": "killed",
+      "killed_by": [
+        "test_missing_condition_is_502_and_not_stored",
+        "test_missing_temperature_is_502_and_not_stored",
+        "test_connector_error_is_502"
+      ],
+      "checks_failed": 3,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_drop_guard_001",
+      "operator": "drop_guard",
+      "line": 36,
+      "description": "guard disabled: if not isinstance(condition, str) or not condition.strip()",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_condition_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_off_by_one_011",
+      "operator": "off_by_one",
+      "line": 15,
+      "description": "number 1 -> 2",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_relax_validation_009",
+      "operator": "relax_validation",
+      "line": 14,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_endpoint_override_is_rejected_before_any_call",
+        "test_unknown_fields_are_rejected"
+      ],
+      "checks_failed": 2,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_swap_boolean_007",
+      "operator": "swap_boolean",
+      "line": 34,
+      "description": "boolean operator Or -> And",
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_temperature_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_change_status_005",
+      "operator": "change_status",
+      "line": 37,
+      "description": "status code 502 -> 500",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_condition_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_drop_guard_000",
+      "operator": "drop_guard",
+      "line": 34,
+      "description": "guard disabled: if isinstance(temperature, bool) or not isinstance(temperature, (int, flo",
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_temperature_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_relax_validation_010",
+      "operator": "relax_validation",
+      "line": 15,
+      "description": "validation removed: min_length=1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_swap_boolean_008",
+      "operator": "swap_boolean",
+      "line": 36,
+      "description": "boolean operator Or -> And",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_condition_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_change_status_003",
+      "operator": "change_status",
+      "line": 25,
+      "description": "status code 201 -> 200",
+      "outcome": "killed",
+      "killed_by": [
+        "test_lookup_returns_201_with_connector_values",
+        "test_exactly_one_get_with_location_query"
+      ],
+      "checks_failed": 2,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_drop_guard_002",
+      "operator": "drop_guard",
+      "line": 20,
+      "description": "guard disabled: if not value.strip()",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_location_is_rejected_before_any_call"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    },
+    {
+      "id": "auto_change_status_004",
+      "operator": "change_status",
+      "line": 35,
+      "description": "status code 502 -> 500",
+      "outcome": "killed",
+      "killed_by": [
+        "test_non_numeric_temperature_is_502"
+      ],
+      "checks_failed": 1,
+      "checks_total": 12
+    }
+  ]
+}

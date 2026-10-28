@@ -1,0 +1,55 @@
+{
+  "task_id": "password_reset_token",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_token_reusable",
+      "description": "Tokens are not marked used after a reset",
+      "expected_failing_checks": [
+        "test_token_works_only_once"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_token_works_only_once"
+      ],
+      "expected_hit": [
+        "test_token_works_only_once"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_no_expiry",
+      "description": "Tokens never expire",
+      "expected_failing_checks": [
+        "test_token_expires_after_60_minutes"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_token_expires_after_60_minutes"
+      ],
+      "expected_hit": [
+        "test_token_expires_after_60_minutes"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_account_enumeration",
+      "description": "Reset requests for unknown emails return 404",
+      "expected_failing_checks": [
+        "test_request_does_not_reveal_accounts"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_request_does_not_reveal_accounts"
+      ],
+      "expected_hit": [
+        "test_request_does_not_reveal_accounts"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

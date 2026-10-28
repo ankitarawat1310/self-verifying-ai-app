@@ -1,0 +1,34 @@
+task_id: connector_shipping_quote
+security_mutants:
+- id: sec_endpoint_override
+  description: A caller-supplied endpoint replaces the declared connector (SSRF)
+  edits:
+  - find: '    weight: float = Field(gt=0, le=100)
+
+      '
+    replace: "    weight: float = Field(gt=0, le=100)\n    endpoint: str | None = None\n"
+    occurrence: 1
+  - find: reply = httpx.post(CONNECTOR_URL, json=payload.model_dump(), timeout=5.0)
+    replace: reply = httpx.post(payload.endpoint or CONNECTOR_URL, json=payload.model_dump(exclude={"endpoint"}), timeout=5.0)
+    occurrence: 1
+  expected_failing_checks:
+  - test_endpoint_override_is_rejected_before_any_call
+- id: sec_fail_open
+  description: Connector failure stores a zero-price quote instead of returning 502
+  edits:
+  - find: '        raise HTTPException(502, "shipping connector failed") from error'
+    replace: '        price = 0.0'
+    occurrence: 1
+  expected_failing_checks:
+  - test_connector_error_is_502_and_not_stored
+- id: sec_unvalidated_price
+  description: The connector's price is stored without type checking
+  edits:
+  - find: "    if isinstance(price, bool) or not isinstance(price, (int, float)):\n        raise HTTPException(502, \"invalid price from connector\")\n"
+    replace: ''
+    occurrence: 1
+  - find: '"price": float(price)'
+    replace: '"price": price'
+    occurrence: 1
+  expected_failing_checks:
+  - test_non_numeric_price_is_502

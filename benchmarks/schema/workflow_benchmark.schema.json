@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkflowBenchmark",
+  "type": "object",
+  "required": ["workflow_id", "name", "category", "natural_language_requirement"],
+  "properties": {
+    "workflow_id": { "type": "string" },
+    "name": { "type": "string" },
+    "category": { "type": "string" },
+    "complexity": { "type": "string" },
+    "natural_language_requirement": { "type": "string" },
+    "actors": { "type": "array" },
+    "entities": { "type": "array" },
+    "business_rules": { "type": "array" },
+    "functional_properties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "check_type": { "type": "string" },
+          "expression": { "type": "string" }
+        }
+      }
+    },
+    "safety_properties": { "type": "array" },
+    "security_properties": { "type": "array" },
+    "permission_requirements": { "type": "object" },
+    "known_fault_mutations": { "type": "array" }
+  }
+}

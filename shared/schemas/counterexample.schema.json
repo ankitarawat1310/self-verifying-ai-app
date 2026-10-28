@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Counterexample",
+  "type": "object",
+  "required": ["property_id", "message"],
+  "properties": {
+    "property_id": { "type": "string" },
+    "message": { "type": "string" },
+    "inputs": { "type": "object" },
+    "stdout": { "type": "string" },
+    "stderr": { "type": "string" },
+    "pytest_node_id": { "type": "string" },
+    "spec_rule_id": { "type": "string" }
+  }
+}

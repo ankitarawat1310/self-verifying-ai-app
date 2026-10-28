@@ -1,0 +1,7 @@
+operator,kept_caught,survived,crashed
+change_status,46,3,0
+drop_guard,37,2,0
+flip_comparison,31,2,0
+off_by_one,28,14,0
+relax_validation,26,15,0
+swap_boolean,33,0,0

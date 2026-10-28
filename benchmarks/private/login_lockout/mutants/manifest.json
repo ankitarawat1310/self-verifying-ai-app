@@ -1,0 +1,196 @@
+{
+  "task_id": "login_lockout",
+  "seed": 7,
+  "candidates": 30,
+  "sampled": 12,
+  "killed": 8,
+  "survived": 4,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_012",
+      "operator": "change_status",
+      "line": 63,
+      "description": "status code 423 -> 401",
+      "outcome": "killed",
+      "killed_by": [
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_lock_still_holds_just_before_15_minutes",
+        "test_wrong_password_during_the_lock_is_423",
+        "test_lock_is_measured_from_the_fifth_failure"
+      ],
+      "checks_failed": 4,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_drop_guard_006",
+      "operator": "drop_guard",
+      "line": 12,
+      "description": "guard disabled: if isinstance(value, str) and (not value.strip())",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_flip_comparison_002",
+      "operator": "flip_comparison",
+      "line": 64,
+      "description": "comparison GtE -> Gt",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_off_by_one_025",
+      "operator": "off_by_one",
+      "line": 37,
+      "description": "number 1 -> 2",
+      "outcome": "killed",
+      "killed_by": [
+        "test_one_character_username_is_accepted"
+      ],
+      "checks_failed": 1,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_relax_validation_021",
+      "operator": "relax_validation",
+      "line": 43,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_login_with_an_unknown_field_is_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_swap_boolean_015",
+      "operator": "swap_boolean",
+      "line": 62,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_register_never_returns_the_password",
+        "test_correct_login_returns_a_token",
+        "test_wrong_password_and_unknown_user_are_401",
+        "test_four_failures_do_not_lock",
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_lock_still_holds_just_before_15_minutes",
+        "test_lock_expires_after_15_minutes",
+        "test_success_resets_the_failure_count",
+        "test_lock_is_per_username",
+        "test_duplicate_username_is_409",
+        "test_short_password_is_422",
+        "test_unknown_fields_are_422",
+        "test_response_fields_match_the_interface",
+        "test_wrong_password_during_the_lock_is_423",
+        "test_lock_is_measured_from_the_fifth_failure",
+        "test_password_of_exactly_8_characters_is_accepted",
+        "test_empty_or_missing_registration_fields_are_422",
+        "test_login_with_a_missing_field_is_422",
+        "test_login_with_an_unknown_field_is_422",
+        "test_duplicate_registration_keeps_the_original_password",
+        "test_one_character_username_is_accepted"
+      ],
+      "checks_failed": 21,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_change_status_013",
+      "operator": "change_status",
+      "line": 73,
+      "description": "status code 401 -> 403",
+      "outcome": "killed",
+      "killed_by": [
+        "test_wrong_password_and_unknown_user_are_401",
+        "test_four_failures_do_not_lock",
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_duplicate_registration_keeps_the_original_password"
+      ],
+      "checks_failed": 4,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_drop_guard_008",
+      "operator": "drop_guard",
+      "line": 62,
+      "description": "guard disabled: if until and now < until",
+      "outcome": "killed",
+      "killed_by": [
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_lock_still_holds_just_before_15_minutes",
+        "test_wrong_password_during_the_lock_is_423",
+        "test_lock_is_measured_from_the_fifth_failure"
+      ],
+      "checks_failed": 4,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_flip_comparison_001",
+      "operator": "flip_comparison",
+      "line": 62,
+      "description": "comparison Lt -> LtE",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_off_by_one_022",
+      "operator": "off_by_one",
+      "line": 27,
+      "description": "number 5 -> 6",
+      "outcome": "killed",
+      "killed_by": [
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_lock_still_holds_just_before_15_minutes",
+        "test_wrong_password_during_the_lock_is_423",
+        "test_lock_is_measured_from_the_fifth_failure"
+      ],
+      "checks_failed": 4,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_relax_validation_019",
+      "operator": "relax_validation",
+      "line": 37,
+      "description": "validation removed: min_length=1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 21
+    },
+    {
+      "id": "auto_swap_boolean_014",
+      "operator": "swap_boolean",
+      "line": 12,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_register_never_returns_the_password",
+        "test_correct_login_returns_a_token",
+        "test_wrong_password_and_unknown_user_are_401",
+        "test_four_failures_do_not_lock",
+        "test_fifth_failure_locks_even_the_correct_password",
+        "test_lock_still_holds_just_before_15_minutes",
+        "test_lock_expires_after_15_minutes",
+        "test_success_resets_the_failure_count",
+        "test_lock_is_per_username",
+        "test_duplicate_username_is_409",
+        "test_response_fields_match_the_interface",
+        "test_wrong_password_during_the_lock_is_423",
+        "test_lock_is_measured_from_the_fifth_failure",
+        "test_password_of_exactly_8_characters_is_accepted",
+        "test_login_with_a_missing_field_is_422",
+        "test_login_with_an_unknown_field_is_422",
+        "test_duplicate_registration_keeps_the_original_password",
+        "test_one_character_username_is_accepted"
+      ],
+      "checks_failed": 18,
+      "checks_total": 21
+    }
+  ]
+}

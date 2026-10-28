@@ -1,0 +1,44 @@
+{
+  "status": "experimental_training_package_not_verified_repair_corpus",
+  "counts": {
+    "train": 10000,
+    "validation": 1000
+  },
+  "source_dataset": "SWE-bench/SWE-smith-py",
+  "source_revision": "77cab9055d42ab4a5c25c89a8f937096db13558e",
+  "source_manifest_sha256": "97ed5447e3932c0eb11ac8de04ed9df2be54d3f61a546ed498831138917c3420",
+  "tokenizer": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "tokenizer_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "max_tokens": 4096,
+  "statistics": {
+    "train": {
+      "records": 10000,
+      "max_tokens": 4094,
+      "target_tokens": 3389665
+    },
+    "validation": {
+      "records": 1000,
+      "max_tokens": 4096,
+      "target_tokens": 332113
+    }
+  },
+  "files_sha256": {
+    "train.jsonl": "36d790d8f87c19cf2d914863cb8a3be7c1be3c2e74d5af183fd3755b0a802eec",
+    "validation.jsonl": "3953a213500952e1b03f003514d36b2b5c6c661ed5a387cbc278d7d588fd02dc"
+  },
+  "target_format": "unified_diff_no_blob_hashes_or_hunk_function_labels_deletions_before_additions",
+  "scope": "context-enriched localized Python repair",
+  "context_enriched": true,
+  "limitations": [
+    "Whole affected functions and statically referenced module definitions improve context but cannot prove semantic sufficiency.",
+    "Buggy file locations are known from patches; oracle localization remains.",
+    "Some helpers accessed through object attributes or dynamic imports can remain outside supplied context.",
+    "Source files verified against official Git blob prefixes, not executed.",
+    "Repository-separated balanced round-robin selection; mutation/category balance not enforced.",
+    "Upstream test evidence retained; new records have not been replayed locally.",
+    "Benchmark/prior-validation overlap screening remains heuristic.",
+    "Not a full manual review or proof of semantic context completeness.",
+    "Normalization changes target serialization; earlier adapter is a separate experiment.",
+    "Use development validation for tuning; it is not an untouched final evaluation benchmark."
+  ]
+}

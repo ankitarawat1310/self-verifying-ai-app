@@ -1,0 +1,48 @@
+{
+  "evaluation_id": "repair-dev20-v1",
+  "scope": "development_only_not_external_benchmark",
+  "selection": "fixed SHA256 order and round-robin across validation repositories; no output-based selection",
+  "selection_seed": "svaga-repair-dev20-v1",
+  "tasks": 20,
+  "repositories": {
+    "swesmith/python-trio__trio.cfbbe2c1": 2,
+    "swesmith/pyasn1__pyasn1.0f07d724": 2,
+    "swesmith/tox-dev__pipdeptree.c31b6418": 2,
+    "swesmith/pytest-dev__iniconfig.16793ead": 2,
+    "swesmith/mewwts__addict.75284f95": 2,
+    "swesmith/Suor__funcy.207a7810": 2,
+    "swesmith/cknd__stackprinter.219fcc52": 2,
+    "swesmith/mido__mido.a0158ff9": 2,
+    "swesmith/oauthlib__oauthlib.1fd52536": 1,
+    "swesmith/python-jsonschema__jsonschema.93e0caa5": 1,
+    "swesmith/pallets__jinja.ada0a9a6": 1,
+    "swesmith/conan-io__conan.86f29e13": 1
+  },
+  "source_validation_sha256": "3953a213500952e1b03f003514d36b2b5c6c661ed5a387cbc278d7d588fd02dc",
+  "prompts_sha256": "63192f53a8512d535107c37a8cd149c1d3e4f3ea046b31f3cd1534b2c117b7dc",
+  "private_tasks_sha256": "2b727ce91f8a1d732ec5dbce29c0c6b729a88eb571b27b63746e74bf82819d77",
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "model_revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "adapter_artifacts_sha256": {
+    "adapter/adapter_model.safetensors": "d2e8e505c7340bd7067ac3a2c7b1696ce126961356fa3789e176a195c34e96fa",
+    "adapter/adapter_config.json": "2616e47d993696d5ba99c689e05fab22ccca163d1afc99f0f469ccf80e008fb8",
+    "tokenizer/tokenizer.json": "3fd169731d2cbde95e10bf356d66d5997fd885dd8dbb6fb4684da3f23b2585d8",
+    "tokenizer/tokenizer_config.json": "8b6f658e2435ec8da6866013cb485a1d2a6559bed4bf76ed99ea68b031854b41",
+    "tokenizer/chat_template.jinja": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "max_new_tokens": 2048,
+    "seed": 42
+  },
+  "variants": [
+    "base",
+    "adapter"
+  ],
+  "limitations": [
+    "Already used development validation, not an untouched test set.",
+    "Affected source locations are supplied; no repository-search evaluation.",
+    "No reference answers, bug patches, test selectors or oracle code in this upload."
+  ]
+}

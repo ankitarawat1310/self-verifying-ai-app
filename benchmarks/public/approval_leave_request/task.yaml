@@ -1,0 +1,89 @@
+schema_version: '1.0'
+task_id: approval_leave_request
+title: Leave request approval
+category: workflow_state
+source: svaga2
+prompt: >-
+  Create a leave-request API. Employees submit a reason, start date, and end date. Managers approve or reject submitted
+  requests. End dates cannot precede start dates, requesters cannot approve themselves, and terminal decisions cannot
+  change.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+  roles:
+  - name: employee
+    description: Submits leave requests.
+  - name: manager
+    description: Approves or rejects submitted leave requests.
+  routes:
+  - method: POST
+    path: /leave-requests
+    summary: Submit a request as the calling user (status starts as submitted)
+    roles:
+    - employee
+    request_fields:
+      reason:
+        type: string
+        required: true
+        min_length: 1
+        description: not blank
+      start_date:
+        type: date
+        required: true
+      end_date:
+        type: date
+        required: true
+    success_status: 201
+    response_fields:
+    - id
+    - requester_id
+    - reason
+    - start_date
+    - end_date
+    - status
+    - decided_by
+  - method: GET
+    path: /leave-requests/{request_id}
+    summary: Read one request
+    roles:
+    - employee
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - reason
+    - start_date
+    - end_date
+    - status
+    - decided_by
+  - method: POST
+    path: /leave-requests/{request_id}/approve
+    summary: Approve a submitted request
+    roles:
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by
+  - method: POST
+    path: /leave-requests/{request_id}/reject
+    summary: Reject a submitted request
+    roles:
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by

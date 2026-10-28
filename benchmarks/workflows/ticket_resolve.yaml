@@ -1,0 +1,42 @@
+workflow_id: ticket_resolve
+name: Ticket Resolve
+category: ticketing
+complexity: small
+natural_language_requirement: Agents resolve tickets; closed tickets cannot reopen
+  without manager.
+endpoints:
+- method: GET
+  path: /health
+  business_action: health
+  allowed_roles:
+  - user
+actors:
+- id: user
+  name: User
+- id: admin
+  name: Admin
+entities:
+- name: Record
+  fields:
+  - name: id
+    type: string
+business_rules:
+- id: ticket_resolve_rule
+  description: Agents resolve tickets; closed tickets cannot reopen without manager.
+functional_properties: []
+safety_properties:
+- id: no_subprocess
+  description: Generated app must not spawn subprocesses
+  predicate: no_subprocess
+permission_requirements:
+  allowed_capabilities:
+  - fastapi
+  - pydantic
+  forbidden_imports:
+  - subprocess
+  - socket
+  allowed_imports:
+  - fastapi
+  - pydantic
+  - typing
+known_fault_mutations: []

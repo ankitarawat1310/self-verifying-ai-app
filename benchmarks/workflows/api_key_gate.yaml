@@ -1,0 +1,41 @@
+workflow_id: api_key_gate
+name: API Key Gate
+category: security
+complexity: small
+natural_language_requirement: Protect /protected-resource with X-API-Key header.
+endpoints:
+- method: GET
+  path: /health
+  business_action: health
+  allowed_roles:
+  - user
+actors:
+- id: user
+  name: User
+- id: admin
+  name: Admin
+entities:
+- name: Record
+  fields:
+  - name: id
+    type: string
+business_rules:
+- id: api_key_gate_rule
+  description: Protect /protected-resource with X-API-Key header.
+functional_properties: []
+safety_properties:
+- id: no_subprocess
+  description: Generated app must not spawn subprocesses
+  predicate: no_subprocess
+permission_requirements:
+  allowed_capabilities:
+  - fastapi
+  - pydantic
+  forbidden_imports:
+  - subprocess
+  - socket
+  allowed_imports:
+  - fastapi
+  - pydantic
+  - typing
+known_fault_mutations: []

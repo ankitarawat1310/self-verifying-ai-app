@@ -1,0 +1,95 @@
+schema_version: '1.0'
+task_id: approval_purchase_request
+title: Purchase request with approval limits
+category: workflow_state
+source: svaga2
+prompt: >-
+  Create a purchase-request API. Employees submit nonblank vendor and description values and a positive amount. Managers may decide
+  (approve or reject) requests up to and including 5000; larger requests require a director. Directors may decide
+  any request. Requesters cannot decide their own requests and terminal decisions cannot change.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+  roles:
+  - name: employee
+    description: Submits purchase requests.
+  - name: manager
+    description: Decides requests with amount up to 5000.
+  - name: director
+    description: Decides requests of any amount.
+  routes:
+  - method: POST
+    path: /purchase-requests
+    summary: Submit a request as the calling user (status starts as submitted)
+    roles:
+    - employee
+    request_fields:
+      vendor:
+        type: string
+        required: true
+        min_length: 1
+      description:
+        type: string
+        required: true
+        min_length: 1
+      amount:
+        type: number
+        required: true
+        exclusive_minimum: 0
+    success_status: 201
+    response_fields:
+    - id
+    - requester_id
+    - vendor
+    - description
+    - amount
+    - status
+    - decided_by
+  - method: GET
+    path: /purchase-requests/{request_id}
+    summary: Read one request
+    roles:
+    - director
+    - employee
+    - manager
+    success_status: 200
+    response_fields:
+    - id
+    - requester_id
+    - vendor
+    - description
+    - amount
+    - status
+    - decided_by
+  - method: POST
+    path: /purchase-requests/{request_id}/approve
+    summary: Approve a submitted request
+    roles:
+    - manager
+    - director
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by
+  - method: POST
+    path: /purchase-requests/{request_id}/reject
+    summary: Reject a submitted request
+    roles:
+    - manager
+    - director
+    success_status: 200
+    response_fields:
+    - id
+    - status
+    - decided_by

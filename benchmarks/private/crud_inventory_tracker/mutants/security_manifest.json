@@ -1,0 +1,55 @@
+{
+  "task_id": "crud_inventory_tracker",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_patch_negative_stock",
+      "description": "PATCH drops the nonnegative stock rule",
+      "expected_failing_checks": [
+        "test_patch_to_negative_stock_is_rejected_and_unchanged"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_patch_to_negative_stock_is_rejected_and_unchanged"
+      ],
+      "expected_hit": [
+        "test_patch_to_negative_stock_is_rejected_and_unchanged"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_sku_case_sensitive",
+      "description": "SKU uniqueness compares case-sensitively",
+      "expected_failing_checks": [
+        "test_duplicate_sku_ignoring_case_is_409"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_duplicate_sku_ignoring_case_is_409"
+      ],
+      "expected_hit": [
+        "test_duplicate_sku_ignoring_case_is_409"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_sku_changeable",
+      "description": "PATCH lets clients change the SKU of an existing item",
+      "expected_failing_checks": [
+        "test_sku_cannot_be_changed"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_sku_cannot_be_changed"
+      ],
+      "expected_hit": [
+        "test_sku_cannot_be_changed"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

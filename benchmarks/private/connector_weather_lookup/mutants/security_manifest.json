@@ -1,0 +1,55 @@
+{
+  "task_id": "connector_weather_lookup",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_endpoint_override",
+      "description": "A caller-supplied endpoint replaces the declared connector (SSRF)",
+      "expected_failing_checks": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "expected_hit": [
+        "test_endpoint_override_is_rejected_before_any_call"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_default_condition",
+      "description": "A missing condition is filled in as Unknown instead of failing",
+      "expected_failing_checks": [
+        "test_missing_condition_is_502_and_not_stored"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_missing_condition_is_502_and_not_stored"
+      ],
+      "expected_hit": [
+        "test_missing_condition_is_502_and_not_stored"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_blank_condition",
+      "description": "A blank condition is accepted",
+      "expected_failing_checks": [
+        "test_blank_condition_is_502"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_condition_is_502"
+      ],
+      "expected_hit": [
+        "test_blank_condition_is_502"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

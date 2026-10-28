@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svaga/task_private.schema.json",
+  "title": "SVAGA private task data (judge and validation only; never sent to a model)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "canary",
+    "split",
+    "gold_capabilities",
+    "hidden_checks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "canary": {
+      "type": "string",
+      "pattern": "^SVAGA-PRIVATE-CANARY-[a-z0-9_]+-[0-9a-f]{12}$",
+      "description": "Unique marker; tests fail if it ever appears in a prompt or artifact"
+    },
+    "split": {
+      "enum": [
+        "unassigned",
+        "dev",
+        "test"
+      ]
+    },
+    "gold_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "target"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "methods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "state_machine": {
+      "type": "object",
+      "required": [
+        "entity",
+        "states",
+        "initial",
+        "terminal",
+        "transitions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2
+        },
+        "initial": {
+          "type": "string"
+        },
+        "terminal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to",
+              "action",
+              "roles"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "guard": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "hidden_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^test_[a-z0-9_]+$"
+          },
+          "kind": {
+            "enum": [
+              "functional",
+              "safety"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "security_mutants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "expected_failing_checks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

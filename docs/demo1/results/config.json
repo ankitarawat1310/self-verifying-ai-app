@@ -1,0 +1,30 @@
+{
+  "models": [
+    "m0",
+    "m1",
+    "m2"
+  ],
+  "tasks": [
+    "approval_emergency_access",
+    "approval_leave_request",
+    "approval_purchase_request",
+    "billing_invoice",
+    "connector_address_validation",
+    "connector_document_delivery",
+    "connector_shipping_quote",
+    "connector_weather_lookup",
+    "crud_appointment_registry",
+    "crud_inventory_tracker",
+    "login_lockout",
+    "password_reset_token",
+    "role_scoped_documents",
+    "task_dependencies",
+    "ticket_lifecycle"
+  ],
+  "repeats": 3,
+  "split": "test",
+  "llm": {
+    "provider": "ollama",
+    "model": "qwen3-coder:30b"
+  }
+}

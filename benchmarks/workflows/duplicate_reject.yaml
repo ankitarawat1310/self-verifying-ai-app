@@ -1,0 +1,41 @@
+workflow_id: duplicate_reject
+name: Duplicate Reject
+category: data_collection
+complexity: small
+natural_language_requirement: Reject duplicate primary keys on create.
+endpoints:
+- method: GET
+  path: /health
+  business_action: health
+  allowed_roles:
+  - user
+actors:
+- id: user
+  name: User
+- id: admin
+  name: Admin
+entities:
+- name: Record
+  fields:
+  - name: id
+    type: string
+business_rules:
+- id: duplicate_reject_rule
+  description: Reject duplicate primary keys on create.
+functional_properties: []
+safety_properties:
+- id: no_subprocess
+  description: Generated app must not spawn subprocesses
+  predicate: no_subprocess
+permission_requirements:
+  allowed_capabilities:
+  - fastapi
+  - pydantic
+  forbidden_imports:
+  - subprocess
+  - socket
+  allowed_imports:
+  - fastapi
+  - pydantic
+  - typing
+known_fault_mutations: []

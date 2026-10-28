@@ -1,0 +1,100 @@
+schema_version: '1.0'
+task_id: room_booking
+title: Meeting room booking without overlaps
+category: scheduling
+source: svaga3
+prompt: >-
+  Create a meeting-room booking API for three rooms: room-a, room-b and room-c. A booking has a room, a title, a
+  start and an end (ISO datetimes). The end must be after the start and a booking may last at most 4 hours. Two
+  bookings of the same room may not overlap; a booking may start exactly when another ends. Bookings of different
+  rooms never conflict. Only the employee who made a booking can cancel it, and cancelling frees the time slot.
+  Bookings can be listed, optionally filtered by room.
+interface:
+  framework: fastapi
+  auth:
+    scheme: headers
+    actor_header: x-actor-id
+    role_header: x-actor-role
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+    missing_or_wrong_identity: 403
+    overlapping_booking: 409
+  roles:
+  - name: employee
+    description: Books rooms and cancels their own bookings
+  routes:
+  - method: POST
+    path: /bookings
+    summary: Book a room as the caller
+    roles:
+    - employee
+    request_fields:
+      room_id:
+        type: string
+        required: true
+        enum:
+        - room-a
+        - room-b
+        - room-c
+      title:
+        type: string
+        required: true
+        min_length: 1
+      start_at:
+        type: datetime
+        required: true
+      end_at:
+        type: datetime
+        required: true
+    success_status: 201
+    response_fields:
+    - id
+    - room_id
+    - booked_by
+    - title
+    - start_at
+    - end_at
+  - method: GET
+    path: /bookings
+    summary: List bookings
+    roles:
+    - employee
+    query_params:
+      room_id:
+        type: string
+        required: false
+        enum:
+        - room-a
+        - room-b
+        - room-c
+    success_status: 200
+    response_fields:
+    - id
+    - room_id
+    - booked_by
+    - title
+    - start_at
+    - end_at
+  - method: GET
+    path: /bookings/{booking_id}
+    summary: Read one booking
+    roles:
+    - employee
+    success_status: 200
+    response_fields:
+    - id
+    - room_id
+    - booked_by
+    - title
+    - start_at
+    - end_at
+  - method: DELETE
+    path: /bookings/{booking_id}
+    summary: Cancel your own booking
+    roles:
+    - employee
+    success_status: 204

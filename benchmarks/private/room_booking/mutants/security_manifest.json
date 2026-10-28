@@ -1,0 +1,56 @@
+{
+  "task_id": "room_booking",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_anyone_cancels",
+      "description": "Any employee can cancel anyone's booking",
+      "expected_failing_checks": [
+        "test_only_the_booker_can_cancel"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_only_the_booker_can_cancel"
+      ],
+      "expected_hit": [
+        "test_only_the_booker_can_cancel"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_no_max_length",
+      "description": "The 4-hour limit is not enforced",
+      "expected_failing_checks": [
+        "test_four_hour_limit"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_four_hour_limit",
+        "test_rejected_bookings_do_not_reserve_the_slot"
+      ],
+      "expected_hit": [
+        "test_four_hour_limit"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_naive_overlap",
+      "description": "Overlap test only checks whether the new start falls inside an existing booking",
+      "expected_failing_checks": [
+        "test_overlapping_bookings_are_409"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_overlapping_bookings_are_409"
+      ],
+      "expected_hit": [
+        "test_overlapping_bookings_are_409"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

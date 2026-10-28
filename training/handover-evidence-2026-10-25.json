@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-25",
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+  "export_archive": "C:\\Users\\ankit\\Downloads\\SVAGA_Qwen15B_10K_Final.zip",
+  "export_zip_sha256": "26cc0b1516895beb4a36bacdd7ff6e40e22ee06965ffde7c7a476d3210d6971d",
+  "local_export": "C:\\repositories\\self-verifying-ai-app-generator-clean\\results\\fine_tuning\\qwen15b-context-10k-v2",
+  "dataset_directory": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\prepared\\swesmith-context-repair-10k-v2",
+  "dataset_zip_sha256": "b55b143fc41ec5dd35e1aca897168a293b83e6d83ecc698973d79318519fe3fd",
+  "counts": {
+    "train": 10000,
+    "validation": 1000
+  },
+  "dataset_hashes": {
+    "train.jsonl": "36d790d8f87c19cf2d914863cb8a3be7c1be3c2e74d5af183fd3755b0a802eec",
+    "validation.jsonl": "3953a213500952e1b03f003514d36b2b5c6c661ed5a387cbc278d7d588fd02dc"
+  },
+  "optimizer_updates": 1250,
+  "full_development_examples": 1000,
+  "baseline_full_loss": 0.46168158879998167,
+  "adapter_full_loss": 0.33112828258770605,
+  "relative_loss_reduction_percent": 28.277780483214453,
+  "reload_check": {
+    "difference": 0.0,
+    "match": true
+  },
+  "reference_replays": [
+    {
+      "project": "oauthlib",
+      "instance_id": "oauthlib__oauthlib.1fd52536.combine_file__39khb9no",
+      "tests": 673,
+      "stages": [
+        {
+          "stage": "clean_baseline",
+          "exit_code": 0,
+          "counts": {
+            "passed": 673
+          }
+        },
+        {
+          "stage": "buggy",
+          "exit_code": 1,
+          "counts": {
+            "failed": 1,
+            "passed": 672
+          }
+        },
+        {
+          "stage": "repaired",
+          "exit_code": 0,
+          "counts": {
+            "passed": 673
+          }
+        }
+      ],
+      "evidence": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\audits\\oauthlib-replay-20261025\\evidence\\report.json"
+    },
+    {
+      "project": "iniconfig",
+      "instance_id": "pytest-dev__iniconfig.16793ead.func_basic__vb9u5hga",
+      "tests": 28,
+      "stages": [
+        {
+          "stage": "clean_baseline",
+          "exit_code": 0,
+          "counts": {
+            "passed": 28
+          }
+        },
+        {
+          "stage": "buggy",
+          "exit_code": 1,
+          "counts": {
+            "failed": 1,
+            "passed": 27
+          }
+        },
+        {
+          "stage": "repaired",
+          "exit_code": 0,
+          "counts": {
+            "passed": 28
+          }
+        }
+      ],
+      "evidence": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\audits\\iniconfig-replay-20261025\\attempt-2\\evidence\\report.json"
+    },
+    {
+      "project": "funcy",
+      "instance_id": "Suor__funcy.207a7810.func_basic__88b40344",
+      "tests": 203,
+      "stages": [
+        {
+          "stage": "clean_baseline",
+          "exit_code": 0,
+          "counts": {
+            "passed": 203
+          }
+        },
+        {
+          "stage": "buggy",
+          "exit_code": 1,
+          "counts": {
+            "failed": 1,
+            "passed": 202
+          }
+        },
+        {
+          "stage": "repaired",
+          "exit_code": 0,
+          "counts": {
+            "passed": 203
+          }
+        }
+      ],
+      "evidence": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\audits\\funcy-replay-20261025\\evidence\\report.json"
+    },
+    {
+      "project": "typeguard",
+      "instance_id": "agronholm__typeguard.b6a7e438.func_basic__qnwvdejo",
+      "tests": 456,
+      "stages": [
+        {
+          "stage": "clean_baseline",
+          "exit_code": 0,
+          "counts": {
+            "passed": 456
+          }
+        },
+        {
+          "stage": "buggy",
+          "exit_code": 1,
+          "counts": {
+            "failed": 1,
+            "passed": 455
+          }
+        },
+        {
+          "stage": "repaired",
+          "exit_code": 0,
+          "counts": {
+            "passed": 456
+          }
+        }
+      ],
+      "evidence": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\audits\\typeguard-replay-20261025\\attempt-2\\evidence\\report.json"
+    },
+    {
+      "project": "schema",
+      "instance_id": "keleshev__schema.24a30457.func_basic__yrqqv9o4",
+      "tests": 116,
+      "stages": [
+        {
+          "stage": "clean_baseline",
+          "exit_code": 0,
+          "counts": {
+            "passed": 116
+          }
+        },
+        {
+          "stage": "buggy",
+          "exit_code": 1,
+          "counts": {
+            "failed": 1,
+            "passed": 115
+          }
+        },
+        {
+          "stage": "repaired",
+          "exit_code": 0,
+          "counts": {
+            "passed": 116
+          }
+        }
+      ],
+      "evidence": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\audits\\schema-replay-20261025\\evidence\\report.json"
+    }
+  ],
+  "generated_patch_execution_completed": true,
+  "development_repair_comparison": {
+    "completed_date": "2026-10-26",
+    "tasks": 20,
+    "base_passed": 0,
+    "adapter_passed": 0,
+    "base_patches_applied": 0,
+    "adapter_patches_applied": 3,
+    "adapter_applied_but_failed_tests": 3,
+    "adapter_token_limit_hits": 1,
+    "summary_path": "C:\\repositories\\self-verifying-ai-app-generator-clean\\results\\repair_eval\\repair-dev20-native-path-compat-20261026\\summary.json",
+    "raw_generation_sha256": "24fd1d67ef76b89faf3af1af7051a82c08801d0ab61f8387c9dd06e0f7dec2ea",
+    "scope": "one-shot development sample; not external benchmark"
+  },
+  "search_replace_format_experiment": {
+    "status": "completed",
+    "date": "2026-10-26",
+    "tasks": 20,
+    "dataset_changed": false,
+    "additional_training": false,
+    "reference_source_roundtrips": 20,
+    "implementation_tests": 15,
+    "notebook": "C:\\repositories\\self-verifying-ai-app-generator-clean\\training\\notebooks\\SVAGA_Dev20_SearchReplace_Base_vs_Adapter.ipynb",
+    "public_zip": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\evaluation\\repair-dev20-search-replace-v1\\repair-dev20-search-replace-prompts.zip",
+    "setup_verification": "C:\\repositories\\self-verifying-ai-app-generator-clean\\data\\evaluation\\repair-dev20-search-replace-v1\\setup-verification.json",
+    "generation_sha256": "ff44939b508d428b84c77c30ca8f65dcfe4d7ac260445804833b9d88f6350769",
+    "base_patches_applied": 1,
+    "adapter_patches_applied": 1,
+    "base_passing_repairs": 0,
+    "adapter_passing_repairs": 0,
+    "example_path_mentions": {
+      "base": 5,
+      "adapter": 11
+    },
+    "results_directory": "C:\\repositories\\self-verifying-ai-app-generator-clean\\results\\repair_eval\\search-replace-full-20261026",
+    "partial_test_improvement": {
+      "variant": "base",
+      "task": "pytest-dev__iniconfig.16793ead.func_pm_remove_assign__j041mnvq",
+      "observed_failures_fixed": 4,
+      "observed_failures_total": 7,
+      "fully_passed": false
+    }
+  }
+}

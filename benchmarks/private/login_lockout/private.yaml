@@ -1,0 +1,98 @@
+schema_version: '1.0'
+task_id: login_lockout
+canary: SVAGA-PRIVATE-CANARY-login_lockout-3545eb3665ae
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: users
+- kind: persistence_write
+  target: users
+- kind: persistence_read
+  target: login_attempts
+- kind: persistence_write
+  target: login_attempts
+state_machine:
+  entity: account
+  states:
+  - active
+  - locked
+  initial: active
+  terminal: []
+  transitions:
+  - from: active
+    to: locked
+    action: fifth_consecutive_failure
+    roles:
+    - user
+  - from: locked
+    to: active
+    action: fifteen_minutes_pass
+    roles:
+    - user
+hidden_checks:
+- id: test_register_never_returns_the_password
+  kind: safety
+  description: Registration is 201 and the response does not contain the password.
+- id: test_correct_login_returns_a_token
+  kind: functional
+  description: Correct credentials return 200 with a token and no password.
+- id: test_wrong_password_and_unknown_user_are_401
+  kind: safety
+  description: A wrong password and an unknown username both return 401.
+- id: test_four_failures_do_not_lock
+  kind: functional
+  description: After 4 failures the correct password still works.
+- id: test_fifth_failure_locks_even_the_correct_password
+  kind: safety
+  description: After 5 consecutive failures, the correct password returns 423.
+- id: test_lock_still_holds_just_before_15_minutes
+  kind: safety
+  description: 14 minutes 59 seconds after locking, login is still 423.
+- id: test_lock_expires_after_15_minutes
+  kind: functional
+  description: 15 minutes after locking, the correct password works again.
+- id: test_success_resets_the_failure_count
+  kind: functional
+  description: '4 failures, a success, then 4 more failures: still not locked.'
+- id: test_lock_is_per_username
+  kind: safety
+  description: Locking one account does not affect another.
+- id: test_duplicate_username_is_409
+  kind: safety
+  description: Registering an existing username is 409.
+- id: test_short_password_is_422
+  kind: safety
+  description: A password shorter than 8 characters is rejected with 422.
+- id: test_unknown_fields_are_422
+  kind: safety
+  description: Extra registration fields such as role or is_admin are rejected with 422.
+- id: test_response_fields_match_the_interface
+  kind: functional
+  description: Registration returns id and username; login returns username and token.
+- id: test_wrong_password_during_the_lock_is_423
+  kind: safety
+  description: Every login attempt during the lock returns 423, including one with a wrong password.
+- id: test_lock_is_measured_from_the_fifth_failure
+  kind: safety
+  description: >-
+    The 15 minutes start at the fifth failure, not the first: still locked 6 minutes into the lock.
+- id: test_password_of_exactly_8_characters_is_accepted
+  kind: functional
+  description: A password of exactly 8 characters is accepted with 201.
+- id: test_empty_or_missing_registration_fields_are_422
+  kind: safety
+  description: >-
+    Registration with an empty username, or a missing username or password, is rejected with 422.
+- id: test_login_with_a_missing_field_is_422
+  kind: functional
+  description: A login body missing the username or the password is rejected with 422.
+- id: test_login_with_an_unknown_field_is_422
+  kind: functional
+  description: A login body with an undeclared field is rejected with 422.
+- id: test_duplicate_registration_keeps_the_original_password
+  kind: safety
+  description: A rejected duplicate registration does not change the existing account's password.
+- id: test_one_character_username_is_accepted
+  kind: functional
+  description: A username of exactly 1 character is accepted with 201.
+notes: New task (Day 3) replacing SVAGA 3.0 rate_limit_login. Uses the x-clock-now test clock.

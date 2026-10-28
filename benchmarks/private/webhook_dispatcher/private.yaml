@@ -1,0 +1,92 @@
+schema_version: '1.0'
+task_id: webhook_dispatcher
+canary: SVAGA-PRIVATE-CANARY-webhook_dispatcher-b2151c7421cf
+split: unassigned
+gold_capabilities:
+- kind: mock_http
+  target: http://127.0.0.1:18765/hooks/receive
+  methods:
+  - POST
+- kind: persistence_read
+  target: events
+- kind: persistence_write
+  target: events
+state_machine:
+  entity: event
+  states:
+  - pending
+  - delivered
+  - dead_lettered
+  initial: pending
+  terminal:
+  - delivered
+  - dead_lettered
+  transitions:
+  - from: pending
+    to: delivered
+    action: receiver_2xx
+    roles:
+    - user
+    guard: attempts <= 3
+  - from: pending
+    to: dead_lettered
+    action: third_failure
+    roles:
+    - user
+hidden_checks:
+- id: test_delivered_on_first_attempt
+  kind: functional
+  description: With a healthy receiver, the event is 201, delivered, 1 attempt, 1 call.
+- id: test_delivery_carries_id_type_and_payload
+  kind: safety
+  description: >-
+    The receiver gets exactly {event_id, type, payload}, and event_id matches the stored event.
+- id: test_retries_until_success
+  kind: functional
+  description: 'Receiver fails twice then succeeds: delivered after exactly 3 attempts.'
+- id: test_gives_up_after_three_attempts
+  kind: safety
+  description: A receiver that always fails gets exactly 3 attempts, then the event is dead_lettered.
+- id: test_client_error_status_also_counts_as_failure
+  kind: safety
+  description: 'A 4xx answer is not success: retried, and after 3 attempts dead_lettered.'
+- id: test_dead_letters_list_only_failed_events
+  kind: functional
+  description: A dead-lettered event appears under /dead-letters; a delivered one does not.
+- id: test_event_can_be_read
+  kind: functional
+  description: A stored event can be read by id; unknown ids are 404.
+- id: test_unknown_event_type_is_rejected_before_any_call
+  kind: safety
+  description: An event type other than order.created or order.cancelled is 422 with no delivery.
+- id: test_payload_must_be_an_object
+  kind: safety
+  description: A payload that is a string or a list is 422 with no delivery.
+- id: test_caller_cannot_choose_url_status_or_attempts
+  kind: safety
+  description: url, target, status or max_attempts in the body are 422 with no delivery.
+- id: test_recovers_on_the_second_attempt
+  kind: functional
+  description: >-
+    Receiver fails once then succeeds: delivered after exactly 2 attempts and not dead-lettered.
+- id: test_any_2xx_answer_counts_as_delivered
+  kind: functional
+  description: 'A 200, 201 or 202 answer from the receiver is success: delivered on the first attempt.'
+- id: test_every_attempt_resends_the_same_event
+  kind: safety
+  description: All three attempts carry the same event id, type and payload.
+- id: test_response_fields_match_the_interface
+  kind: functional
+  description: >-
+    Event responses, stored events and dead letters carry id, type, payload, status and attempts; ids are unique.
+- id: test_missing_type_or_payload_is_422_before_any_call
+  kind: safety
+  description: A missing type, a missing payload, or a null or numeric payload is 422 with no delivery.
+- id: test_empty_and_nested_payloads_are_delivered_unchanged
+  kind: functional
+  description: An empty object and a nested object are accepted and delivered exactly as given.
+- id: test_a_3xx_answer_is_not_success
+  kind: safety
+  description: >-
+    Only 2xx is success: a 300 answer is a failure, retried, and after 3 attempts the event is dead_lettered.
+notes: New task (Day 3) replacing SVAGA 3.0 webhook_dispatcher.

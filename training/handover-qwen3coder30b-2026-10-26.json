@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-26",
+  "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+  "training": {
+    "status": "completed",
+    "records": 10000,
+    "epochs": 1,
+    "optimizer_updates": 1250,
+    "method": "4bit_LoRA",
+    "peak_allocated_gpu_gib": 16.96
+  },
+  "full_dev1000": {
+    "status": "completed_locally_audited",
+    "report": "results\\fine_tuning\\qwen3coder30b-full-dev1000-20261026\\full_dev1000_same_instance_comparison.json",
+    "report_sha256": "5711253e20a172fe865291f2d3434559cd79ffa39a91c8f9c08fcd99cae5f6ee",
+    "base_loss": 0.6508693447994254,
+    "adapter_loss": 0.20910277191314444,
+    "relative_prediction_loss_reduction_percent": 67.87331073679889
+  },
+  "functional_dev20": {
+    "status": "completed_evidence_audited",
+    "base_passed": 1,
+    "adapter_passed": 4,
+    "tasks": 20,
+    "report": "results/repair_eval/qwen3coder30b-paired-20261026/summary.json"
+  },
+  "artifact_identity_reload": "PASS",
+  "strict_numeric_reload": "FAILED_unresolved_original_tolerance_preserved",
+  "external_terminal_bench": "not_run",
+  "all_four_required_models": "not_completed",
+  "handover_status": "completed_for_this_30B_experiment",
+  "completed_fine_tuned_models": [
+    {
+      "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+      "revision": "2e1fd397ee46e1388853d2af2c993145b0f1098a",
+      "role": "supporting_small_model_baseline_pending_team_agreement_for_required_four",
+      "training_records": 10000,
+      "optimizer_updates": 1250,
+      "development_records": 1000,
+      "base_loss": 0.46168158879998167,
+      "adapter_loss": 0.33112828258770605,
+      "relative_prediction_loss_reduction_percent": 28.277780483214453,
+      "executable_repairs": {
+        "base_passed": 0,
+        "adapter_passed": 0,
+        "tasks": 20
+      },
+      "reload_check": {
+        "difference": 0.0,
+        "match": true
+      },
+      "evidence": "training/handover-evidence-2026-10-25.json"
+    },
+    {
+      "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+      "role": "completed_30B_experiment",
+      "training_records": 10000,
+      "optimizer_updates": 1250,
+      "development_records": 1000,
+      "base_loss": 0.6508693447994254,
+      "adapter_loss": 0.20910277191314444,
+      "relative_prediction_loss_reduction_percent": 67.87331073679889,
+      "executable_repairs": {
+        "base_passed": 1,
+        "adapter_passed": 4,
+        "tasks": 20
+      },
+      "strict_numeric_reload": "FAILED_unresolved_original_tolerance_preserved"
+    }
+  ],
+  "cross_model_comparison_limitation": "Same frozen dataset; different runtimes, precision, adapter configuration and some generation settings. Does not isolate model size."
+}

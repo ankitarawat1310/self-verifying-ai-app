@@ -1,0 +1,62 @@
+{
+  "task_id": "task_dependencies",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_no_cycle_check",
+      "description": "Adding a dependency never checks for cycles",
+      "expected_failing_checks": [
+        "test_two_task_cycle_is_409",
+        "test_longer_cycle_is_409"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_two_task_cycle_is_409",
+        "test_longer_cycle_is_409",
+        "test_diamond_dependencies_are_not_cycles"
+      ],
+      "expected_hit": [
+        "test_longer_cycle_is_409",
+        "test_two_task_cycle_is_409"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_complete_ignores_deps",
+      "description": "Tasks complete even when dependencies are unfinished",
+      "expected_failing_checks": [
+        "test_blocked_until_dependency_is_done"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_blocked_until_dependency_is_done",
+        "test_chain_must_complete_in_order",
+        "test_all_dependencies_are_required",
+        "test_added_dependencies_block_completion"
+      ],
+      "expected_hit": [
+        "test_blocked_until_dependency_is_done"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_dependency_on_done_task",
+      "description": "Dependencies can be added to a task that is already done",
+      "expected_failing_checks": [
+        "test_no_new_dependencies_on_a_done_task"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_no_new_dependencies_on_a_done_task"
+      ],
+      "expected_hit": [
+        "test_no_new_dependencies_on_a_done_task"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

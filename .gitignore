@@ -1,0 +1,90 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# --- Tests / property tools ---
+.pytest_cache/
+.hypothesis/
+
+# --- Secrets & local env (commit .env.example only) ---
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# --- Node / frontend (console) ---
+node_modules/
+model1_rag_generator/frontend/dist/
+.vite/
+*.tsbuildinfo
+
+# --- SVAGA 3.0 runtime outputs ---
+/results/
+output/
+*.zip
+
+# --- RAG vector store (rebuild: python -m model1_rag_generator.backend.app.ingest) ---
+model1_rag_generator/backend/chroma_db/
+**/chroma_db/
+
+# --- Logs & OS junk ---
+*.log
+logs/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- IDE (optional local) ---
+.idea/
+.vscode/
+*.swp
+*~
+# M1 embedding cache (rebuilt automatically)
+model1_rag_generator/backend/rag_index/
+
+# Local training environments and model weights
+.venv*/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Bulk datasets and audit execution material are shared as artifacts.
+# Keep compact preparation manifests and explanatory docs in source control.
+/data/source-cache/
+/data/audits/
+/data/samples/
+/data/evaluation/**
+!/data/evaluation/**/
+!/data/evaluation/**/manifest.json
+!/data/evaluation/**/*.md
+/data/prepared/**
+!/data/prepared/**/
+!/data/prepared/**/manifest.json
+!/data/prepared/**/*.md
+/handover/
+
+# Disposable notebook/runtime caches
+.ipynb_checkpoints/
+.cache/

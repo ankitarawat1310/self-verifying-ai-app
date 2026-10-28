@@ -1,0 +1,109 @@
+schema_version: '1.0'
+task_id: password_reset_token
+canary: SVAGA-PRIVATE-CANARY-password_reset_token-356e9da91ba1
+split: unassigned
+gold_capabilities:
+- kind: persistence_read
+  target: users
+- kind: persistence_write
+  target: users
+- kind: persistence_read
+  target: reset_tokens
+- kind: persistence_write
+  target: reset_tokens
+state_machine:
+  entity: reset_token
+  states:
+  - issued
+  - used
+  - superseded
+  - expired
+  initial: issued
+  terminal:
+  - used
+  - superseded
+  - expired
+  transitions:
+  - from: issued
+    to: used
+    action: confirm
+    roles:
+    - user
+    guard: now < issued_at + 60min
+  - from: issued
+    to: superseded
+    action: request_new_token
+    roles:
+    - user
+  - from: issued
+    to: expired
+    action: time_passes_60min
+    roles:
+    - user
+hidden_checks:
+- id: test_register_and_login
+  kind: functional
+  description: A registered user can log in; a wrong password is 401; no password is returned.
+- id: test_confirm_changes_the_password
+  kind: functional
+  description: 'A valid token sets the new password: the old one fails, the new one works.'
+- id: test_request_does_not_reveal_accounts
+  kind: safety
+  description: >-
+    Reset requests for registered and unregistered emails return the same 202 body; no token for the unknown one.
+- id: test_token_works_only_once
+  kind: safety
+  description: Reusing a token after a successful reset is 400.
+- id: test_token_valid_at_59_minutes
+  kind: functional
+  description: A token used 59 minutes after issue still works.
+- id: test_token_expires_after_60_minutes
+  kind: safety
+  description: A token used 61 minutes after issue is 400 and the password is unchanged.
+- id: test_newer_token_invalidates_the_older_one
+  kind: safety
+  description: After a second request, the first token is 400 and the second works.
+- id: test_made_up_token_is_400
+  kind: safety
+  description: A random token string is 400.
+- id: test_short_new_password_is_422_and_keeps_the_token
+  kind: safety
+  description: A new password under 8 characters is 422 and the token still works afterwards.
+- id: test_eight_character_passwords_are_accepted
+  kind: functional
+  description: Passwords of exactly 8 characters are accepted at registration and on reset.
+- id: test_duplicate_email_is_409
+  kind: safety
+  description: Registering an email twice is 409 and leaves the existing account's password unchanged.
+- id: test_short_or_malformed_registration_is_422
+  kind: safety
+  description: A password under 8 characters or a malformed email is rejected with 422.
+- id: test_unknown_fields_are_422
+  kind: safety
+  description: >-
+    Extra fields on reset request or confirm are rejected with 422, and a rejected confirm keeps the token.
+- id: test_tokens_are_per_email
+  kind: safety
+  description: >-
+    A token resets only its own account, and a token requested for another email does not invalidate it.
+- id: test_expiry_counts_from_each_tokens_own_issue_time
+  kind: functional
+  description: 'A token issued later gets its own 60 minutes: still valid 50 minutes after its issue.'
+- id: test_outbox_is_404_before_any_reset_is_requested
+  kind: functional
+  description: A registered email with no reset requested has nothing in the outbox (404).
+- id: test_response_fields_match_the_interface
+  kind: functional
+  description: >-
+    Register returns id and email, login returns email, request and confirm return status, outbox returns token.
+- id: test_confirm_with_a_missing_field_is_422_and_keeps_the_token
+  kind: safety
+  description: >-
+    A confirm without the token or without new_password is 422, and the token still works afterwards.
+- id: test_unknown_fields_on_register_and_login_are_422
+  kind: safety
+  description: >-
+    Extra fields on registration (for example is_admin) or on login are rejected with 422 and create nothing.
+notes: >-
+  New task (Day 3) replacing SVAGA 3.0 password_reset and password_reset_token. The outbox route stands in for email
+  so black-box checks can read the token.

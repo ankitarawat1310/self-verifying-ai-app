@@ -1,0 +1,83 @@
+{
+  "scope": "development_only_not_external_benchmark",
+  "selection": "fixed SHA256 order and round-robin across validation repositories; no output-based selection",
+  "selection_seed": "svaga-repair-dev20-v1",
+  "tasks": 20,
+  "repositories": {
+    "swesmith/python-trio__trio.cfbbe2c1": 2,
+    "swesmith/pyasn1__pyasn1.0f07d724": 2,
+    "swesmith/tox-dev__pipdeptree.c31b6418": 2,
+    "swesmith/pytest-dev__iniconfig.16793ead": 2,
+    "swesmith/mewwts__addict.75284f95": 2,
+    "swesmith/Suor__funcy.207a7810": 2,
+    "swesmith/cknd__stackprinter.219fcc52": 2,
+    "swesmith/mido__mido.a0158ff9": 2,
+    "swesmith/oauthlib__oauthlib.1fd52536": 1,
+    "swesmith/python-jsonschema__jsonschema.93e0caa5": 1,
+    "swesmith/pallets__jinja.ada0a9a6": 1,
+    "swesmith/conan-io__conan.86f29e13": 1
+  },
+  "source_validation_sha256": "3953a213500952e1b03f003514d36b2b5c6c661ed5a387cbc278d7d588fd02dc",
+  "prompts_sha256": "63192f53a8512d535107c37a8cd149c1d3e4f3ea046b31f3cd1534b2c117b7dc",
+  "private_tasks_sha256": "2b727ce91f8a1d732ec5dbce29c0c6b729a88eb571b27b63746e74bf82819d77",
+  "evaluation_id": "repair-dev20-qwen3coder30b-base-v1",
+  "parent_evaluation_id": "repair-dev20-v1",
+  "parent_manifest_sha256": "e7ac9774f6e9508136085ad2e1ca967f3ea876e270341bc93d3d5072cfd0ea3a",
+  "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "model_revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+  "variants": [
+    "base"
+  ],
+  "adapter_artifacts_sha256": {},
+  "adapter_mode": "disabled; no trained-adapter weights participate",
+  "model_context_length": 8192,
+  "max_training_example_tokens": 4096,
+  "tokenizer_chat_template_sha256": "83c830fd6a2f75e8927d915f6b033af6e84c98199231530e065adc05fe3f67b5",
+  "prompt_token_lengths": {
+    "python-trio__trio.cfbbe2c1.combine_module__ib1lmt17": 2392,
+    "pyasn1__pyasn1.0f07d724.func_pm_remove_assign__kfnva30l": 1212,
+    "tox-dev__pipdeptree.c31b6418.func_basic__xfbdhzdv": 610,
+    "pytest-dev__iniconfig.16793ead.func_basic__vb9u5hga": 409,
+    "mewwts__addict.75284f95.func_basic__90wh3hv9": 508,
+    "Suor__funcy.207a7810.func_basic__i18x9tdn": 378,
+    "cknd__stackprinter.219fcc52.func_basic__25ljeyka": 601,
+    "mido__mido.a0158ff9.combine_module__f23r4b4z": 457,
+    "oauthlib__oauthlib.1fd52536.combine_module__7fgnf0ep": 853,
+    "python-jsonschema__jsonschema.93e0caa5.lm_rewrite__k1000g7s": 1488,
+    "pallets__jinja.ada0a9a6.func_basic__nbwk0z2h": 2351,
+    "conan-io__conan.86f29e13.func_pm_class_rm_funcs__0xw6n4ca": 3366,
+    "python-trio__trio.cfbbe2c1.func_pm_ctrl_shuffle__v9i0g9bo": 1063,
+    "pyasn1__pyasn1.0f07d724.func_basic__9t0wk5fk": 738,
+    "tox-dev__pipdeptree.c31b6418.func_pm_class_rm_base__mnpzvjjd": 2121,
+    "pytest-dev__iniconfig.16793ead.func_pm_remove_assign__j041mnvq": 555,
+    "mewwts__addict.75284f95.func_basic__u31z0ln1": 434,
+    "Suor__funcy.207a7810.func_basic__3s0kv5i2": 432,
+    "cknd__stackprinter.219fcc52.combine_file__tla0a4bg": 1787,
+    "mido__mido.a0158ff9.func_basic__kmwybcnf": 408
+  },
+  "token_audit": {
+    "minimum": 378,
+    "maximum": 3366,
+    "maximum_with_output_budget": 5414,
+    "model_revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+    "transformers": "5.20.2",
+    "weights_loaded": false,
+    "runtime_must_verify_lengths": true
+  },
+  "decoding": {
+    "do_sample": false,
+    "num_beams": 1,
+    "max_new_tokens": 2048,
+    "repetition_penalty": 1.0,
+    "seed": 42
+  },
+  "limitations": [
+    "Already used development validation, not an untouched test set.",
+    "Affected source locations are supplied; no repository-search evaluation.",
+    "No reference answers, bug patches, test selectors or oracle code in this upload.",
+    "Base-only 30B condition before fine-tuning; trained-adapter generation is a separate future condition.",
+    "Prompts and private execution tasks are byte-identical to the original 20-task unified-diff condition.",
+    "Native tokenizer, bf16 Unsloth backend and explicitly neutral repetition penalty are recorded; this is not an architecture-only comparison with the earlier 1.5B runtime.",
+    "No hidden tests, reference patches, oracle code or solutions are included in the upload ZIP."
+  ]
+}

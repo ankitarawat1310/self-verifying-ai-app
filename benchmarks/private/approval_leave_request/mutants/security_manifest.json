@@ -1,0 +1,55 @@
+{
+  "task_id": "approval_leave_request",
+  "total": 3,
+  "valid": 3,
+  "mutants": [
+    {
+      "id": "sec_self_approval",
+      "description": "Requesters can approve their own leave",
+      "expected_failing_checks": [
+        "test_requester_cannot_self_approve_even_as_manager"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_requester_cannot_self_approve_even_as_manager"
+      ],
+      "expected_hit": [
+        "test_requester_cannot_self_approve_even_as_manager"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_terminal_mutable",
+      "description": "Approved or rejected requests can be decided again",
+      "expected_failing_checks": [
+        "test_terminal_decisions_cannot_change"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_terminal_decisions_cannot_change"
+      ],
+      "expected_hit": [
+        "test_terminal_decisions_cannot_change"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    },
+    {
+      "id": "sec_employee_can_approve",
+      "description": "The employee role is allowed to approve",
+      "expected_failing_checks": [
+        "test_employee_role_cannot_decide"
+      ],
+      "outcome": "killed",
+      "killed_by": [
+        "test_employee_role_cannot_decide"
+      ],
+      "expected_hit": [
+        "test_employee_role_cannot_decide"
+      ],
+      "unknown_expected": [],
+      "valid": true
+    }
+  ]
+}

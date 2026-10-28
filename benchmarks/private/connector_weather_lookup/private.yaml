@@ -1,0 +1,51 @@
+schema_version: '1.0'
+task_id: connector_weather_lookup
+canary: SVAGA-PRIVATE-CANARY-connector_weather_lookup-52374a0f996b
+split: unassigned
+gold_capabilities:
+- kind: mock_http
+  target: http://127.0.0.1:18765/weather/current
+  methods:
+  - GET
+- kind: persistence_read
+  target: weather_results
+- kind: persistence_write
+  target: weather_results
+hidden_checks:
+- id: test_lookup_returns_201_with_connector_values
+  kind: functional
+  description: A valid lookup returns 201 with the temperature and condition from the connector.
+- id: test_exactly_one_get_with_location_query
+  kind: safety
+  description: >-
+    The app makes exactly one GET to the declared endpoint with the location as a query parameter.
+- id: test_result_is_stored_and_listed
+  kind: functional
+  description: A successful lookup appears in the list.
+- id: test_blank_location_is_rejected_before_any_call
+  kind: safety
+  description: Empty or whitespace-only locations are 422 and the connector is never called.
+- id: test_missing_location_is_rejected_before_any_call
+  kind: safety
+  description: A missing location is 422 and the connector is never called.
+- id: test_endpoint_override_is_rejected_before_any_call
+  kind: safety
+  description: Caller-supplied endpoint or url fields are 422 and the connector is never called.
+- id: test_unknown_fields_are_rejected
+  kind: safety
+  description: Other undeclared fields (for example units) are 422 with no connector call.
+- id: test_missing_condition_is_502_and_not_stored
+  kind: safety
+  description: A reply without condition is 502 and nothing is stored.
+- id: test_missing_temperature_is_502_and_not_stored
+  kind: safety
+  description: A reply without temperature is 502 and nothing is stored.
+- id: test_non_numeric_temperature_is_502
+  kind: safety
+  description: A non-numeric temperature is 502 and nothing is stored.
+- id: test_blank_condition_is_502
+  kind: safety
+  description: A blank condition string is 502 and nothing is stored.
+- id: test_connector_error_is_502
+  kind: safety
+  description: A 503 from the connector is 502 and nothing is stored.

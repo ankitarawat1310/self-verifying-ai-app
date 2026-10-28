@@ -1,0 +1,31 @@
+task_id: billing_invoice
+security_mutants:
+- id: sec_client_total_trusted
+  description: A client-supplied total overrides the computed one
+  edits:
+  - find: '    line_items: list[LineIn] = Field(min_length=1)
+
+      '
+    replace: "    line_items: list[LineIn] = Field(min_length=1)\n    total: float | None = None\n"
+    occurrence: 1
+  - find: '"total": _total(lines),'
+    replace: '"total": payload.total if payload.total is not None else _total(lines),'
+    occurrence: 1
+  expected_failing_checks:
+  - test_client_cannot_set_total_or_status
+- id: sec_any_payment_accepted
+  description: Any payment amount marks the invoice paid
+  edits:
+  - find: '        raise HTTPException(422, "amount must equal the invoice total")'
+    replace: '        pass'
+    occurrence: 1
+  expected_failing_checks:
+  - test_wrong_payment_amount_is_422_and_unpaid
+- id: sec_float_totals
+  description: Totals use raw floating point instead of rounding to cents
+  edits:
+  - find: '    return float(Decimal(total).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))'
+    replace: '    return float(sum(l["quantity"] * l["unit_price"] for l in lines))'
+    occurrence: 1
+  expected_failing_checks:
+  - test_total_is_rounded_to_cents

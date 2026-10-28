@@ -1,0 +1,46 @@
+nohup: ignoring input
+[fla.utils._device|WARNING]Current Python version 3.10 is below the recommended 3.11 version. It is recommended to upgrade to Python 3.11 or higher for the best experience.
+W1014 23:01:09.965000 18445 torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1014 23:01:10.031000 18445 torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.5: Fast Gpt_Oss patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.988 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+/opt/unsloth_env/lib/python3.10/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/3387 [00:00<?, ?it/s]Loading weights:   2%|▏         | 73/3387 [00:00<00:04, 715.58it/s]Loading weights:   4%|▍         | 145/3387 [00:00<00:04, 679.17it/s]Loading weights:   6%|▋         | 214/3387 [00:00<00:04, 676.59it/s]Loading weights:   8%|▊         | 284/3387 [00:00<00:04, 682.25it/s]Loading weights:  10%|█         | 353/3387 [00:00<00:04, 666.52it/s]Loading weights:  12%|█▏        | 422/3387 [00:00<00:04, 669.82it/s]Loading weights:  14%|█▍        | 490/3387 [00:00<00:04, 604.36it/s]Loading weights:  17%|█▋        | 566/3387 [00:00<00:04, 643.79it/s]Loading weights:  19%|█▊        | 633/3387 [00:00<00:04, 646.31it/s]Loading weights:  21%|██        | 699/3387 [00:01<00:04, 642.37it/s]Loading weights:  23%|██▎       | 772/3387 [00:01<00:03, 667.77it/s]Loading weights:  25%|██▍       | 840/3387 [00:01<00:03, 661.78it/s]Loading weights:  27%|██▋       | 911/3387 [00:01<00:03, 672.15it/s]Loading weights:  29%|██▉       | 982/3387 [00:01<00:03, 675.06it/s]Loading weights:  31%|███       | 1050/3387 [00:01<00:03, 642.65it/s]Loading weights:  33%|███▎      | 1118/3387 [00:01<00:03, 649.72it/s]Loading weights:  35%|███▌      | 1187/3387 [00:01<00:03, 657.60it/s]Loading weights:  37%|███▋      | 1255/3387 [00:01<00:03, 663.18it/s]Loading weights:  39%|███▉      | 1322/3387 [00:02<00:03, 635.33it/s]Loading weights:  41%|████      | 1388/3387 [00:02<00:03, 641.04it/s]Loading weights:  43%|████▎     | 1453/3387 [00:02<00:03, 627.92it/s]Loading weights:  45%|████▍     | 1519/3387 [00:02<00:02, 634.64it/s]Loading weights:  47%|████▋     | 1588/3387 [00:02<00:02, 644.59it/s]Loading weights:  49%|████▉     | 1654/3387 [00:02<00:02, 643.01it/s]Loading weights:  51%|█████     | 1723/3387 [00:02<00:02, 655.21it/s]Loading weights:  53%|█████▎    | 1789/3387 [00:02<00:02, 651.48it/s]Loading weights:  55%|█████▍    | 1856/3387 [00:02<00:02, 654.43it/s]Loading weights:  57%|█████▋    | 1922/3387 [00:02<00:02, 616.63it/s]Loading weights:  59%|█████▉    | 1991/3387 [00:03<00:02, 635.57it/s]Loading weights:  61%|██████    | 2055/3387 [00:03<00:02, 633.76it/s]Loading weights:  63%|██████▎   | 2126/3387 [00:03<00:01, 651.94it/s]Loading weights:  65%|██████▍   | 2195/3387 [00:03<00:01, 663.01it/s]Loading weights:  67%|██████▋   | 2262/3387 [00:03<00:01, 661.82it/s]Loading weights:  69%|██████▉   | 2329/3387 [00:03<00:01, 646.46it/s]Loading weights:  71%|███████   | 2396/3387 [00:03<00:01, 652.47it/s]Loading weights:  73%|███████▎  | 2472/3387 [00:03<00:01, 676.20it/s]Loading weights:  75%|███████▍  | 2540/3387 [00:03<00:01, 624.14it/s]Loading weights:  77%|███████▋  | 2604/3387 [00:04<00:01, 613.38it/s]Loading weights:  79%|███████▊  | 2666/3387 [00:04<00:01, 602.49it/s]Loading weights:  81%|████████  | 2732/3387 [00:04<00:01, 617.79it/s]Loading weights:  83%|████████▎ | 2798/3387 [00:04<00:00, 625.88it/s]Loading weights:  85%|████████▍ | 2869/3387 [00:04<00:00, 642.50it/s]Loading weights:  87%|████████▋ | 2934/3387 [00:04<00:00, 614.10it/s]Loading weights:  89%|████████▊ | 3000/3387 [00:04<00:00, 625.82it/s]Loading weights:  90%|█████████ | 3063/3387 [00:04<00:00, 616.14it/s]Loading weights:  92%|█████████▏| 3125/3387 [00:04<00:00, 601.54it/s]Loading weights:  94%|█████████▍| 3187/3387 [00:04<00:00, 604.69it/s]Loading weights:  96%|█████████▌| 3248/3387 [00:05<00:00, 589.22it/s]Loading weights:  98%|█████████▊| 3316/3387 [00:05<00:00, 610.71it/s]Loading weights: 100%|█████████▉| 3378/3387 [00:05<00:00, 596.38it/s]Loading weights: 100%|██████████| 3387/3387 [00:05<00:00, 637.55it/s]
+load: 205.8 s | GPU GB: 12.6
+[unsloth_zoo.log|WARNING]Unsloth: torch.compile could not generate code for swiglu_torch_forward; running it eagerly from here. Training is unaffected apart from speed. (InductorError)
+Unsloth: Will smartly offload gradients to save VRAM!
+2048 0 45.18 s
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+2048 1 1.94 s
+2048 2 1.3 s
+2048 3 1.29 s
+2048 4 1.29 s
+2048 5 1.29 s
+{'seq_len': 2048, 'avg_step_s': 1.29, 'tokens_per_s': 1583, 'peak_gpu_gb': 15.6}
+4096 0 38.95 s
+4096 1 2.97 s
+4096 2 3.08 s
+4096 3 2.99 s
+4096 4 2.92 s
+4096 5 2.93 s
+{'seq_len': 4096, 'avg_step_s': 2.98, 'tokens_per_s': 1375, 'peak_gpu_gb': 16.8}
+8192 0 12.77 s
+8192 1 7.48 s
+8192 2 7.32 s
+8192 3 7.44 s
+8192 4 7.38 s
+8192 5 7.34 s
+{'seq_len': 8192, 'avg_step_s': 7.37, 'tokens_per_s': 1111, 'peak_gpu_gb': 19.3}
+{'seq_len': 16384, 'error': "RuntimeError('Unsloth: No or negligible GPU memory available for fused cross entropy.')"}
+Both `max_new_tokens` (=32) and `max_length`(=131072) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=200) and `max_length`(=131072) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+gen: 18.9 None
+DONE

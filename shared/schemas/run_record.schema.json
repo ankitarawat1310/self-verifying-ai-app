@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RunRecord",
+  "type": "object",
+  "required": ["run_id", "pipeline", "workflow_id", "decision"],
+  "properties": {
+    "run_id": { "type": "string" },
+    "pipeline": { "type": "string" },
+    "workflow_id": { "type": "string" },
+    "decision": { "enum": ["ACCEPT", "REJECT"] },
+    "metrics": { "type": "object" },
+    "budget": { "type": "object" },
+    "verification": { "type": "object" },
+    "artifacts": { "type": "object" }
+  }
+}

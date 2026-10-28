@@ -1,0 +1,71 @@
+schema_version: '1.0'
+task_id: webhook_dispatcher
+title: Webhook dispatch with retries and dead-lettering
+category: external_service
+source: svaga3
+prompt: >-
+  Create an event API that forwards each accepted event to the single declared webhook receiver. Event types are
+  order.created and order.cancelled; the payload is a JSON object. Delivery sends one POST with the event id, type
+  and payload. A delivery attempt succeeds when the receiver answers 2xx; otherwise (error status or no answer)
+  retry, up to 3 attempts in total, before responding. An event that fails all 3 attempts is marked dead_lettered
+  and listed under dead letters; a delivered event is marked delivered. Callers cannot choose the receiver URL,
+  the status or the number of attempts.
+interface:
+  framework: fastapi
+  auth:
+    scheme: none
+  status_codes:
+    validation_error: 422
+    unknown_body_field: 422
+    forbidden: 403
+    not_found: 404
+    conflict: 409
+  roles:
+  - name: user
+    description: Any caller; no identity headers are used
+  mock_services:
+  - name: receiver
+    method: POST
+    url: http://127.0.0.1:18765/hooks/receive
+    description: JSON body {event_id, type, payload}; 2xx means delivered
+  routes:
+  - method: POST
+    path: /events
+    summary: Accept an event and deliver it (with retries) before responding
+    request_fields:
+      type:
+        type: string
+        required: true
+        enum:
+        - order.created
+        - order.cancelled
+      payload:
+        type: object
+        required: true
+    success_status: 201
+    response_fields:
+    - id
+    - type
+    - payload
+    - status
+    - attempts
+  - method: GET
+    path: /events/{event_id}
+    summary: Read one event
+    success_status: 200
+    response_fields:
+    - id
+    - type
+    - payload
+    - status
+    - attempts
+  - method: GET
+    path: /dead-letters
+    summary: List dead-lettered events
+    success_status: 200
+    response_fields:
+    - id
+    - type
+    - payload
+    - status
+    - attempts

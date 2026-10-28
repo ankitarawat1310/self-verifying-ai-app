@@ -1,0 +1,173 @@
+{
+  "task_id": "crud_profile_mass_assignment",
+  "seed": 7,
+  "candidates": 28,
+  "sampled": 12,
+  "killed": 9,
+  "survived": 3,
+  "crashed": 0,
+  "mutants": [
+    {
+      "id": "auto_change_status_011",
+      "operator": "change_status",
+      "line": 33,
+      "description": "status code 404 -> 403",
+      "outcome": "killed",
+      "killed_by": [
+        "test_delete_then_404"
+      ],
+      "checks_failed": 1,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_drop_guard_005",
+      "operator": "drop_guard",
+      "line": 12,
+      "description": "guard disabled: if value is not None and (not value.strip())",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_values_are_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_flip_comparison_002",
+      "operator": "flip_comparison",
+      "line": 64,
+      "description": "comparison In -> NotIn",
+      "outcome": "killed",
+      "killed_by": [
+        "test_display_name_can_be_updated",
+        "test_delete_then_404",
+        "test_privileged_fields_on_create_are_rejected",
+        "test_privileged_patch_is_rejected_without_state_change",
+        "test_mixed_patch_is_rejected_entirely",
+        "test_id_cannot_be_overwritten",
+        "test_duplicate_username_is_409",
+        "test_blank_values_are_422"
+      ],
+      "checks_failed": 8,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_off_by_one_027",
+      "operator": "off_by_one",
+      "line": 27,
+      "description": "number 1 -> 2",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_relax_validation_021",
+      "operator": "relax_validation",
+      "line": 25,
+      "description": "validation removed: extra='forbid'",
+      "outcome": "killed",
+      "killed_by": [
+        "test_privileged_patch_is_rejected_without_state_change",
+        "test_mixed_patch_is_rejected_entirely",
+        "test_id_cannot_be_overwritten"
+      ],
+      "checks_failed": 3,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_swap_boolean_015",
+      "operator": "swap_boolean",
+      "line": 12,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_create_returns_201_with_only_declared_fields",
+        "test_profile_is_readable_and_listed",
+        "test_display_name_can_be_updated",
+        "test_delete_then_404",
+        "test_privileged_patch_is_rejected_without_state_change",
+        "test_mixed_patch_is_rejected_entirely",
+        "test_id_cannot_be_overwritten",
+        "test_duplicate_username_is_409",
+        "test_blank_values_are_422"
+      ],
+      "checks_failed": 9,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_change_status_013",
+      "operator": "change_status",
+      "line": 65,
+      "description": "status code 409 -> 400",
+      "outcome": "killed",
+      "killed_by": [
+        "test_duplicate_username_is_409"
+      ],
+      "checks_failed": 1,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_drop_guard_007",
+      "operator": "drop_guard",
+      "line": 43,
+      "description": "guard disabled: if _username_taken(payload.username)",
+      "outcome": "killed",
+      "killed_by": [
+        "test_duplicate_username_is_409"
+      ],
+      "checks_failed": 1,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_flip_comparison_001",
+      "operator": "flip_comparison",
+      "line": 12,
+      "description": "comparison IsNot -> Is",
+      "outcome": "killed",
+      "killed_by": [
+        "test_blank_values_are_422"
+      ],
+      "checks_failed": 1,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_off_by_one_024",
+      "operator": "off_by_one",
+      "line": 19,
+      "description": "number 1 -> 2",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_relax_validation_023",
+      "operator": "relax_validation",
+      "line": 27,
+      "description": "validation removed: min_length=1",
+      "outcome": "survived",
+      "killed_by": [],
+      "checks_failed": 0,
+      "checks_total": 10
+    },
+    {
+      "id": "auto_swap_boolean_017",
+      "operator": "swap_boolean",
+      "line": 38,
+      "description": "boolean operator And -> Or",
+      "outcome": "killed",
+      "killed_by": [
+        "test_profile_is_readable_and_listed",
+        "test_display_name_can_be_updated",
+        "test_delete_then_404",
+        "test_privileged_patch_is_rejected_without_state_change",
+        "test_mixed_patch_is_rejected_entirely",
+        "test_id_cannot_be_overwritten",
+        "test_duplicate_username_is_409",
+        "test_blank_values_are_422"
+      ],
+      "checks_failed": 8,
+      "checks_total": 10
+    }
+  ]
+}
